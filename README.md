@@ -1,69 +1,141 @@
-# pipes-tv
+<p align="center">
+  <img src="docs/banner.png" alt="3D Pipes: XP Screensaver for Android TV. The XP screensaver, on your TV. Android TV and Google TV. Rebuilt from the original's rules and 127 measured scenes." width="800">
+</p>
 
-A screensaver for Android TV and Google TV that recreates the Windows 3D Pipes screensaver in real-time OpenGL ES 2.0.
+<p align="center">
+  <a href="https://github.com/TheWombRaider/pipes-tv/stargazers"><img src="https://img.shields.io/github/stars/TheWombRaider/pipes-tv?style=flat&cacheSeconds=1800&color=cfffcf&labelColor=15181e" alt="Stars"></a>
+  <a href="https://github.com/TheWombRaider/pipes-tv/commits/main"><img src="https://img.shields.io/github/last-commit/TheWombRaider/pipes-tv?style=flat&cacheSeconds=1800&color=cfffcf&labelColor=15181e" alt="Last commit"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-cfffcf?style=flat&labelColor=15181e" alt="MIT license"></a>
+  <img src="https://img.shields.io/badge/Android%20TV%20%C2%B7%20Google%20TV-Android%208%2B-cfffcf?style=flat&labelColor=15181e" alt="Android TV and Google TV, Android 8 and up">
+  <a href="https://github.com/Gathin23/cleanyourtv/blob/main/SHOWCASE.md"><img src="https://img.shields.io/badge/featured%20in-Clean%20Your%20TV-cfffcf?style=flat&labelColor=15181e" alt="Featured in the Clean Your TV showcase"></a>
+</p>
 
-![3D Pipes: pipes in cyan, pale green, magenta and lime growing through a 3D lattice, seen at an angle in strong perspective on a black background](docs/screenshot.png)
+<p align="center">
+  <img src="docs/card.png" alt="127 scenes measured, 16 materials, 30 steps a second, 181 KB app. A finished scene: gold, silver, copper and turquoise pipes in a lattice seen in strong perspective." width="800">
+</p>
 
-*Not affiliated with or endorsed by Microsoft. "Windows" and the original screensaver belong to Microsoft. This project
-contains no Microsoft code, images or sounds; it was written from observation of public footage.*
+**3D Pipes: XP Screensaver for Android TV** is the classic 3D Pipes screensaver as a native screensaver for Android
+TV and Google TV. It follows the original program's own rules, checked against 127 scenes of the real thing.
 
-## What it does
+*Not affiliated with or endorsed by Microsoft. "Windows" and the original screensaver belong to Microsoft. This
+project contains no Microsoft code, images or sounds.*
 
-A scene starts with one pipe. It grows through a small 3D lattice, going straight about half the time and turning
-90 degrees otherwise, as either a rounded elbow or a ball joint, never entering a node a pipe has used. A new pipe
-joins about every 7 seconds, each in its own random colour. Pipes that run out of room end in a ball. The camera is
-fixed for the scene and chosen fresh for the next. After 18 to 34 seconds the frozen picture dissolves to black pixel
-by pixel over 1.6 seconds and a new scene begins. Rarely a joint is the Utah teapot.
+## How it works
 
-It has no internet permission and no settings screen.
+Pipes grow through a 3D lattice, one whole segment at a time, 30 steps a second:
 
-## Install
+1. **A scene starts** with two to four pipes at random free spots, each in one of 16 classic materials.
+2. **Each step**, every pipe goes straight or turns 90 degrees into a free node, as an elbow or a ball joint. It
+   never doubles back and never enters a node any pipe has used.
+3. **A trapped pipe** ends in a ball and a new one starts, until seven have run.
+4. **When the last pipe is trapped**, small black squares eat the picture, the view turns 9.73 degrees, and the
+   next scene begins.
 
-    gradlew assembleDebug testDebugUnitTest
-    adb install -r app/build/outputs/apk/debug/app-debug.apk
-    adb shell settings put secure screensaver_components io.github.thewombraider.pipestv/.PipesDream
-    adb shell settings put secure screensaver_enabled 1
+**No internet permission, no settings screen, nothing running when the screensaver is not on.**
 
-The app also adds a "3D Pipes" entry to the launcher that runs the same scene in a window, to preview it.
-(The launcher entry is signed with the debug key, so it installs over a debug build and is meant for sideloading.)
+How each rule and number was established, and what was corrected along the way, is in
+[docs/REFERENCE_ANALYSIS.md](docs/REFERENCE_ANALYSIS.md).
 
-### TCL TVs: allow auto-start once
+## Quick start
 
-TCL firmware blocks the system from binding a sideloaded app's screensaver service. The log shows
-`TclAppBoot: forbid bind service ... callee_doesn't_have_OP_AUTO_START_permission` and the TV goes to "Dreaming"
-with nothing on screen. Allow it once; it survives reinstalls:
+You need a computer with the Android SDK on the same Wi-Fi as the TV.
+
+| | |
+|---|---|
+| **1. On the TV** | Settings → System → About → press OK on **Android TV OS build** seven times → back → Developer options → **USB debugging** on. Turn on Network or Wireless debugging too if you see it. |
+| **2. On your computer** | `adb connect <tv-ip>`, then build and install: `gradlew assembleRelease` and `adb install -r app/build/outputs/apk/release/app-release.apk`. Accept "Allow USB debugging?" on the TV. |
+| **3. Make it the screensaver** | `adb shell settings put secure screensaver_components io.github.thewombraider.pipestv/.PipesDream` and `adb shell settings put secure screensaver_enabled 1`. |
+
+The app also puts a **3D Pipes** tile in the launcher that runs the same scene in a window, to preview it. The
+release build is signed with the debug key and is meant for sideloading.
+
+**TCL TVs: allow auto-start once.** TCL firmware stops the system from starting a sideloaded app's screensaver; the
+TV goes to "Dreaming" with nothing on screen, and the log shows
+`TclAppBoot: forbid bind service ... callee_doesn't_have_OP_AUTO_START_permission`. Allow it once; it survives
+updates:
 
     adb shell cmd appops set io.github.thewombraider.pipestv AUTO_START allow
 
-Undo with `... AUTO_START default`. This was needed on a TCL 75T7 (Google TV, Android 14).
+Undo with `AUTO_START default`. This was needed on a TCL 75T7 (Google TV, Android 14).
 
-## How faithful is it
+## What you get
 
-The look and timing were measured from [3d Pipes Screensaver 10 Hours](https://youtu.be/tCpnDTzRAjE) by DoctorDothraki;
-the findings, and which are observed and which are estimated, are in [docs/REFERENCE_ANALYSIS.md](docs/REFERENCE_ANALYSIS.md).
-Known limits:
+- **The original's rules**: a lattice shaped to your screen (15 x 8 x 15 on a 16:9 TV), pipes that prefer to run
+  straight, two to four at once, and scenes that end when the last pipe is trapped, not on a timer.
+- **The original's look**: 8-sided pipes with smooth shading, balls one and a half pipes across, elbows as tight as
+  the pipe, and no smoothing on the edges, as OpenGL 1.1 drew them.
+- **The 16 classic materials**, emerald to white rubber, each with its own highlight, lit per vertex by one light
+  above the camera.
+- **The level camera** with a 90 degree view, turning 9.73 degrees with each scene.
+- **Chase scenes**, where the pipes follow a leader, and the **Utah teapot** in place of a joint, rarely.
+- **The clear**: small black squares in random order over about half a second.
 
-- The lattice size (15), tube radius (0.17), field of view (65 degrees), camera distance (9 to 13) and growth speed
-  (12 units a second) are estimates calibrated against a handful of frames, not read from the original's code.
-- Scene lengths were measured over about five minutes of a ten-hour recording.
-- No teapot was found in the sampled frames; the 1-in-1000 rate comes from the original's documented behaviour.
-- Tested on one TV (TCL 75T7, MediaTek, 2.4 GB) at 54 to 60 fps, and on an Android 14 emulator.
+| | |
+|---|---|
+| ![Red, silver and white pipes filling a lattice seen in perspective](docs/shot-1.jpg) | ![Copper pipes close to the camera, showing tight elbows and ball joints](docs/shot-2.jpg) |
+| *A finished scene* | *Close up: elbows as tight as the pipe, balls at the turns* |
+| ![The picture half eaten by small black squares](docs/shot-3.jpg) | ![A copper Utah teapot in place of a joint among the pipes](docs/shot-4.jpg) |
+| *The clear, part way through* | *The teapot, about one scene in 40* |
 
-## Launch options (for testing)
+## How faithful it is
 
-The preview activity accepts extras, all clamped to safe ranges:
-`--ei grid 15 --ef radius 0.17 --ef fov 65 --ef dmin 9 --ef dmax 13 --ef dissolve 1.6 --ef timescale 1 --ef teapot 0.001`.
-Frame statistics are logged under the tag `XPPipes` on debuggable builds only.
+Microsoft published the source of 3D Pipes as an OpenGL sample in the Windows NT 4.0 SDK. This app follows that
+program's rules, read from [SspipesSharp](https://github.com/RussDev7/SspipesSharp), a port of the sample (facts only,
+no code copied). Five public recordings, 127 complete scenes, were then measured frame by frame to check each rule
+and to settle what the source leaves to the machine. An independent reviewer tried to refute every finding; its
+verdicts and the corrections are in [docs/reference/SKEPTIC.md](docs/reference/SKEPTIC.md).
 
-## Tests
+Where the recordings disagree, this app follows the Windows XP recording and the recordings that match it:
 
-`./gradlew testDebugUnitTest` runs the growth rules (no reversing, no reused nodes, bounds, clearing, determinism, the
-pipe schedule, colours, speed, bad lattice sizes) and the geometry (cylinder, sphere, elbow, the teapot asset).
-`tools/capture_at.py` screenshots an emulator at a chosen scene age for side-by-side comparison with reference frames.
-`tools/gen_teapot.py` regenerates `teapot.bin` from three.js's teapot data.
+- **Light**: from above the camera. The NT sample and one recording light from the upper right.
+- **Clear**: 0.57 s. Its speed depended on the machine; one recording takes 1.7 s.
+- **Speed**: 30 steps a second. The original asked for a 16 ms timer and got 23 to 29 steps a second depending on
+  the machine.
+- **Settings**: multiple pipes and mixed joints. The original let you choose; the recordings use different choices.
+- **Teapot**: about one scene in 40. The NT sample's 1 turn in 1000 does not match the footage, where none appear
+  in 31 mixed scenes.
 
-## Credits and licence
+## Performance
 
-MIT; see [LICENSE](LICENSE). Third-party material and credits are in [NOTICE](NOTICE): the growth rules follow
-[1j01/pipes](https://github.com/1j01/pipes) (MIT) and the teapot comes from three.js's `TeapotBufferGeometry`
-(MIT, Eric Haines), from Martin Newell's Utah teapot data.
+Measured on a TCL 75T7 (MediaTek, Mali-G52), from the outside with SurfaceFlinger's frame times
+(`tools/frame_timing.py`):
+
+| | Before (v1) | Now |
+|---|---|---|
+| Frames | 49 a second, aiming at 60 | 30 a second, one per step, as the original |
+| Late frames | 16 % of intervals | none; the 0.2 % of intervals that run long are the one-step pause at a scene's end |
+| Longest gap | 117 ms | 50 ms (that pause) |
+| App CPU, median | 21 % of a core | 10 % of a core |
+
+A whole scene is one vertex buffer that only grows, drawn with one call, and a frame is drawn only when the picture
+changes. Drawing a finished scene eight times a frame still holds 60 frames a second on the TCL, so one draw takes
+at most about 2 ms. That leaves room for budget sticks with a Mali-G31 or G52, such as the Chromecast with Google TV
+HD or the onn 4K; it is designed for them but has not been tested on them.
+
+## For developers
+
+**Build and test**: `gradlew testDebugUnitTest lintRelease`. The tests cover the growth rules (whole segments, no
+reused nodes, bounds, scene length against the reference model, pipe counts, materials, joint modes), the camera's
+clearance at every turn, and the shapes (sizes, outward-facing triangles, elbow rims that meet the pipe, a whole
+teapot).
+
+**Launch options**: the preview activity takes extras for testing, all clamped:
+`--es pipes multiple|single --es joints mixed|elbow|ball --ef turn 0 --ef teapot 0.00005 --ef timescale 1
+--ef dissolve 0.57 --ef hold 0.033 --ef stress 1`. Debuggable builds log frame and scene statistics under the tag
+`XPPipes`.
+
+**Tools**:
+
+- `tools/reference/`: the footage measurements (`frame_stats.py`, `scenes.py`) and a model of the rules
+  (`sim_model.py`).
+- `tools/capture_at.py`: screenshots a finished scene on an emulator.
+- `tools/frame_timing.py`: frame timing and CPU on a device.
+- `tools/score_frames.py`: ranks candidate screenshots.
+- `tools/make_readme_art.py`: draws the banner, card and screenshots.
+- `tools/gen_teapot.py`: builds `teapot.bin` from three.js's teapot data.
+
+## Credits and license
+
+MIT, see [LICENSE](LICENSE). Third-party material and credits are in [NOTICE](NOTICE): the original's rules as
+documented by SspipesSharp, the classic OpenGL teapot materials, the Utah teapot from three.js's `TeapotGeometry`
+(MIT, Eric Haines) and Martin Newell's teapot data, and the look of the Clean Your TV README.
