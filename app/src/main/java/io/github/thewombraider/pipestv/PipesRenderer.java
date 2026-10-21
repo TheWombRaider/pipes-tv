@@ -90,6 +90,8 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         cameraMin = clamp(t.getFloat("dmin", 9f), 1.5f, 200f);
         cameraMax = Math.max(cameraMin, clamp(t.getFloat("dmax", 13f), 1.5f, 200f));
         dissolveSeconds = clamp(t.getFloat("dissolve", 1.6f), 0.1f, 60f);
+        String joints = t.getString("joints", "mixed");
+        params.joints = "elbow".equals(joints) ? PipeSim.JointMode.ELBOW : "ball".equals(joints) ? PipeSim.JointMode.BALL : PipeSim.JointMode.MIXED;
     }
 
     private static int clamp(int v, int lo, int hi) {
@@ -110,7 +112,8 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         cylinder = Meshes.cylinder(16, false);
         headCylinder = Meshes.cylinder(16, true);
         sphere = Meshes.sphere(12, 18);
-        elbowMesh = Meshes.torusQuarter(params.bend, pipeRadius, 6, 12);
+        // Same number of sides as the straight pipes (16), so the rims meet vertex for vertex with no lip.
+        elbowMesh = Meshes.torusQuarter(params.bend, pipeRadius, 8, 16);
         try (InputStream in = context.getAssets().open("teapot.bin")) {
             teapot = Meshes.teapot(in);
         } catch (Exception e) {
@@ -148,7 +151,7 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         width = Math.max(1, w);
         height = Math.max(1, h);
         GLES20.glViewport(0, 0, width, height);
-        Matrix.perspectiveM(proj, 0, fieldOfView, width / (float) height, 1f, 100000f);
+        Matrix.perspectiveM(proj, 0, fieldOfView, width / (float) height, CameraPlacement.NEAR_PLANE, 100000f);
         updateView();
     }
 
@@ -189,33 +192,43 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         look();
     }
 
-    /** Half the scenes are head-on; the others look in from a random direction. */
+    /**
+     * Half the scenes are head-on; the others look in from a random direction. Either way the camera is placed
+     * outside the lattice with room to spare, so no pipe can pass through the lens (see {@link CameraPlacement}).
+     */
     private void look() {
+        float dx, dy, dz;
         if (random.nextBoolean()) {
-            eye[0] = 0;
-            eye[1] = 0;
-            eye[2] = cameraDistance;
+            dx = 0f;
+            dy = 0f;
+            dz = 1f;
         } else {
             float kx = random.nextFloat() * 2 - 1;
             float ky = random.nextFloat() * 2 - 1;
             float kz = random.nextFloat() * 2 - 1;
             float len = (float) Math.sqrt(kx * kx + ky * ky + kz * kz);
             if (len < 1e-3f) {
-                kx = 0;
-                ky = 1;
-                kz = 0;
-                len = 1;
+                kx = 0f;
+                ky = 1f;
+                kz = 0f;
+                len = 1f;
             }
             kx /= len;
             ky /= len;
             kz /= len;
-            // The vector (14, 0, 0) turned a quarter turn about the axis k: (k x v) + k (k . v).
-            float vx = cameraDistance;
-            float dot = kx * vx;
-            eye[0] = kx * dot;
-            eye[1] = kz * vx + ky * dot;
-            eye[2] = -ky * vx + kz * dot;
+            // The unit vector (1, 0, 0) turned a quarter turn about the axis k: (k x v) + k (k . v).
+            dx = kx * kx;
+            dy = kz + ky * kx;
+            dz = -ky + kz * kx;
+            float dl = (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
+            dx /= dl;
+            dy /= dl;
+            dz /= dl;
         }
+        cameraDistance = CameraPlacement.distance(dx, dy, dz, grid, cameraDistance, ballRadius);
+        eye[0] = dx * cameraDistance;
+        eye[1] = dy * cameraDistance;
+        eye[2] = dz * cameraDistance;
         updateView();
     }
 

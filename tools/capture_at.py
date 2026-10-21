@@ -26,11 +26,12 @@ def main():
     extras.setdefault("timescale", "1.5")
     scale = float(extras["timescale"])
     ints = {"grid"}
+    strings = {"joints"}
     adb("shell", "am", "force-stop", "io.github.thewombraider.pipestv")
     adb("logcat", "-c")
     cmd = ["shell", "am", "start", "-n", "io.github.thewombraider.pipestv/.PipesActivity"]
     for k, v in extras.items():
-        cmd += ["--ei" if k in ints else "--ef", k, v]
+        cmd += ["--ei" if k in ints else "--es" if k in strings else "--ef", k, v]
     adb(*cmd, capture=True)
     time.sleep(2)
     adb("shell", "input", "tap", "1100", "266")

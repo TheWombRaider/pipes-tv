@@ -85,4 +85,50 @@ public class MeshesTest {
         assertEquals(-1f, minY, 1e-3f);
         assertEquals(1f, maxY, 1e-3f);
     }
+
+    /** The ring of tube-surface points at the start of an elbow, as (cos, sin) pairs relative to the tube centre. */
+    private static java.util.Set<String> elbowStartRing(float major, float tube, int tubeSegments) {
+        float[] m = Meshes.torusQuarter(major, tube, 8, tubeSegments);
+        java.util.Set<String> ring = new java.util.TreeSet<>();
+        for (int i = 0; i < m.length; i += STRIDE) {
+            if (Math.abs(m[i + 1]) > 1e-6f) continue; // the start ring lies in the plane y = 0
+            ring.add(key((m[i] - major) / tube, m[i + 2] / tube));
+        }
+        return ring;
+    }
+
+    private static java.util.Set<String> cylinderRing(int segments) {
+        float[] m = Meshes.cylinder(segments, false);
+        java.util.Set<String> ring = new java.util.TreeSet<>();
+        for (int i = 0; i < m.length; i += STRIDE) {
+            if (Math.abs(m[i + 2]) > 1e-6f) continue; // the near ring sits at z = 0
+            ring.add(key(m[i], m[i + 1]));
+        }
+        return ring;
+    }
+
+    private static String key(float a, float b) {
+        return String.format(java.util.Locale.US, "%.4f,%.4f", Math.round(a * 1e4f) / 1e4f + 0f, Math.round(b * 1e4f) / 1e4f + 0f);
+    }
+
+    @Test
+    public void anElbowMeetsItsStraightPipeRimVertexForVertex() {
+        // Straight pipes and elbows are all aligned to the lattice axes, so any quarter-turn of the rim is the same
+        // rim. They only join without a step if both are cut into the same number of sides.
+        assertEquals("16-sided tube meets a 16-sided pipe", cylinderRing(16), elbowStartRing(0.4f, 0.17f, 16));
+        assertTrue("a 12-sided elbow does NOT match a 16-sided pipe (the old lip)",
+                !cylinderRing(16).equals(elbowStartRing(0.4f, 0.17f, 12)));
+    }
+
+    @Test
+    public void bothEndsOfAnElbowAreTheSameRim() {
+        float major = 0.4f, tube = 0.17f;
+        float[] m = Meshes.torusQuarter(major, tube, 8, 16);
+        java.util.Set<String> start = new java.util.TreeSet<>(), end = new java.util.TreeSet<>();
+        for (int i = 0; i < m.length; i += STRIDE) {
+            if (Math.abs(m[i + 1]) < 1e-6f) start.add(key((m[i] - major) / tube, m[i + 2] / tube));
+            if (Math.abs(m[i]) < 1e-6f) end.add(key((m[i + 1] - major) / tube, m[i + 2] / tube));
+        }
+        assertEquals(start, end);
+    }
 }
