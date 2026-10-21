@@ -3,7 +3,8 @@
 A direct port of the tessellation in three.js's TeapotBufferGeometry (Eric Haines, MIT; see NOTICE),
 run once at build time so the app only has to read triangles. The teapot data is Martin Newell's.
 
-Usage: python -I tools/gen_teapot.py <TeapotBufferGeometry.js> <out.bin> [segments]
+Usage: python -I tools/gen_teapot.py <TeapotGeometry.js> <out.bin> [segments]
+(three.js r160: examples/jsm/geometries/TeapotGeometry.js)
 File format (little endian): u32 vertexCount, u32 indexCount, then vertexCount * (x y z nx ny nz) float32,
 then indexCount u16 indices. The teapot is scaled to fit vertically between -1 and 1.
 """
@@ -17,9 +18,10 @@ segments = int(sys.argv[3]) if len(sys.argv) > 3 else 8
 
 
 def numbers(name):
-    m = re.search(r"var %s = \[(.*?)\];" % name, src, re.S)
+    m = re.search(r"(?:var|const) %s = \[(.*?)\];" % name, src, re.S)
     body = re.sub(r"/\*.*?\*/", "", m.group(1), flags=re.S)
-    return [float(x) for x in re.findall(r"-?\d+\.?\d*(?:e-?\d+)?", body)]
+    # three.js writes negative numbers with a space after the minus sign ("- 0.784").
+    return [float(x.replace(" ", "")) for x in re.findall(r"-?\s*\d+\.?\d*(?:e-?\d+)?", body)]
 
 
 patches = [int(v) for v in numbers("teapotPatches")]

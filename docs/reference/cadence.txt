@@ -1,0 +1,14 @@
+Intervals, in frames, between consecutive frames that show new pipe (frame_stats.py "blobs" > 0, screen not black).
+Share of intervals of 1, 2, 3 and 4 frames.
+
+72zBfGRQlVA (60 fps)  n=10365  1: 1.7%  2: 93.4%  3: 1.9%  4: 2.0%
+MKqrLGFoK9E (60 fps)  n=9050   1: 13.9%  2: 52.1%  3: 9.6%  4: 11.9%
+pBSq6RCJRCA (60 fps)  n=14738  1: 0.1%  2: 93.9%  3: 0.1%  4: 3.3%
+tCpnDTzRAjE (30 fps)  n=13548  1: 79.9%  2: 15.7%  3: 2.2%  4: 0.9%
+I0hypYunmwI (30 fps)  n=11846  1: 77.6%  2: 15.5%  3: 3.3%  4: 1.4%
+
+Modeled ticks per scene (tools/reference/sim_model.py, 1000 scenes, 16:9):
+  multiple pipes: median 300 (10-90%: 169-459)
+  single pipe:    median 777 (10-90%: 601-942)
+Implied ticks per second = modeled median ticks / measured median scene length:
+  72z 300/11.63 = 25.8   MKqr 300/12.12 = 24.8   pBSq 777/27.48 = 28.3   tCpn 777/24.60 = 31.6   I0hyp 777/29.57 = 26.3

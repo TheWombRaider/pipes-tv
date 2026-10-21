@@ -2,11 +2,17 @@ package io.github.thewombraider.pipestv;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLDisplay;
+import android.view.Choreographer;
 
-final class PipesGLView extends GLSurfaceView {
+/**
+ * A GL surface that draws only when the picture changes. The original drew whole pipe segments 30 times a second
+ * and nothing in between, so on a 60 Hz screen every other refresh would repeat the last frame; skipping those
+ * halves the work, and between scenes the GPU does nothing at all.
+ */
+final class PipesGLView extends GLSurfaceView implements Choreographer.FrameCallback {
+    private final PipesRenderer renderer;
+    private boolean running;
+
     PipesGLView(Context context) {
         this(context, -1f, 1f, null);
     }
@@ -15,36 +21,32 @@ final class PipesGLView extends GLSurfaceView {
     PipesGLView(Context context, float teapotChance, float timeScale, android.os.Bundle tuning) {
         super(context);
         setEGLContextClientVersion(2);
-        setEGLConfigChooser(new MultisampleChooser());
-        setRenderer(new PipesRenderer(context, teapotChance, timeScale, tuning));
-        setRenderMode(RENDERMODE_CONTINUOUSLY);
+        // 8-bit color and a depth buffer, no multisampling: the original drew with plain OpenGL 1.1 and no smoothing.
+        setEGLConfigChooser(8, 8, 8, 0, 16, 0);
+        renderer = new PipesRenderer(context, teapotChance, timeScale, tuning);
+        setRenderer(renderer);
+        setRenderMode(RENDERMODE_WHEN_DIRTY);
     }
 
-    /** Asks for 4x multisampling so pipe edges are smooth, and falls back to a plain config without it. */
-    private static final class MultisampleChooser implements EGLConfigChooser {
-        private static final int EGL_RENDERABLE_TYPE = 0x3040;
-        private static final int EGL_OPENGL_ES2_BIT = 4;
-        private static final int EGL_SAMPLE_BUFFERS = 0x3032;
-        private static final int EGL_SAMPLES = 0x3031;
+    @Override
+    public void onResume() {
+        super.onResume();
+        running = true;
+        Choreographer.getInstance().postFrameCallback(this);
+    }
 
-        @Override
-        public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
-            EGLConfig config = choose(egl, display, true);
-            return config != null ? config : choose(egl, display, false);
-        }
+    @Override
+    public void onPause() {
+        running = false;
+        Choreographer.getInstance().removeFrameCallback(this);
+        super.onPause();
+    }
 
-        private EGLConfig choose(EGL10 egl, EGLDisplay display, boolean multisample) {
-            int[] attribs = multisample
-                    ? new int[] {EGL10.EGL_RED_SIZE, 8, EGL10.EGL_GREEN_SIZE, 8, EGL10.EGL_BLUE_SIZE, 8,
-                            EGL10.EGL_DEPTH_SIZE, 16, EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-                            EGL_SAMPLE_BUFFERS, 1, EGL_SAMPLES, 4, EGL10.EGL_NONE}
-                    : new int[] {EGL10.EGL_RED_SIZE, 8, EGL10.EGL_GREEN_SIZE, 8, EGL10.EGL_BLUE_SIZE, 8,
-                            EGL10.EGL_DEPTH_SIZE, 16, EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT, EGL10.EGL_NONE};
-            int[] count = new int[1];
-            if (!egl.eglChooseConfig(display, attribs, null, 0, count) || count[0] <= 0) return null;
-            EGLConfig[] configs = new EGLConfig[count[0]];
-            if (!egl.eglChooseConfig(display, attribs, configs, count[0], count)) return null;
-            return configs[0];
-        }
+    /** Called on every refresh; asks for a frame when the renderer has something new to show. */
+    @Override
+    public void doFrame(long frameTimeNanos) {
+        if (!running) return;
+        if (System.nanoTime() >= renderer.nextFrameNanos()) requestRender();
+        Choreographer.getInstance().postFrameCallback(this);
     }
 }

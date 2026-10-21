@@ -7,3 +7,4 @@ local.properties
 /ref/
 /shots/
 /ref-frames/
+__pycache__/

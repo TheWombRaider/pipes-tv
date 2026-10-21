@@ -28,8 +28,33 @@ public class MeshesTest {
 
     @Test
     public void cylinderHasTheExpectedTrianglesWithAndWithoutCaps() {
-        assertEquals(16 * 6 * STRIDE, Meshes.cylinder(16, false).length);
-        assertEquals(16 * 12 * STRIDE, Meshes.cylinder(16, true).length);
+        assertEquals(8 * 6 * STRIDE, Meshes.cylinder(8, false).length);
+        assertEquals(8 * 12 * STRIDE, Meshes.cylinder(8, true).length);
+    }
+
+    /** Back faces are culled, so every triangle must wind counterclockwise seen from the side its normals face. */
+    private static void assertFacesOutward(String name, float[] m) {
+        int flipped = 0, total = m.length / (3 * STRIDE);
+        for (int t = 0; t < total; t++) {
+            int a = t * 3 * STRIDE, b = a + STRIDE, c = b + STRIDE;
+            float ux = m[b] - m[a], uy = m[b + 1] - m[a + 1], uz = m[b + 2] - m[a + 2];
+            float vx = m[c] - m[a], vy = m[c + 1] - m[a + 1], vz = m[c + 2] - m[a + 2];
+            float cx = uy * vz - uz * vy, cy = uz * vx - ux * vz, cz = ux * vy - uy * vx;
+            if (cx * cx + cy * cy + cz * cz < 1e-14f) continue; // degenerate: draws nothing either way
+            float nx = m[a + 3] + m[b + 3] + m[c + 3], ny = m[a + 4] + m[b + 4] + m[c + 4], nz = m[a + 5] + m[b + 5] + m[c + 5];
+            if (cx * nx + cy * ny + cz * nz <= 0f) flipped++;
+        }
+        assertEquals(name + ": triangles wound against their normals", 0, flipped);
+    }
+
+    @Test
+    public void everyShapeFacesOutward() throws IOException {
+        assertFacesOutward("cylinder", Meshes.cylinder(8, true));
+        assertFacesOutward("sphere", Meshes.sphere(8, 8));
+        assertFacesOutward("elbow", Meshes.torusQuarter(1f / 7f, 1f / 7f, 4, 8));
+        try (InputStream in = new FileInputStream("src/main/assets/teapot.bin")) {
+            assertFacesOutward("teapot", Meshes.teapot(in));
+        }
     }
 
     @Test
@@ -44,12 +69,12 @@ public class MeshesTest {
 
     @Test
     public void sphereIsUnitRadiusWithNoDegenerateTriangles() {
-        float[] m = Meshes.sphere(12, 18);
+        float[] m = Meshes.sphere(8, 8);
         assertUnitNormals(m);
         for (int i = 0; i < m.length; i += STRIDE) {
             float r = (float) Math.sqrt(m[i] * m[i] + m[i + 1] * m[i + 1] + m[i + 2] * m[i + 2]);
             assertEquals(1f, r, 1e-5f);
-            // On a sphere centred at the origin the normal is the position.
+            // On a sphere centered at the origin the normal is the position.
             assertEquals(m[i], m[i + 3], 1e-5f);
         }
         for (int t = 0; t < m.length / (3 * STRIDE); t++) assertTrue("triangle " + t + " is degenerate", area(m, t) > 1e-8f);
@@ -57,14 +82,15 @@ public class MeshesTest {
 
     @Test
     public void torusQuarterFollowsAQuarterCircleOfTheGivenRadius() {
-        float major = 0.4f, tube = 0.17f;
-        float[] m = Meshes.torusQuarter(major, tube, 6, 12);
+        // The original's elbow: the bend is as tight as the pipe, so the inside of the bend is a crease.
+        float major = 1f / 7f, tube = 1f / 7f;
+        float[] m = Meshes.torusQuarter(major, tube, 4, 8);
         assertUnitNormals(m);
         for (int i = 0; i < m.length; i += STRIDE) {
-            // Step back along the normal by the tube radius to land on the tube's centre line.
+            // Step back along the normal by the tube radius to land on the tube's center line.
             float cx = m[i] - tube * m[i + 3], cy = m[i + 1] - tube * m[i + 4], cz = m[i + 2] - tube * m[i + 5];
-            assertEquals("centre line stays in the XY plane", 0f, cz, 1e-5f);
-            assertEquals("centre line is a circle of the major radius", major, (float) Math.hypot(cx, cy), 1e-5f);
+            assertEquals("center line stays in the XY plane", 0f, cz, 1e-5f);
+            assertEquals("center line is a circle of the major radius", major, (float) Math.hypot(cx, cy), 1e-5f);
             assertTrue("and only the first quarter of it", cx >= -1e-5f && cy >= -1e-5f);
         }
     }
@@ -84,9 +110,26 @@ public class MeshesTest {
         }
         assertEquals(-1f, minY, 1e-3f);
         assertEquals(1f, maxY, 1e-3f);
+        // A whole teapot, closed and facing out: the spout on one side, the handle on the other, and a positive
+        // enclosed volume. (A sign lost while reading the source data once folded it all into one quarter.)
+        float minX = Float.MAX_VALUE, maxX = -Float.MAX_VALUE;
+        double volume = 0;
+        for (int i = 0; i < m.length; i += STRIDE) {
+            minX = Math.min(minX, m[i]);
+            maxX = Math.max(maxX, m[i]);
+        }
+        for (int t = 0; t < m.length / (3 * STRIDE); t++) {
+            int a = t * 3 * STRIDE, b = a + STRIDE, c = b + STRIDE;
+            volume += (m[a] * (m[b + 1] * m[c + 2] - m[b + 2] * m[c + 1])
+                    - m[a + 1] * (m[b] * m[c + 2] - m[b + 2] * m[c])
+                    + m[a + 2] * (m[b] * m[c + 1] - m[b + 1] * m[c])) / 6.0;
+        }
+        assertTrue("handle reaches -x: " + minX, minX < -1.8f);
+        assertTrue("spout reaches +x: " + maxX, maxX > 2.1f);
+        assertTrue("encloses its volume facing out: " + volume, volume > 6.0);
     }
 
-    /** The ring of tube-surface points at the start of an elbow, as (cos, sin) pairs relative to the tube centre. */
+    /** The ring of tube-surface points at the start of an elbow, as (cos, sin) pairs relative to the tube center. */
     private static java.util.Set<String> elbowStartRing(float major, float tube, int tubeSegments) {
         float[] m = Meshes.torusQuarter(major, tube, 8, tubeSegments);
         java.util.Set<String> ring = new java.util.TreeSet<>();
@@ -115,15 +158,15 @@ public class MeshesTest {
     public void anElbowMeetsItsStraightPipeRimVertexForVertex() {
         // Straight pipes and elbows are all aligned to the lattice axes, so any quarter-turn of the rim is the same
         // rim. They only join without a step if both are cut into the same number of sides.
-        assertEquals("16-sided tube meets a 16-sided pipe", cylinderRing(16), elbowStartRing(0.4f, 0.17f, 16));
-        assertTrue("a 12-sided elbow does NOT match a 16-sided pipe (the old lip)",
-                !cylinderRing(16).equals(elbowStartRing(0.4f, 0.17f, 12)));
+        assertEquals("8-sided elbow meets an 8-sided pipe", cylinderRing(8), elbowStartRing(1f / 7f, 1f / 7f, 8));
+        assertTrue("a 12-sided elbow does NOT match an 8-sided pipe",
+                !cylinderRing(8).equals(elbowStartRing(1f / 7f, 1f / 7f, 12)));
     }
 
     @Test
     public void bothEndsOfAnElbowAreTheSameRim() {
-        float major = 0.4f, tube = 0.17f;
-        float[] m = Meshes.torusQuarter(major, tube, 8, 16);
+        float major = 1f / 7f, tube = 1f / 7f;
+        float[] m = Meshes.torusQuarter(major, tube, 4, 8);
         java.util.Set<String> start = new java.util.TreeSet<>(), end = new java.util.TreeSet<>();
         for (int i = 0; i < m.length; i += STRIDE) {
             if (Math.abs(m[i + 1]) < 1e-6f) start.add(key((m[i] - major) / tube, m[i + 2] / tube));

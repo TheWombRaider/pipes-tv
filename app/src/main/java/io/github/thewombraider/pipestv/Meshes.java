@@ -7,7 +7,7 @@ import java.nio.ByteOrder;
 
 /**
  * Base shapes as plain triangle lists: six floats per vertex (position, then normal), three
- * vertices per triangle. The renderer moves, rotates and colours copies of them into one big batch.
+ * vertices per triangle. The renderer moves and turns copies of them into one big batch.
  */
 final class Meshes {
     private Meshes() {}
@@ -95,7 +95,7 @@ final class Meshes {
     }
 
     /**
-     * A quarter of a torus in the XY plane: the tube's centre line runs along a circle of radius
+     * A quarter of a torus in the XY plane: the tube's center line runs along a circle of radius
      * {@code major} from +X round to +Y, and the tube has radius {@code tube}.
      */
     static float[] torusQuarter(float major, float tube, int arcSegments, int tubeSegments) {

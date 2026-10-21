@@ -15,135 +15,149 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * Draws the pipes. Follows 1j01/pipes (MIT, Isaiah Odhner) for the look and the timing: a
- * 21 x 21 x 21 lattice, pipe radius 0.2, glossy Phong material with a pale cyan highlight, one white
- * light, a 45 degree camera 14 units out, and a scene that dissolves away in black squares every
- * 16 to 24 seconds. See NOTICE.
+ * Draws the pipes the way the original does (docs/REFERENCE_ANALYSIS.md): a level camera with a 90 degree field of
+ * view that turns 9.73 degrees per scene, one white light fixed to the camera from the upper right, the 16 teapot
+ * materials lit per vertex as OpenGL 1.1 did, 8-sided pipes, and a clear that eats the finished picture in small
+ * black squares.
  *
- * Everything that has stopped growing goes into one big vertex buffer, so a full scene is a single
- * draw call; only the heads that are still extending are rebuilt each frame.
+ * Every piece is final once made, so a scene is one vertex buffer that only ever grows, drawn with one call. The
+ * picture only changes when the pipes take a step or the clear moves on, so a frame is drawn only then
+ * ({@link #nextFrameNanos()}); in between the GPU is idle.
  */
 final class PipesRenderer implements GLSurfaceView.Renderer {
-    /** Measured from the reference recording: scenes last 16 to 34 seconds, then dissolve for 1.6. */
-    private static final float SCENE_MIN_SECONDS = 18f;
-    private static final float SCENE_MAX_SECONDS = 34f;
-    /** Estimated from the reference: a wide angle of about 60 degrees. */
-    private static final int BATCH_VERTEX_CAPACITY = 900_000;
-    private static final int HEAD_VERTEX_CAPACITY = 16 * 1024;
-    private static final int FLOATS_PER_VERTEX = 9;
-    private static final int STRIDE = FLOATS_PER_VERTEX * 4;
+    /** Measured: 30 steps a second (docs/REFERENCE_ANALYSIS.md, Speed). */
+    static final float TICKS_PER_SECOND = 30f;
+    /** Measured: the finished picture stays this long before the clear. */
+    private static final float HOLD_SECONDS = 0.2f;
+    private final float holdSeconds;
+    /** Test only: draw the scene this many times a frame, every frame, to measure how much headroom the GPU has. */
+    private final int stressDraws;
+    /** The camera's distance from the lattice's center, in node spacings (75 units on a lattice 7 apart). */
+    static final float CAMERA_DISTANCE = 75f / 7f;
+    static final float FIELD_OF_VIEW = 90f;
+    /** The near plane: the original's 1 unit, in node spacings. */
+    static final float NEAR_PLANE = 1f / 7f;
+    static final float TURN_PER_SCENE = 9.73156f;
+    private static final int SIDES = 8;
+
+    /** Position as three floats, then the normal as three signed bytes and the material index as a fourth. */
+    private static final int STRIDE = 16;
+    private static final int BATCH_VERTEX_CAPACITY = 640_000;
 
     private final Context context;
     private final Random random = new Random();
     private final PipeSim.Params params = new PipeSim.Params();
+    private final float timeScale;
+    private final float dissolveSeconds;
+    private final boolean debuggable;
     private PipeSim sim;
 
-    private float[] cylinder, headCylinder, sphere, elbowMesh, teapot;
-
-    private int sceneProgram, batchVbo, headVbo, overlayProgram;
-    private int aPos, aNor, aCol, uVP, uEye, uLight;
-    private int oPos;
+    private float[] run, ball, elbow, teapot;
+    private int program, vbo;
+    private int aPos, aNorMat, uMvp, uNormal, uAmbient, uDiffuse, uSpecular;
+    private int overlay, oPos, uProgress, uBlock;
     private int batchVertices;
     private boolean batchFull;
-    private int seenGeneration = -1;
 
     private final float[] proj = new float[16];
     private final float[] view = new float[16];
-    private final float[] vp = new float[16];
-    private final float[] eye = new float[3];
-    private float cameraDistance = 16f;
-    private final float timeScale;
-    private final boolean debuggable;
-    /** The look of the scene. The defaults are the faithful settings; a test launch can override them. */
-    private final int grid;
-    private final float pipeRadius, ballRadius, teapotSize, fieldOfView, cameraMin, cameraMax;
-    /** Measured from the reference: the clear takes 1.6 seconds. */
-    private final float dissolveSeconds;
-    private final float[] light = new float[] {-0.4f, 0.6f, 0.7f};
+    private final float[] mvp = new float[16];
+    private final float[] normal = new float[9];
+    private float rotation;
     private int width = 1, height = 1;
 
-    private long lastNanos, statsNanos;
-    private int frames;
-    private float sceneSeconds;
-    private float sceneLength = 26f;
-    private float dissolveProgress = -1f;
-    private int uDissolve;
+    private enum Phase { GROW, HOLD, DISSOLVE }
 
-    private final Meshes.Floats scratch = new Meshes.Floats(1 << 16);
-    private FloatBuffer upload = ByteBuffer.allocateDirect(1 << 20).order(ByteOrder.nativeOrder()).asFloatBuffer();
+    private Phase phase = Phase.GROW;
+    private long phaseStart;
+    private long ticksDone;
+    private volatile long nextFrame;
+
     private final List<PipeSim.Piece> drained = new ArrayList<>();
-    private final List<PipeSim.Piece> heads = new ArrayList<>();
+    private ByteBuffer upload = ByteBuffer.allocateDirect(1 << 18).order(ByteOrder.nativeOrder());
+
+    private long statsStart;
+    private int statsFrames;
+    private long statsWorstNanos;
 
     /** {@code timeScale} above 1 speeds the whole scene up; it exists only so a test run can reach dense scenes quickly. */
     PipesRenderer(Context context, float teapotChance, float timeScale, android.os.Bundle tuning) {
         this.context = context.getApplicationContext();
         this.debuggable = (this.context.getApplicationInfo().flags & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        if (teapotChance >= 0f) params.teapotChance = teapotChance;
+        if (teapotChance >= 0f) params.teapotChance = Math.min(1f, teapotChance);
         this.timeScale = clamp(timeScale > 0f ? timeScale : 1f, 0.1f, 20f);
         android.os.Bundle t = tuning != null ? tuning : new android.os.Bundle();
-        // The launch extras exist for testing and any app can send them, so every value is clamped to a sane range.
-        grid = clamp(t.getInt("grid", 15), 3, 40);
-        pipeRadius = clamp(t.getFloat("radius", 0.17f), 0.03f, 0.3f);
-        ballRadius = pipeRadius * 1.5f;
-        teapotSize = ballRadius;
-        fieldOfView = clamp(t.getFloat("fov", 65f), 20f, 120f);
-        cameraMin = clamp(t.getFloat("dmin", 9f), 1.5f, 200f);
-        cameraMax = Math.max(cameraMin, clamp(t.getFloat("dmax", 13f), 1.5f, 200f));
-        dissolveSeconds = clamp(t.getFloat("dissolve", 1.6f), 0.1f, 60f);
+        // The launch extras exist for testing and any app can send them, so every value is checked.
+        dissolveSeconds = clamp(t.getFloat("dissolve", 1.67f), 0.1f, 60f);
+        holdSeconds = clamp(t.getFloat("hold", HOLD_SECONDS), 0f, 600f);
+        stressDraws = (int) clamp(t.getFloat("stress", 1f), 1f, 8f);
         String joints = t.getString("joints", "mixed");
         params.joints = "elbow".equals(joints) ? PipeSim.JointMode.ELBOW : "ball".equals(joints) ? PipeSim.JointMode.BALL : PipeSim.JointMode.MIXED;
-    }
-
-    private static int clamp(int v, int lo, int hi) {
-        return Math.max(lo, Math.min(hi, v));
+        params.multiple = !"single".equals(t.getString("pipes", "multiple"));
+        rotation = clamp(t.getFloat("turn", 0f), 0f, 360f);
     }
 
     private static float clamp(float v, float lo, float hi) {
         return Float.isNaN(v) ? lo : Math.max(lo, Math.min(hi, v));
     }
 
+    /** When the picture next changes, in {@link System#nanoTime()} terms; the view asks for a frame then. */
+    long nextFrameNanos() {
+        return stressDraws > 1 ? 0 : nextFrame;
+    }
+
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
         GLES20.glClearColor(0f, 0f, 0f, 1f);
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-        GLES20.glDisable(GLES20.GL_CULL_FACE);
+        GLES20.glEnable(GLES20.GL_CULL_FACE);
+        GLES20.glCullFace(GLES20.GL_BACK);
 
-        // Finished pipes are open tubes: their ends are buried in joints. Growing heads need a cap.
-        cylinder = Meshes.cylinder(16, false);
-        headCylinder = Meshes.cylinder(16, true);
-        sphere = Meshes.sphere(12, 18);
-        // Same number of sides as the straight pipes (16), so the rims meet vertex for vertex with no lip.
-        elbowMesh = Meshes.torusQuarter(params.bend, pipeRadius, 8, 16);
+        run = Meshes.cylinder(SIDES, false);
+        ball = Meshes.sphere(SIDES, SIDES);
+        elbow = Meshes.torusQuarter(PipeSim.RADIUS, PipeSim.RADIUS, SIDES / 2, SIDES);
         try (InputStream in = context.getAssets().open("teapot.bin")) {
             teapot = Meshes.teapot(in);
         } catch (Exception e) {
-            teapot = sphere;
+            teapot = ball;
         }
 
-        sceneProgram = link(SCENE_VERTEX, SCENE_FRAGMENT);
-        aPos = GLES20.glGetAttribLocation(sceneProgram, "aPos");
-        aNor = GLES20.glGetAttribLocation(sceneProgram, "aNor");
-        aCol = GLES20.glGetAttribLocation(sceneProgram, "aCol");
-        uVP = GLES20.glGetUniformLocation(sceneProgram, "uVP");
-        uEye = GLES20.glGetUniformLocation(sceneProgram, "uEye");
-        uLight = GLES20.glGetUniformLocation(sceneProgram, "uLight");
-        overlayProgram = link(OVERLAY_VERTEX, OVERLAY_FRAGMENT);
-        oPos = GLES20.glGetAttribLocation(overlayProgram, "aPos");
-        uDissolve = GLES20.glGetUniformLocation(overlayProgram, "uProgress");
+        program = link(SCENE_VERTEX, SCENE_FRAGMENT);
+        aPos = GLES20.glGetAttribLocation(program, "aPos");
+        aNorMat = GLES20.glGetAttribLocation(program, "aNorMat");
+        uMvp = GLES20.glGetUniformLocation(program, "uMvp");
+        uNormal = GLES20.glGetUniformLocation(program, "uNormal");
+        uAmbient = GLES20.glGetUniformLocation(program, "uAmbient");
+        uDiffuse = GLES20.glGetUniformLocation(program, "uDiffuse");
+        uSpecular = GLES20.glGetUniformLocation(program, "uSpecular");
+        overlay = link(OVERLAY_VERTEX, OVERLAY_FRAGMENT);
+        oPos = GLES20.glGetAttribLocation(overlay, "aPos");
+        uProgress = GLES20.glGetUniformLocation(overlay, "uProgress");
+        uBlock = GLES20.glGetUniformLocation(overlay, "uBlock");
 
-        int[] buffers = new int[2];
-        GLES20.glGenBuffers(2, buffers, 0);
-        batchVbo = buffers[0];
-        headVbo = buffers[1];
-        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, batchVbo);
-        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, BATCH_VERTEX_CAPACITY * STRIDE, null, GLES20.GL_DYNAMIC_DRAW);
-        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, headVbo);
-        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, HEAD_VERTEX_CAPACITY * STRIDE, null, GLES20.GL_DYNAMIC_DRAW);
+        GLES20.glUseProgram(program);
+        float[] amb = new float[Materials.COUNT * 3], dif = new float[Materials.COUNT * 3], spe = new float[Materials.COUNT * 4];
+        for (int i = 0; i < Materials.COUNT; i++) {
+            float[] m = Materials.get(i);
+            for (int c = 0; c < 3; c++) {
+                // Global ambient 1.0 plus the light's own ambient 0.1, both white.
+                amb[i * 3 + c] = 1.1f * m[c];
+                dif[i * 3 + c] = m[3 + c];
+                spe[i * 4 + c] = m[6 + c];
+            }
+            spe[i * 4 + 3] = m[9];
+        }
+        GLES20.glUniform3fv(uAmbient, Materials.COUNT, amb, 0);
+        GLES20.glUniform3fv(uDiffuse, Materials.COUNT, dif, 0);
+        GLES20.glUniform4fv(uSpecular, Materials.COUNT, spe, 0);
 
-        sim = new PipeSim(grid, grid, grid, random, params, null);
-        seenGeneration = -1;
-        startScene();
-        lastNanos = System.nanoTime();
+        int[] buffers = new int[1];
+        GLES20.glGenBuffers(1, buffers, 0);
+        vbo = buffers[0];
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo);
+        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, BATCH_VERTEX_CAPACITY * STRIDE, null, GLES20.GL_STATIC_DRAW);
+        // The surface may be new after a pause, and its buffer is empty: start the scene over.
+        sim = null;
     }
 
     @Override
@@ -151,189 +165,127 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         width = Math.max(1, w);
         height = Math.max(1, h);
         GLES20.glViewport(0, 0, width, height);
-        Matrix.perspectiveM(proj, 0, fieldOfView, width / (float) height, CameraPlacement.NEAR_PLANE, 100000f);
-        updateView();
+        Matrix.perspectiveM(proj, 0, FIELD_OF_VIEW, width / (float) height, NEAR_PLANE, 4f * CAMERA_DISTANCE);
+        int[] lattice = PipeSim.latticeFor(width, height);
+        sim = new PipeSim(lattice[0], lattice[1], lattice[2], random, params);
+        startScene(System.nanoTime(), false);
+    }
+
+    private void startScene(long now, boolean turn) {
+        if (turn) {
+            rotation += TURN_PER_SCENE;
+            if (rotation >= 360f) rotation -= 360f;
+        }
+        Matrix.setIdentityM(view, 0);
+        Matrix.translateM(view, 0, 0f, 0f, -CAMERA_DISTANCE);
+        Matrix.rotateM(view, 0, rotation, 0f, 1f, 0f);
+        Matrix.multiplyMM(mvp, 0, proj, 0, view, 0);
+        // The view only turns, so its upper 3 x 3 turns normals into eye space.
+        for (int c = 0; c < 3; c++) System.arraycopy(view, c * 4, normal, c * 3, 3);
+        sim.reset();
+        batchVertices = 0;
+        batchFull = false;
+        phase = Phase.GROW;
+        phaseStart = now;
+        ticksDone = 0;
+        upload();
     }
 
     @Override
     public void onDrawFrame(GL10 unused) {
         long now = System.nanoTime();
-        float dt = Math.min(0.05f, (now - lastNanos) / 1e9f);
-        lastNanos = now;
-        frames++;
-        if (now - statsNanos > 2_000_000_000L) {
-            if (debuggable) android.util.Log.i("XPPipes", "fps=" + (frames * 1e9f / (now - statsNanos)) + " sceneT=" + sceneSeconds + " dissolve=" + dissolveProgress + " batchVertices=" + batchVertices + " full=" + batchFull);
-            frames = 0;
-            statsNanos = now;
+        if (sim == null) return;
+        advance(now);
+        for (int i = 0; i < stressDraws; i++) {
+            GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+            drawScene();
         }
-
-        if (dissolveProgress < 0f) {
-            float sceneDt = dt * timeScale;
-            sim.update(sceneDt);
-            sceneSeconds += sceneDt;
-            if (sceneSeconds >= sceneLength) dissolveProgress = 0f;
-        } else {
-            dissolveProgress += dt / dissolveSeconds;
-            if (dissolveProgress >= 1f) startScene();
-        }
-        syncBatch();
-
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-        drawScene();
-        if (dissolveProgress >= 0f) drawDissolve();
+        if (phase == Phase.DISSOLVE) drawDissolve(seconds(now - phaseStart) / dissolveSeconds);
+        stats(System.nanoTime() - now, now);
     }
 
-    private void startScene() {
-        sim.clear();
-        sceneSeconds = 0f;
-        sceneLength = SCENE_MIN_SECONDS + random.nextFloat() * (SCENE_MAX_SECONDS - SCENE_MIN_SECONDS);
-        cameraDistance = cameraMin + random.nextFloat() * (cameraMax - cameraMin);
-        dissolveProgress = -1f;
-        look();
+    private float seconds(long nanos) {
+        return nanos / 1e9f * timeScale;
     }
 
-    /**
-     * Half the scenes are head-on; the others look in from a random direction. Either way the camera is placed
-     * outside the lattice with room to spare, so no pipe can pass through the lens (see {@link CameraPlacement}).
-     */
-    private void look() {
-        float dx, dy, dz;
-        if (random.nextBoolean()) {
-            dx = 0f;
-            dy = 0f;
-            dz = 1f;
-        } else {
-            float kx = random.nextFloat() * 2 - 1;
-            float ky = random.nextFloat() * 2 - 1;
-            float kz = random.nextFloat() * 2 - 1;
-            float len = (float) Math.sqrt(kx * kx + ky * ky + kz * kz);
-            if (len < 1e-3f) {
-                kx = 0f;
-                ky = 1f;
-                kz = 0f;
-                len = 1f;
+    /** Runs the scene up to {@code now} and works out when the next visible change is due. */
+    private void advance(long now) {
+        long tickNanos = (long) (1e9 / (TICKS_PER_SECOND * timeScale));
+        if (phase == Phase.GROW) {
+            // A quarter of a frame early counts as on time, so steps land on every other refresh of a 60 Hz screen.
+            long due = (now - phaseStart + tickNanos / 4) / tickNanos;
+            // After a stall (the TV was busy), skip ahead rather than racing through the backlog.
+            if (due - ticksDone > 3) ticksDone = due - 3;
+            while (ticksDone < due && !sim.isOver()) {
+                sim.tick();
+                ticksDone++;
             }
-            kx /= len;
-            ky /= len;
-            kz /= len;
-            // The unit vector (1, 0, 0) turned a quarter turn about the axis k: (k x v) + k (k . v).
-            dx = kx * kx;
-            dy = kz + ky * kx;
-            dz = -ky + kz * kx;
-            float dl = (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
-            dx /= dl;
-            dy /= dl;
-            dz /= dl;
+            upload();
+            if (sim.isOver()) {
+                phase = Phase.HOLD;
+                phaseStart = now;
+                if (debuggable) android.util.Log.i("XPPipes", "scene over: ticks=" + ticksDone + " used=" + sim.usedFraction() + " vertices=" + batchVertices + " turn=" + rotation);
+            } else {
+                nextFrame = phaseStart + (ticksDone + 1) * tickNanos - tickNanos / 4;
+            }
         }
-        cameraDistance = CameraPlacement.distance(dx, dy, dz, grid, cameraDistance, ballRadius);
-        eye[0] = dx * cameraDistance;
-        eye[1] = dy * cameraDistance;
-        eye[2] = dz * cameraDistance;
-        updateView();
+        if (phase == Phase.HOLD) {
+            long hold = (long) (holdSeconds * 1e9 / timeScale);
+            if (now - phaseStart >= hold) {
+                phase = Phase.DISSOLVE;
+                phaseStart = now;
+            } else {
+                nextFrame = phaseStart + hold;
+            }
+        }
+        if (phase == Phase.DISSOLVE) {
+            if (seconds(now - phaseStart) >= dissolveSeconds) {
+                startScene(now, true);
+                nextFrame = phaseStart + tickNanos - tickNanos / 4;
+            } else {
+                nextFrame = 0;
+            }
+        }
     }
 
-    private void updateView() {
-        boolean nearVertical = Math.abs(eye[1]) > cameraDistance * 0.98f;
-        Matrix.setLookAtM(view, 0, eye[0], eye[1], eye[2], 0f, 0f, 0f, 0f, nearVertical ? 0f : 1f, nearVertical ? 1f : 0f);
-        Matrix.multiplyMM(vp, 0, proj, 0, view, 0);
-        // The light is fixed to the camera (up and to the left, a little in front), as in the original,
-        // so every scene is lit from the same side of the screen whatever way it is viewed.
-        float fx = -eye[0], fy = -eye[1], fz = -eye[2];
-        float fl = (float) Math.sqrt(fx * fx + fy * fy + fz * fz);
-        fx /= fl;
-        fy /= fl;
-        fz /= fl;
-        float upx = 0f, upy = nearVertical ? 0f : 1f, upz = nearVertical ? 1f : 0f;
-        float sx = fy * upz - fz * upy, sy = fz * upx - fx * upz, sz = fx * upy - fy * upx;
-        float sl = (float) Math.sqrt(sx * sx + sy * sy + sz * sz);
-        sx /= sl;
-        sy /= sl;
-        sz /= sl;
-        float ux = sy * fz - sz * fy, uy = sz * fx - sx * fz, uz = sx * fy - sy * fx;
-        float lx = -0.55f, ly = 0.75f, lz = 0.9f; // camera space: x right, y up, z toward the viewer
-        light[0] = lx * sx + ly * ux - lz * fx;
-        light[1] = lx * sy + ly * uy - lz * fy;
-        light[2] = lx * sz + ly * uz - lz * fz;
-        float ll = (float) Math.sqrt(light[0] * light[0] + light[1] * light[1] + light[2] * light[2]);
-        light[0] /= ll;
-        light[1] /= ll;
-        light[2] /= ll;
-    }
-
-    /** Moves newly finished pieces into the big buffer. */
-    private void syncBatch() {
-        if (sim.generation() != seenGeneration) {
-            seenGeneration = sim.generation();
-            batchVertices = 0;
-            batchFull = false;
-        }
+    /** Appends the pieces made since the last frame to the scene's buffer. */
+    private void upload() {
         drained.clear();
-        sim.drainFinished(drained);
+        sim.drain(drained);
         if (drained.isEmpty() || batchFull) return;
-        scratch.size = 0;
-        for (PipeSim.Piece p : drained) write(p, scratch, false);
-        int count = scratch.size / FLOATS_PER_VERTEX;
+        upload.clear();
+        int count = 0;
+        for (PipeSim.Piece p : drained) count += write(p);
         if (batchVertices + count > BATCH_VERTEX_CAPACITY) {
             batchFull = true;
             return;
         }
-        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, batchVbo);
-        put(scratch);
-        GLES20.glBufferSubData(GLES20.GL_ARRAY_BUFFER, batchVertices * STRIDE, scratch.size * 4, upload);
+        upload.flip();
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo);
+        GLES20.glBufferSubData(GLES20.GL_ARRAY_BUFFER, batchVertices * STRIDE, count * STRIDE, upload);
         batchVertices += count;
     }
 
     private void drawScene() {
-        GLES20.glUseProgram(sceneProgram);
-        GLES20.glUniformMatrix4fv(uVP, 1, false, vp, 0);
-        GLES20.glUniform3f(uEye, eye[0], eye[1], eye[2]);
-        GLES20.glUniform3f(uLight, light[0], light[1], light[2]);
+        if (batchVertices == 0) return;
+        GLES20.glUseProgram(program);
+        GLES20.glUniformMatrix4fv(uMvp, 1, false, mvp, 0);
+        GLES20.glUniformMatrix3fv(uNormal, 1, false, normal, 0);
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo);
         GLES20.glEnableVertexAttribArray(aPos);
-        GLES20.glEnableVertexAttribArray(aNor);
-        GLES20.glEnableVertexAttribArray(aCol);
-
-        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, batchVbo);
-        attribs();
-        if (batchVertices > 0) GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, batchVertices);
-
-        heads.clear();
-        sim.activeRuns(heads);
-        scratch.size = 0;
-        for (PipeSim.Piece p : heads) write(p, scratch, true);
-        int headVertices = scratch.size / FLOATS_PER_VERTEX;
-        if (headVertices > 0 && headVertices <= HEAD_VERTEX_CAPACITY) {
-            GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, headVbo);
-            put(scratch);
-            GLES20.glBufferSubData(GLES20.GL_ARRAY_BUFFER, 0, scratch.size * 4, upload);
-            attribs();
-            GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, headVertices);
-        }
-    }
-
-    private void attribs() {
+        GLES20.glEnableVertexAttribArray(aNorMat);
         GLES20.glVertexAttribPointer(aPos, 3, GLES20.GL_FLOAT, false, STRIDE, 0);
-        GLES20.glVertexAttribPointer(aNor, 3, GLES20.GL_FLOAT, false, STRIDE, 12);
-        GLES20.glVertexAttribPointer(aCol, 3, GLES20.GL_FLOAT, false, STRIDE, 24);
+        GLES20.glVertexAttribPointer(aNorMat, 4, GLES20.GL_BYTE, false, STRIDE, 12);
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, batchVertices);
     }
 
-    private void put(Meshes.Floats f) {
-        if (upload.capacity() < f.size) {
-            upload = ByteBuffer.allocateDirect(f.size * 8).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        }
-        upload.clear();
-        upload.put(f.data, 0, f.size);
-        upload.position(0);
-    }
-
-    /**
-     * The original's clear: the frozen picture is eaten away pixel by pixel in a fixed random order,
-     * so the tubes turn speckled and then vanish. Each pixel has a fixed random threshold; once the
-     * progress passes it, the pixel is black.
-     */
-    private void drawDissolve() {
+    /** The original's clear: the frozen picture is eaten by small black squares in random order. */
+    private void drawDissolve(float progress) {
         GLES20.glDisable(GLES20.GL_DEPTH_TEST);
-        GLES20.glUseProgram(overlayProgram);
-        GLES20.glUniform1f(uDissolve, Math.min(1f, dissolveProgress));
+        GLES20.glUseProgram(overlay);
+        GLES20.glUniform1f(uProgress, Math.min(1f, progress));
+        // Measured: squares about 1/180 of the screen height.
+        GLES20.glUniform1f(uBlock, Math.max(1f, Math.round(height / 180f)));
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
         GLES20.glEnableVertexAttribArray(oPos);
         GLES20.glVertexAttribPointer(oPos, 2, GLES20.GL_FLOAT, false, 0, QUAD);
@@ -349,29 +301,49 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         QUAD.position(0);
     }
 
-    // ---- turning pieces into coloured triangles ----
-
-    private void write(PipeSim.Piece p, Meshes.Floats out, boolean head) {
-        switch (p.type) {
-            case RUN:
-                run(p, out, head ? headCylinder : cylinder);
-                break;
-            case BALL:
-                scaledAt(sphere, p, ballRadius, 0, out);
-                break;
-            case TEAPOT:
-                scaledAt(teapot, p, teapotSize, teapotTurns(p), out);
-                break;
-            default:
-                elbow(p, out);
-                break;
+    private void stats(long drawNanos, long now) {
+        if (!debuggable) return;
+        statsFrames++;
+        statsWorstNanos = Math.max(statsWorstNanos, drawNanos);
+        if (now - statsStart > 5_000_000_000L) {
+            android.util.Log.i("XPPipes", "frames=" + statsFrames + " in " + (now - statsStart) / 1_000_000 + "ms worstCpuMs="
+                    + statsWorstNanos / 1e6f + " vertices=" + batchVertices + " used=" + sim.usedFraction() + " phase=" + phase);
+            statsStart = now;
+            statsFrames = 0;
+            statsWorstNanos = 0;
         }
     }
 
-    private void run(PipeSim.Piece p, Meshes.Floats out, float[] cylinder) {
-        if (p.length < 1e-4f) return;
+    // ---- turning pieces into vertices ----
+
+    private int write(PipeSim.Piece p) {
+        switch (p.type) {
+            case RUN:
+                return writeRun(p);
+            case BALL:
+                return writeScaled(ball, p, PipeSim.RADIUS * PipeSim.BALL_SCALE);
+            case TEAPOT:
+                // GLAUX's teapot at 2.5 x the pipe radius: its body is 2.5 pipe radii across; the asset's is 1.27.
+                return writeScaled(teapot, p, 2.5f * PipeSim.RADIUS / 1.27f);
+            default:
+                return writeElbow(p);
+        }
+    }
+
+    private void vertex(float x, float y, float z, float nx, float ny, float nz, int material) {
+        if (upload.remaining() < STRIDE) {
+            ByteBuffer bigger = ByteBuffer.allocateDirect(upload.capacity() * 2).order(ByteOrder.nativeOrder());
+            upload.flip();
+            bigger.put(upload);
+            upload = bigger;
+        }
+        upload.putFloat(x).putFloat(y).putFloat(z);
+        upload.put((byte) Math.round(nx * 127f)).put((byte) Math.round(ny * 127f)).put((byte) Math.round(nz * 127f)).put((byte) material);
+    }
+
+    private int writeRun(PipeSim.Piece p) {
         float dx = p.ax, dy = p.ay, dz = p.az;
-        // Two more vectors that complete an orthonormal frame with the direction.
+        // Two more vectors that complete a right-handed frame with the direction.
         float hx = Math.abs(dy) < 0.9f ? 0f : 1f;
         float hy = Math.abs(dy) < 0.9f ? 1f : 0f;
         float xx = hy * dz, xy = -hx * dz, xz = hx * dy - hy * dx;
@@ -380,125 +352,86 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         xy /= xl;
         xz /= xl;
         float yx = dy * xz - dz * xy, yy = dz * xx - dx * xz, yz = dx * xy - dy * xx;
-        for (int i = 0; i < cylinder.length; i += 6) {
-            float px = cylinder[i], py = cylinder[i + 1], pz = cylinder[i + 2];
-            float nx = cylinder[i + 3], ny = cylinder[i + 4], nz = cylinder[i + 5];
-            out.vertex(
-                    p.x + (xx * px + yx * py) * pipeRadius + dx * pz * p.length,
-                    p.y + (xy * px + yy * py) * pipeRadius + dy * pz * p.length,
-                    p.z + (xz * px + yz * py) * pipeRadius + dz * pz * p.length,
+        float r = PipeSim.RADIUS;
+        for (int i = 0; i < run.length; i += 6) {
+            float px = run[i], py = run[i + 1], pz = run[i + 2];
+            float nx = run[i + 3], ny = run[i + 4], nz = run[i + 5];
+            vertex(p.x + (xx * px + yx * py) * r + dx * pz * p.length,
+                    p.y + (xy * px + yy * py) * r + dy * pz * p.length,
+                    p.z + (xz * px + yz * py) * r + dz * pz * p.length,
                     xx * nx + yx * ny + dx * nz,
                     xy * nx + yy * ny + dy * nz,
-                    xz * nx + yz * ny + dz * nz);
-            color(p, out);
+                    xz * nx + yz * ny + dz * nz,
+                    p.material);
         }
+        return run.length / 6;
     }
 
-    private void elbow(PipeSim.Piece p, Meshes.Floats out) {
+    private int writeElbow(PipeSim.Piece p) {
         float ux = p.ax, uy = p.ay, uz = p.az, vx = p.bx, vy = p.by, vz = p.bz;
         float wx = uy * vz - uz * vy, wy = uz * vx - ux * vz, wz = ux * vy - uy * vx;
-        for (int i = 0; i < elbowMesh.length; i += 6) {
-            float px = elbowMesh[i], py = elbowMesh[i + 1], pz = elbowMesh[i + 2];
-            float nx = elbowMesh[i + 3], ny = elbowMesh[i + 4], nz = elbowMesh[i + 5];
-            out.vertex(
-                    p.x + ux * px + vx * py + wx * pz,
+        for (int i = 0; i < elbow.length; i += 6) {
+            float px = elbow[i], py = elbow[i + 1], pz = elbow[i + 2];
+            float nx = elbow[i + 3], ny = elbow[i + 4], nz = elbow[i + 5];
+            vertex(p.x + ux * px + vx * py + wx * pz,
                     p.y + uy * px + vy * py + wy * pz,
                     p.z + uz * px + vz * py + wz * pz,
                     ux * nx + vx * ny + wx * nz,
                     uy * nx + vy * ny + wy * nz,
-                    uz * nx + vz * ny + wz * nz);
-            color(p, out);
+                    uz * nx + vz * ny + wz * nz,
+                    p.material);
         }
+        return elbow.length / 6;
     }
 
-    /** A shape of radius {@code scale} at the piece's position, turned in quarter turns about each axis. */
-    private void scaledAt(float[] mesh, PipeSim.Piece p, float scale, int turns, Meshes.Floats out) {
-        int tx = turns & 3, ty = (turns >> 2) & 3, tz = (turns >> 4) & 3;
-        float[] v = new float[3];
-        float[] n = new float[3];
+    private int writeScaled(float[] mesh, PipeSim.Piece p, float scale) {
         for (int i = 0; i < mesh.length; i += 6) {
-            v[0] = mesh[i];
-            v[1] = mesh[i + 1];
-            v[2] = mesh[i + 2];
-            n[0] = mesh[i + 3];
-            n[1] = mesh[i + 4];
-            n[2] = mesh[i + 5];
-            if (turns != 0) quarter(v, n, tx, ty, tz);
-            out.vertex(p.x + v[0] * scale, p.y + v[1] * scale, p.z + v[2] * scale, n[0], n[1], n[2]);
-            color(p, out);
+            vertex(p.x + mesh[i] * scale, p.y + mesh[i + 1] * scale, p.z + mesh[i + 2] * scale,
+                    mesh[i + 3], mesh[i + 4], mesh[i + 5], p.material);
         }
-    }
-
-    private static void quarter(float[] v, float[] n, int tx, int ty, int tz) {
-        for (int k = 0; k < tx; k++) {
-            float t = v[1];
-            v[1] = -v[2];
-            v[2] = t;
-            t = n[1];
-            n[1] = -n[2];
-            n[2] = t;
-        }
-        for (int k = 0; k < ty; k++) {
-            float t = v[2];
-            v[2] = -v[0];
-            v[0] = t;
-            t = n[2];
-            n[2] = -n[0];
-            n[0] = t;
-        }
-        for (int k = 0; k < tz; k++) {
-            float t = v[0];
-            v[0] = -v[1];
-            v[1] = t;
-            t = n[0];
-            n[0] = -n[1];
-            n[1] = t;
-        }
-    }
-
-    /** Each teapot lands in one of the 64 quarter-turn orientations, fixed by where it sits. */
-    private static int teapotTurns(PipeSim.Piece p) {
-        int h = Float.floatToIntBits(p.x * 31f + p.y * 17f + p.z * 7f) * 0x9E3779B1;
-        return (h >>> 8) & 63;
-    }
-
-    private static void color(PipeSim.Piece p, Meshes.Floats out) {
-        out.add(p.r);
-        out.add(p.g);
-        out.add(p.b);
+        return mesh.length / 6;
     }
 
     // ---- shaders ----
 
-    private static final String SCENE_VERTEX =
-            "uniform mat4 uVP;\n"
-                    + "attribute vec3 aPos; attribute vec3 aNor; attribute vec3 aCol;\n"
-                    + "varying vec3 vPos; varying vec3 vNor; varying vec3 vCol;\n"
-                    + "void main() { vPos = aPos; vNor = aNor; vCol = aCol; gl_Position = uVP * vec4(aPos, 1.0); }\n";
-
-    /** Phong as in the reference: emissive 0.3 x colour, ambient 0x111111, one white light, specular 0xa9fcff, shininess 100. */
-    private static final String SCENE_FRAGMENT =
-            "#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n"
-                    + "uniform vec3 uEye; uniform vec3 uLight;\n"
-                    + "varying vec3 vPos; varying vec3 vNor; varying vec3 vCol;\n"
+    /**
+     * OpenGL 1.1's fixed-function lighting, per vertex: one directional white light in eye space at (90, 90, 150),
+     * viewer at infinity, ambient = (global 1.0 + light 0.1) x material ambient, specular only on the lit side.
+     */
+    static final String SCENE_VERTEX =
+            "uniform mat4 uMvp; uniform mat3 uNormal;\n"
+                    + "uniform vec3 uAmbient[" + Materials.COUNT + "]; uniform vec3 uDiffuse[" + Materials.COUNT + "];\n"
+                    + "uniform vec4 uSpecular[" + Materials.COUNT + "];\n"
+                    + "attribute vec3 aPos; attribute vec4 aNorMat;\n"
+                    + "varying vec3 vColor;\n"
+                    // normalize(90, 90, 150), and the half vector between it and the view direction (0, 0, 1).
+                    + "const vec3 L = vec3(0.4574957, 0.4574957, 0.7624929);\n"
+                    + "const vec3 H = vec3(0.2436735, 0.2436735, 0.9387473);\n"
                     + "void main() {\n"
-                    + "  vec3 n = normalize(vNor);\n"
-                    + "  if (!gl_FrontFacing) n = -n;\n"
-                    + "  vec3 v = normalize(uEye - vPos);\n"
-                    + "  vec3 h = normalize(uLight + v);\n"
-                    + "  float diff = max(dot(n, uLight), 0.0);\n"
-                    + "  float spec = pow(max(dot(n, h), 0.0), 48.0) * step(0.0, dot(n, uLight));\n"
-                    + "  vec3 c = vCol * (0.22 + 0.9 * diff) + vec3(1.0) * (0.38 * spec);\n"
-                    + "  gl_FragColor = vec4(c, 1.0);\n"
+                    + "  int m = int(aNorMat.w + 0.5);\n"
+                    + "  vec3 n = normalize(uNormal * (aNorMat.xyz / 127.0));\n"
+                    + "  float d = dot(n, L);\n"
+                    + "  vec3 c = uAmbient[m] + uDiffuse[m] * max(d, 0.0);\n"
+                    + "  if (d > 0.0) c += uSpecular[m].rgb * pow(max(dot(n, H), 0.0), uSpecular[m].a);\n"
+                    + "  vColor = min(c, vec3(1.0));\n"
+                    + "  gl_Position = uMvp * vec4(aPos, 1.0);\n"
                     + "}\n";
+
+    static final String SCENE_FRAGMENT =
+            "precision mediump float;\n"
+                    + "varying vec3 vColor;\n"
+                    + "void main() { gl_FragColor = vec4(vColor, 1.0); }\n";
 
     private static final String OVERLAY_VERTEX =
             "attribute vec2 aPos; void main() { gl_Position = vec4(aPos, 0.0, 1.0); }\n";
+
+    /** Each square of the screen has a fixed random moment in the clear; once the clear passes it, it is black. */
     private static final String OVERLAY_FRAGMENT =
-            "#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n"
-                    + "uniform float uProgress;\n"
+            "precision highp float;\n"
+                    + "uniform float uProgress; uniform float uBlock;\n"
                     + "void main() {\n"
-                    + "  float r = fract(sin(dot(floor(gl_FragCoord.xy), vec2(12.9898, 78.233))) * 43758.5453);\n"
+                    + "  vec2 cell = floor(gl_FragCoord.xy / uBlock);\n"
+                    + "  float r = fract(sin(dot(cell, vec2(12.9898, 78.233))) * 43758.5453);\n"
                     + "  if (r < uProgress) gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); else discard;\n"
                     + "}\n";
 
@@ -509,6 +442,12 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         GLES20.glAttachShader(program, vs);
         GLES20.glAttachShader(program, fs);
         GLES20.glLinkProgram(program);
+        int[] ok = new int[1];
+        GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, ok, 0);
+        if (ok[0] == 0) {
+            throw new IllegalStateException("shader link failed: " + GLES20.glGetProgramInfoLog(program)
+                    + " / " + GLES20.glGetShaderInfoLog(vs) + " / " + GLES20.glGetShaderInfoLog(fs));
+        }
         return program;
     }
 
