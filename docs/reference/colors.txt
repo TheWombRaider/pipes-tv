@@ -1,4 +1,4 @@
-Final frame of each of the 122 scenes; pixels with peak channel between 0.25 and 0.95; chromaticity (r,g,b)/(r+g+b)
+Final frame of each scene (first run: 122 scenes); pixels with peak channel between 0.25 and 0.95; chromaticity (r,g,b)/(r+g+b)
 matched to the nearest of the 24 OpenGL teapot materials' mid-tone (1.1 x ambient + 0.7 x diffuse), accepted within
 a squared distance of 0.004. A material counts as present in a scene if over 8 % of the matched pixels fit it.
 Chromaticity cannot tell grays apart (chrome, silver, white plastic, white rubber) or ruby from red plastic.
@@ -24,3 +24,9 @@ green rubber    yes          12
 red plastic     no            8   (look-alike of ruby)
 green plastic   no            3   (look-alike of emerald)
 yellow rubber   no            2   (look-alike of yellow plastic)
+
+Limits (skeptic review, SKEPTIC.md): within this tolerance 83-91 % of colored pixels per scene (median) fit one of
+the 24 materials, against 33 % for uniformly random RGB colors, so a fixed palette is supported. The remaining
+9-17 % are unmatched and not counted. Silver, white plastic and white rubber have identical chromaticity; pearl is
+within 0.0028 of all three; jade and green rubber are 0.0012 apart; turquoise and cyan rubber 0.0028. So "all 16
+occur" is shown for about 10 of the 16; the rest rest on the source.

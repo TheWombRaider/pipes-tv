@@ -51,8 +51,11 @@ public final class PipeSim {
         public JointMode joints = JointMode.MIXED;
         /** In mixed mode, the chance that a turn is a ball joint rather than an elbow. */
         public float ballChance = 1f / 3f;
-        /** The chance that a turn in mixed mode is the Utah teapot instead. */
-        public float teapotChance = 1f / 1000f;
+        /**
+         * The chance that a turn in mixed mode is the Utah teapot instead. Estimated: the NT sample's 1 in 1000 would
+         * put about 14 teapots in the 31 mixed scenes measured, and there are none; this gives about one scene in 40.
+         */
+        public float teapotChance = 1f / 20000f;
     }
 
     private static final int[][] DIRS = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};

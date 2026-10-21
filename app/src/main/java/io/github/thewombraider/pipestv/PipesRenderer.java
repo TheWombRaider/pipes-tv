@@ -16,7 +16,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Draws the pipes the way the original does (docs/REFERENCE_ANALYSIS.md): a level camera with a 90 degree field of
- * view that turns 9.73 degrees per scene, one white light fixed to the camera from the upper right, the 16 teapot
+ * view that turns 9.73 degrees per scene, one white light fixed to the camera from above and in front, the 16 teapot
  * materials lit per vertex as OpenGL 1.1 did, 8-sided pipes, and a clear that eats the finished picture in small
  * black squares.
  *
@@ -27,8 +27,10 @@ import javax.microedition.khronos.opengles.GL10;
 final class PipesRenderer implements GLSurfaceView.Renderer {
     /** Measured: 30 steps a second (docs/REFERENCE_ANALYSIS.md, Speed). */
     static final float TICKS_PER_SECOND = 30f;
-    /** Measured: the finished picture stays this long before the clear. */
-    private static final float HOLD_SECONDS = 0.2f;
+    /** Measured: the clear takes 0.45 to 0.65 s (median 0.57) in the four recordings that agree with the XP one. */
+    static final float DISSOLVE_SECONDS = 0.57f;
+    /** Source: the finished picture stays for one tick, then the clear starts. */
+    private static final float HOLD_SECONDS = 1f / TICKS_PER_SECOND;
     private final float holdSeconds;
     /** Test only: draw the scene this many times a frame, every frame, to measure how much headroom the GPU has. */
     private final int stressDraws;
@@ -88,7 +90,7 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         this.timeScale = clamp(timeScale > 0f ? timeScale : 1f, 0.1f, 20f);
         android.os.Bundle t = tuning != null ? tuning : new android.os.Bundle();
         // The launch extras exist for testing and any app can send them, so every value is checked.
-        dissolveSeconds = clamp(t.getFloat("dissolve", 1.67f), 0.1f, 60f);
+        dissolveSeconds = clamp(t.getFloat("dissolve", DISSOLVE_SECONDS), 0.1f, 60f);
         holdSeconds = clamp(t.getFloat("hold", HOLD_SECONDS), 0f, 600f);
         stressDraws = (int) clamp(t.getFloat("stress", 1f), 1f, 8f);
         String joints = t.getString("joints", "mixed");
@@ -284,8 +286,8 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         GLES20.glDisable(GLES20.GL_DEPTH_TEST);
         GLES20.glUseProgram(overlay);
         GLES20.glUniform1f(uProgress, Math.min(1f, progress));
-        // Measured: squares about 1/180 of the screen height.
-        GLES20.glUniform1f(uBlock, Math.max(1f, Math.round(height / 180f)));
+        // Measured: squares 1/270 of the screen height (4 pixels at 1080 lines).
+        GLES20.glUniform1f(uBlock, Math.max(1f, Math.round(height / 270f)));
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
         GLES20.glEnableVertexAttribArray(oPos);
         GLES20.glVertexAttribPointer(oPos, 2, GLES20.GL_FLOAT, false, 0, QUAD);
@@ -395,7 +397,7 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
     // ---- shaders ----
 
     /**
-     * OpenGL 1.1's fixed-function lighting, per vertex: one directional white light in eye space at (90, 90, 150),
+     * OpenGL 1.1's fixed-function lighting, per vertex: one directional white light in eye space at (0, 90, 150),
      * viewer at infinity, ambient = (global 1.0 + light 0.1) x material ambient, specular only on the lit side.
      */
     static final String SCENE_VERTEX =
@@ -404,9 +406,9 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
                     + "uniform vec4 uSpecular[" + Materials.COUNT + "];\n"
                     + "attribute vec3 aPos; attribute vec4 aNorMat;\n"
                     + "varying vec3 vColor;\n"
-                    // normalize(90, 90, 150), and the half vector between it and the view direction (0, 0, 1).
-                    + "const vec3 L = vec3(0.4574957, 0.4574957, 0.7624929);\n"
-                    + "const vec3 H = vec3(0.2436735, 0.2436735, 0.9387473);\n"
+                    // normalize(0, 90, 150), and the half vector between it and the view direction (0, 0, 1).
+                    + "const vec3 L = vec3(0.0, 0.5144958, 0.8574929);\n"
+                    + "const vec3 H = vec3(0.0, 0.2669336, 0.9637149);\n"
                     + "void main() {\n"
                     + "  int m = int(aNorMat.w + 0.5);\n"
                     + "  vec3 n = normalize(uNormal * (aNorMat.xyz / 127.0));\n"

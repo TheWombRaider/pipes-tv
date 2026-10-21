@@ -17,6 +17,7 @@ import statistics
 import sys
 
 BLACK = 0.0008
+FLAT = 5e-4
 
 
 def load(path):
@@ -43,9 +44,10 @@ def scenes(rows, fps):
             continue
         lit = [rows[k][0] for k in range(start, end)]
         peak = max(range(len(lit)), key=lambda k: lit[k])
-        # The clear starts at the last frame from which coverage only falls.
+        # The clear starts at the last frame from which coverage only falls. A duplicated or re-encoded frame can
+        # nudge coverage up by a hair, so rises under FLAT do not count.
         k = len(lit) - 1
-        while k > 0 and lit[k - 1] >= lit[k] - 1e-5:
+        while k > 0 and lit[k - 1] >= lit[k] - FLAT:
             k -= 1
         clear = k
         while clear > 0 and lit[clear - 1] - lit[clear] < 0.002 and rows[start + clear][2] == 0:
@@ -55,7 +57,8 @@ def scenes(rows, fps):
             if lit[j] - lit[j + 1] > 0.002:
                 dissolve_from = j
                 break
-        growth = [k for k in range(dissolve_from) if rows[start + k][2] > 0]
+        # New pieces only add to the picture; a frame that changed while coverage fell belongs to the clear.
+        growth = [k for k in range(dissolve_from) if rows[start + k][2] > 0 and (k == 0 or lit[k] >= lit[k - 1] - FLAT)]
         if not growth:
             continue
         last = growth[-1]
