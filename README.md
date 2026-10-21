@@ -2,7 +2,7 @@
 
 A screensaver for Android TV and Google TV that recreates the Windows 3D Pipes screensaver in real-time OpenGL ES 2.0.
 
-![3D Pipes running on a TCL Google TV: coloured pipes growing through a lattice, lit from the upper left on a black background](docs/screenshot.png)
+![3D Pipes: pipes in cyan, pale green, magenta and lime growing through a 3D lattice, seen at an angle in strong perspective on a black background](docs/screenshot.png)
 
 *Not affiliated with or endorsed by Microsoft. "Windows" and the original screensaver belong to Microsoft. This project
 contains no Microsoft code, images or sounds; it was written from observation of public footage.*
