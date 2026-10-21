@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'io.github.thewombraider.pipestv'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'io.github.thewombraider.pipestv'
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Sideloaded over ADB only: signed with the debug key.
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    lint {
+        // Deliberate: this is a sideloaded app that stays on API 34 until it is retested on a newer image.
+        disable 'OldTargetApi'
+        // The icon is a square crop of a real frame, which is what it should be.
+        disable 'IconLauncherShape'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}

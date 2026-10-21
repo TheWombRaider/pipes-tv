@@ -1,0 +1,31 @@
+3D Pipes for Android TV
+=======================
+
+An independent recreation of the look and behaviour of the Windows 3D Pipes screensaver. It contains
+no Microsoft code, images or sounds.
+
+Third-party material
+--------------------
+
+1j01/pipes (MIT, Copyright (c) 2018 Isaiah Odhner) -- https://github.com/1j01/pipes
+  The growth rules (a lattice, straight about half the time, ball joints one third of turns in mixed
+  mode, a teapot joint on rare turns), the ball joint and teapot sizes (1.5 x the pipe radius), and the
+  idea of a dissolve between scenes were read from this project. Its licence text:
+
+    MIT License. Permission is hereby granted, free of charge, to any person obtaining a copy of this
+    software and associated documentation files, to deal in the software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+    sell copies of the software, subject to the above copyright notice and this permission notice being
+    included in all copies or substantial portions of the software. THE SOFTWARE IS PROVIDED "AS IS",
+    WITHOUT WARRANTY OF ANY KIND.
+
+three.js TeapotBufferGeometry (MIT, Eric Haines / three.js authors) -- https://threejs.org
+  tools/gen_teapot.py is a direct port of its Bezier tessellation of the Utah teapot (Martin Newell,
+  1975). app/src/main/assets/teapot.bin is generated from that data.
+
+Reference footage
+-----------------
+
+The look, camera, colours, population and scene timing were measured from public footage of the
+original screensaver, "3d Pipes Screensaver 10 Hours" by DoctorDothraki (https://youtu.be/tCpnDTzRAjE).
+No footage is included in this repository.
