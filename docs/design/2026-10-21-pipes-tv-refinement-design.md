@@ -17,6 +17,7 @@ Date: 2026-10-21. Source: the owner's handwritten notes, transcribed and confirm
 |---|---|
 | Name | "3D Pipes: XP Screensaver for Android TV" in the README title, GitHub description and showcase row. The TV app label and screensaver picker show "3D Pipes". |
 | Slugs | The GitHub repo stays `pipes-tv`; the package ID stays `io.github.thewombraider.pipestv`, so links and installs keep working. |
+| Joint style | Follow-up decision: use multiple pipes and elbow turns by default, matching the 33 measured scenes of the XP recording. Keep spherical end caps and the ball/mixed preview options. The recording establishes its selected setting, not a universal XP-only joint style. |
 | Spelling | US English in every case: color, behavior, gray, center, license. "-our" never stands in for "-or". Third-party license text quoted in NOTICE stays verbatim. |
 | Footage | Public recordings of the original screensaver only. At least three independent recordings, cross-checked. |
 | Original code | Used if a legitimately published copy exists and its license allows it. Never leaked Windows source, never a disassembled `sspipes.scr`. Open recreations (1j01/pipes, xscreensaver's GPL pipes) may be consulted for behavior only; no code is copied. |

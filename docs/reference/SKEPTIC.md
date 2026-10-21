@@ -63,5 +63,5 @@ SspipesSharp port. Checks that needed new code were run from scratch scripts out
 All eleven corrections are made in `docs/REFERENCE_ANALYSIS.md`, `docs/reference/cadence.txt`, `colors.txt` and
 `tools/reference/scenes.py`, and the per-scene tables were regenerated (127 scenes). Point 10 described the app as it
 was before the rebuild that this review ran alongside; the app now uses the values in the table's last column. On
-point 11, the app takes its pipe mode from the XP recording, its joint style from MKqr, and its light and clear from
-the four recordings that agree with the XP one, not from tCpn.
+point 11, the app now takes both its pipe mode and its elbow turns from the XP recording, and its light and clear
+from the four recordings that agree with the XP one, not from tCpn. Mixed joints remain a preview option.

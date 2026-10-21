@@ -30,8 +30,10 @@ no sideways component and clear in about half a second with squares too small to
 majority and the XP recording on both points.
 
 **Settings.** The original had settings for single or multiple pipes and for the joint style. The recordings use
-different combinations. This app uses multiple pipes, as in the XP recording, and mixed joints, as in MKqr, the
-recording that has both.
+different combinations. This app defaults to multiple pipes and elbow turns, matching all 33 measured scenes of
+the XP recording (72z). This establishes that recording's setting, not that XP lacked ball or mixed settings.
+Ball and mixed turns remain available through the preview's `joints` launch option; spherical end caps remain in
+the default mode.
 
 **How to read the Basis column.** *Source* means the value comes from the original program's published rules.
 *Measured* means it was measured in the footage, with the number of scenes. *Observed* means it was seen in frames
@@ -46,8 +48,8 @@ but not counted. *Estimated* means it was inferred where the evidence is indirec
 | Ball joints and end caps | A sphere of radius sqrt(2) x pipe radius / cos(180 deg / sides), about 1.53 x the pipe | Source; observed (8 facets on a close-up ball in MKqr) | Same |
 | Elbows | A quarter torus whose bend radius equals the pipe radius, so the inside of the bend is a sharp crease | Source; observed in every recording | Same |
 | Tessellation | 8 sides on pipes, elbows and balls, with smooth (Gouraud) shading | Source; observed | Same |
-| Joints | A setting: elbows only, balls only, or mixed. In mixed, a turn is a ball 1 time in 3 and an elbow otherwise | Source; observed: mixed in MKqr and tCpn, elbows only in the other three | Mixed |
-| Teapot | The NT sample makes 1 turn in 1000 a Utah teapot in mixed mode. None appear in MKqr's 31 mixed scenes, where that rate would give about 14, so the shipped versions use a lower rate or a different rule. Ten-hour uploads advertise teapots as an occasional event | Source; measured (none in 31 mixed scenes) | Estimated: 1 turn in 20,000, about one scene in 40. Upright, 2.5 pipe radii across the body |
+| Joints | A setting: elbows only, balls only, or mixed. In mixed, a turn is a ball 1 time in 3 and an elbow otherwise | Source; observed: mixed in MKqr and tCpn, elbows only in the other three | Elbow turns by default, matching the XP recording; ball and mixed turns remain preview options |
+| Teapot | The NT sample makes 1 turn in 1000 a Utah teapot in mixed mode. None appear in MKqr's 31 mixed scenes, where that rate would give about 14, so the shipped versions use a lower rate or a different rule. Ten-hour uploads advertise teapots as an occasional event | Source; measured (none in 31 mixed scenes) | No teapot turns in the default elbow mode. Mixed preview: estimated 1 turn in 20,000, about one scene in 40. Upright, 2.5 pipe radii across the body |
 | Turning | Each pipe gets a straight-ahead weight when it starts: 1 to 4 (19 pipes in 20) or 25 to 100 (1 in 20). At each node the pipe goes straight with weight w against 1 for each free turn | Source | Same |
 | Speed | One whole lattice segment per pipe per timer tick, appearing at once (no sliding growth). The NT sample asks for a 16 ms timer, so the rate depends on the machine. Measured on distinct frames: at least 28.7 ticks/s in the XP recording (its 30 fps capture caps it), about 27/s in pBSq, 25/s in tCpn and 23/s in I0hyp. Scene lengths give 25 to 29/s in the multiple-pipe recordings, depending on the chase model | Source; measured | 30 ticks per second: consistent with the XP recording, and an even two refreshes per step on a 60 Hz TV |
 | Pipes per scene | Multiple-pipes mode: 2 to 4 pipes grow at once, 7 in all per scene. Single-pipe mode: one at a time, 5 per scene | Source; measured: 2 to 4 at once in both multiple-pipe recordings, 1 in the others | Multiple pipes |

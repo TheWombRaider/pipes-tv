@@ -48,7 +48,7 @@ public final class PipeSim {
     public static final class Params {
         /** Several pipes at once (7 per scene, 2 to 4 growing together) rather than one at a time (5 per scene). */
         public boolean multiple = true;
-        public JointMode joints = JointMode.MIXED;
+        public JointMode joints = JointMode.ELBOW;
         /** In mixed mode, the chance that a turn is a ball joint rather than an elbow. */
         public float ballChance = 1f / 3f;
         /**

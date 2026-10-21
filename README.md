@@ -25,7 +25,7 @@ project contains no Microsoft code, images or sounds.*
 Pipes grow through a 3D lattice, one whole segment at a time, 30 steps a second:
 
 1. **A scene starts** with two to four pipes at random free spots, each in one of 16 classic materials.
-2. **Each step**, every pipe goes straight or turns 90 degrees into a free node, as an elbow or a ball joint. It
+2. **Each step**, every pipe goes straight or turns 90 degrees into a free node with a tight elbow. It
    never doubles back and never enters a node any pipe has used.
 3. **A trapped pipe** ends in a ball and a new one starts, until seven have run.
 4. **When the last pipe is trapped**, small black squares eat the picture, the view turns 9.73 degrees, and the
@@ -67,15 +67,16 @@ Undo with `AUTO_START default`. This was needed on a TCL 75T7 (Google TV, Androi
 - **The 16 classic materials**, emerald to white rubber, each with its own highlight, lit per vertex by one light
   above the camera.
 - **The level camera** with a 90 degree view, turning 9.73 degrees with each scene.
-- **Chase scenes**, where the pipes follow a leader, and the **Utah teapot** in place of a joint, rarely.
+- **Chase scenes**, where the pipes follow a leader. Ball turns and rare **Utah teapot** turns remain available in
+  the mixed-joint preview mode.
 - **The clear**: small black squares in random order over about half a second.
 
 | | |
 |---|---|
 | ![Red, silver and white pipes filling a lattice seen in perspective](docs/shot-1.jpg) | ![Copper pipes close to the camera, showing tight elbows and ball joints](docs/shot-2.jpg) |
-| *A finished scene* | *Close up: elbows as tight as the pipe, balls at the turns* |
+| *A finished scene (mixed-joint preview)* | *Mixed-joint preview: tight elbows and ball turns* |
 | ![The picture half eaten by small black squares](docs/shot-3.jpg) | ![A copper Utah teapot in place of a joint among the pipes](docs/shot-4.jpg) |
-| *The clear, part way through* | *The teapot, about one scene in 40* |
+| *The clear, part way through* | *The teapot in mixed-joint preview mode* |
 
 ## How faithful it is
 
@@ -91,9 +92,10 @@ Where the recordings disagree, this app follows the Windows XP recording and the
 - **Clear**: 0.57 s. Its speed depended on the machine; one recording takes 1.7 s.
 - **Speed**: 30 steps a second. The original asked for a 16 ms timer and got 23 to 29 steps a second depending on
   the machine.
-- **Settings**: multiple pipes and mixed joints. The original let you choose; the recordings use different choices.
-- **Teapot**: about one scene in 40. The NT sample's 1 turn in 1000 does not match the footage, where none appear
-  in 31 mixed scenes.
+- **Settings**: multiple pipes and elbow turns, matching all 33 measured scenes of the XP recording. The original
+  offered elbow, ball and mixed settings; this identifies the recorded setting, not every XP installation's choice.
+- **Teapot turns**: available in mixed-joint preview mode, at an estimated rate of about one scene in 40. The NT
+  sample's 1 turn in 1000 does not match the footage, where none appear in 31 mixed scenes.
 
 ## Performance
 

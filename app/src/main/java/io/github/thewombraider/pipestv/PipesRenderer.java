@@ -93,8 +93,9 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         dissolveSeconds = clamp(t.getFloat("dissolve", DISSOLVE_SECONDS), 0.1f, 60f);
         holdSeconds = clamp(t.getFloat("hold", HOLD_SECONDS), 0f, 600f);
         stressDraws = (int) clamp(t.getFloat("stress", 1f), 1f, 8f);
-        String joints = t.getString("joints", "mixed");
-        params.joints = "elbow".equals(joints) ? PipeSim.JointMode.ELBOW : "ball".equals(joints) ? PipeSim.JointMode.BALL : PipeSim.JointMode.MIXED;
+        String joints = t.getString("joints");
+        if ("mixed".equals(joints)) params.joints = PipeSim.JointMode.MIXED;
+        else if ("ball".equals(joints)) params.joints = PipeSim.JointMode.BALL;
         params.multiple = !"single".equals(t.getString("pipes", "multiple"));
         rotation = clamp(t.getFloat("turn", 0f), 0f, 360f);
     }

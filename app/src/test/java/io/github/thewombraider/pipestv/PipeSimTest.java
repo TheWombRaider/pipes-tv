@@ -15,6 +15,22 @@ import org.junit.Test;
 public class PipeSimTest {
     private static final float R = PipeSim.RADIUS;
 
+    @Test
+    public void defaultsMatchTheXpRecordingWithMultiplePipesAndElbowTurns() {
+        PipeSim.Params p = new PipeSim.Params();
+        assertTrue(p.multiple);
+        assertEquals(PipeSim.JointMode.ELBOW, p.joints);
+        p.teapotChance = 1f;
+        int balls = 0, elbows = 0;
+        for (PipeSim.Piece piece : scene(new PipeSim(15, 8, 15, new Random(6), p), null)) {
+            if (piece.type == PipeSim.Type.ELBOW) elbows++;
+            if (piece.type == PipeSim.Type.BALL) balls++;
+            if (piece.type == PipeSim.Type.TEAPOT) fail("elbow turns must not use the mixed-mode teapot chance");
+        }
+        assertTrue(elbows > 0);
+        assertEquals("seven pipes retain their start and end caps", 14, balls);
+    }
+
     private static PipeSim.Params params(boolean multiple) {
         PipeSim.Params p = new PipeSim.Params();
         p.multiple = multiple;
@@ -179,6 +195,7 @@ public class PipeSimTest {
     @Test
     public void mixedModeMakesTeapotsWhenAskedTo() {
         PipeSim.Params p = params(true);
+        p.joints = PipeSim.JointMode.MIXED;
         p.teapotChance = 1f;
         boolean teapot = false;
         for (PipeSim.Piece piece : scene(new PipeSim(15, 8, 15, new Random(8), p), null)) teapot |= piece.type == PipeSim.Type.TEAPOT;
