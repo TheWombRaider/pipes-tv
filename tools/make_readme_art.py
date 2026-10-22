@@ -80,7 +80,7 @@ def banner(fonts, hero, out):
 
 def card(fonts, hero, out):
     w = 1600
-    stats = [("127", "SCENES MEASURED"), ("16", "MATERIALS"), ("30", "STEPS A SECOND"), ("181 KB", "APP")]
+    stats = [("184", "SCENES MEASURED"), ("16", "MATERIALS"), ("30", "STEPS A SECOND"), ("181 KB", "APP")]
     pic_w = w - 2 * 90
     pic_h = round(pic_w * hero.height / hero.width)
     h = 300 + pic_h + 90

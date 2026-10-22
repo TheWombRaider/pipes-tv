@@ -1,0 +1,12 @@
+  start   grow  hold dissolve   lit cadence together
+    0.2   51.2  0.07     1.00  0.45     1.0      1.0
+   52.7  154.9  0.07     1.00  0.42     1.0      1.0
+  208.6  139.4  1.13     1.07  0.52     1.0      1.0
+  350.4   66.0  0.63     0.93  0.45     1.0      1.0
+  418.0   60.8  0.80     1.03  0.42     1.0      1.0
+     grow: median 66.00  range 51.22-154.89  n=5
+     hold: median 0.63  range 0.07-1.13  n=5
+ dissolve: median 1.00  range 0.93-1.07  n=5
+      lit: median 0.45  range 0.42-0.52  n=5
+  cadence: median 1.00  range 1.00-1.00  n=5
+ together: median 1.00  range 1.00-1.00  n=5

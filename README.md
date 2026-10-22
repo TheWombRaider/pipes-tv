@@ -11,11 +11,11 @@
 </p>
 
 <p align="center">
-  <img src="docs/card.png" alt="127 scenes measured, 16 materials, 30 steps a second, 181 KB app. A finished scene: gold, silver, copper and turquoise pipes in a lattice seen in strong perspective." width="800">
+  <img src="docs/card.png" alt="184 scenes measured, 16 materials, 30 steps a second, 181 KB app. A finished scene: gold, silver, copper and turquoise pipes in a lattice seen in strong perspective." width="800">
 </p>
 
 **3D Pipes: XP Screensaver for Android TV** is the classic 3D Pipes screensaver as a native screensaver for Android
-TV and Google TV. It follows the original program's own rules, checked against 127 scenes of the real thing.
+TV and Google TV. It follows the original program's own rules, checked against 184 scenes of the real thing.
 
 *Not affiliated with or endorsed by Microsoft. "Windows" and the original screensaver belong to Microsoft. This
 project contains no Microsoft code, images or sounds.*
@@ -24,10 +24,10 @@ project contains no Microsoft code, images or sounds.*
 
 Pipes grow through a 3D lattice, one whole segment at a time, 30 steps a second:
 
-1. **A scene starts** with two to four pipes at random free spots, each in one of 16 classic materials.
-2. **Each step**, every pipe goes straight or turns 90 degrees into a free node with a tight elbow. It
-   never doubles back and never enters a node any pipe has used.
-3. **A trapped pipe** ends in a ball and a new one starts, until seven have run.
+1. **A scene starts** with one pipe at a random free spot, in one of 16 classic materials.
+2. **Each step**, the pipe goes straight or turns 90 degrees into a free node, as a tight elbow or a ball
+   joint (about one turn in three is a ball). It never doubles back and never enters a node it has used.
+3. **A trapped pipe** ends in a ball and a new one starts somewhere else, until five have run.
 4. **When the last pipe is trapped**, small black squares eat the picture, the view turns 9.73 degrees, and the
    next scene begins.
 
@@ -61,41 +61,41 @@ Undo with `AUTO_START default`. This was needed on a TCL 75T7 (Google TV, Androi
 ## What you get
 
 - **The original's rules**: a lattice shaped to your screen (15 x 8 x 15 on a 16:9 TV), pipes that prefer to run
-  straight, two to four at once, and scenes that end when the last pipe is trapped, not on a timer.
+  straight, one at a time, and scenes that end when the last pipe is trapped, not on a timer.
 - **The original's look**: 8-sided pipes with smooth shading, balls one and a half pipes across, elbows as tight as
   the pipe, and no smoothing on the edges, as OpenGL 1.1 drew them.
 - **The 16 classic materials**, emerald to white rubber, each with its own highlight, lit per vertex by one light
-  above the camera.
+  at the upper right.
 - **The level camera** with a 90 degree view, turning 9.73 degrees with each scene.
-- **Chase scenes**, where the pipes follow a leader. Ball turns and rare **Utah teapot** turns remain available in
-  the mixed-joint preview mode.
-- **The clear**: small black squares in random order over about half a second.
+- **Ball joints and elbows mixed**, about one turn in three a ball, as the original does it, and the rare
+  **Utah teapot** in place of a joint.
+- **The clear**: small black squares in random order over about 1.7 seconds.
 
 | | |
 |---|---|
 | ![Red, silver and white pipes filling a lattice seen in perspective](docs/shot-1.jpg) | ![Copper pipes close to the camera, showing tight elbows and ball joints](docs/shot-2.jpg) |
-| *A finished scene (mixed-joint preview)* | *Mixed-joint preview: tight elbows and ball turns* |
+| *A finished scene* | *Close up: tight elbows, ball joints at the turns* |
 | ![The picture half eaten by small black squares](docs/shot-3.jpg) | ![A copper Utah teapot in place of a joint among the pipes](docs/shot-4.jpg) |
-| *The clear, part way through* | *The teapot in mixed-joint preview mode* |
+| *The clear, part way through* | *A teapot in place of a joint (the rate is raised for this picture)* |
 
 ## How faithful it is
 
 Microsoft published the source of 3D Pipes as an OpenGL sample in the Windows NT 4.0 SDK. This app follows that
 program's rules, read from [SspipesSharp](https://github.com/RussDev7/SspipesSharp), a port of the sample (facts only,
-no code copied). Five public recordings, 127 complete scenes, were then measured frame by frame to check each rule
+no code copied). Five public recordings, 184 complete scenes, were then measured frame by frame to check each rule
 and to settle what the source leaves to the machine. An independent reviewer tried to refute every finding; its
 verdicts and the corrections are in [docs/reference/SKEPTIC.md](docs/reference/SKEPTIC.md).
 
-Where the recordings disagree, this app follows the Windows XP recording and the recordings that match it:
+Where the recordings disagree, this app follows the ones that match the original program's code and the way the
+screensaver is remembered: one pipe at a time, mixed joints, light from the upper right. Details and numbers:
 
-- **Light**: from above the camera. The NT sample and one recording light from the upper right.
-- **Clear**: 0.57 s. Its speed depended on the machine; one recording takes 1.7 s.
-- **Speed**: 30 steps a second. The original asked for a 16 ms timer and got 23 to 29 steps a second depending on
+- **Ball joints**: 1 turn in 3, the code's value. Two blind counters measured 0.30 (0.28 to 0.33) in the footage
+  after correcting for their bias on renders of known share ([docs/reference/JOINTS.md](docs/reference/JOINTS.md)).
+- **Teapot turns**: 1 in 1000, the code's rate. The footage agrees once the teapots the counters miss are allowed for.
+- **Speed**: 30 steps a second. Single-pipe scene lengths fit 29.2 (28.0 to 30.5); the original's speed depended on
   the machine.
-- **Settings**: multiple pipes and elbow turns, matching all 33 measured scenes of the XP recording. The original
-  offered elbow, ball and mixed settings; this identifies the recorded setting, not every XP installation's choice.
-- **Teapot turns**: available in mixed-joint preview mode, at an estimated rate of about one scene in 40. The NT
-  sample's 1 turn in 1000 does not match the footage, where none appear in 31 mixed scenes.
+- **Light**: from the upper right, as in the code and one family of recordings. Four recordings are lit from above.
+- **Clear**: 1.7 s in small squares, as in that same family. Four recordings fade in about half a second.
 
 ## Performance
 
@@ -120,8 +120,8 @@ clearance at every turn, and the shapes (sizes, outward-facing triangles, elbow 
 teapot).
 
 **Launch options**: the preview activity takes extras for testing, all clamped:
-`--es pipes multiple|single --es joints mixed|elbow|ball --ef turn 0 --ef teapot 0.00005 --ef timescale 1
---ef dissolve 0.57 --ef hold 0.033 --ef stress 1`. Debuggable builds log frame and scene statistics under the tag
+`--es pipes single|multiple --es joints mixed|elbow|ball --ef ball 0.333 --ef turn 0 --ef teapot 0.001
+--ef timescale 1 --ef dissolve 1.7 --ef hold 0.033 --ef stress 1`. Debuggable builds log frame and scene statistics under the tag
 `XPPipes`.
 
 **Tools**:
