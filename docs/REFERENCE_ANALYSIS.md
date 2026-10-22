@@ -4,7 +4,7 @@ What the original 3D Pipes screensaver does, how each fact was established, and 
 
 ## Sources
 
-**Footage.** Five public recordings of the original, each by a different uploader, downloaded only for analysis and
+**Footage.** Public recordings of the original (five, listed below, then two more uploads of the 10-hour recording), downloaded only for analysis and
 measured frame by frame with the scripts in `tools/reference/`. Nothing downloaded is part of this repository.
 
 | Recording | Uploader's title | Video | Scenes | Pipes | Joints |
@@ -15,7 +15,7 @@ measured frame by frame with the scripts in `tools/reference/`. Nothing download
 | [tCpnDTzRAjE](https://youtu.be/tCpnDTzRAjE) | 3d Pipes Screensaver 10 Hours | 1080p, 30 fps, first 10:00 | 23 | Single | Mixed |
 | [I0hypYunmwI](https://youtu.be/I0hypYunmwI) | Windows 95 Screensaver - 3D PIPES | 1080p, 30 fps, 9:53 | 19 | Single | Elbows |
 
-Four more segments were measured later (tCpn at minutes 60 and 120, and the 3:2 and 4:3 versions of the same upload: 20, 18, 14 and 5 scenes). That is 184 complete scenes in all; scenes cut off by the start or end of a recording are not counted. The per-scene tables
+Seven more segments were measured later (tCpn at minutes 60 and 120, and the 3:2 and 4:3 versions of the same upload: 20, 18, 14 and 5 scenes). That is 184 complete scenes in all, and tCpn was extended to 60 minutes with segments at minutes 180, 240 and 300 (23, 18 and 20 scenes): 245 complete scenes in all; scenes cut off by the start or end of a recording are not counted. The per-scene tables
 are in [`docs/reference/`](reference/).
 
 **The original program.** Microsoft published the source of 3D Pipes as an OpenGL sample in the Windows NT 4.0
@@ -49,10 +49,10 @@ but not counted. *Estimated* means it was inferred where the evidence is indirec
 | Ball joints and end caps | A sphere of radius sqrt(2) x pipe radius / cos(180 deg / sides), about 1.53 x the pipe | Source; observed (8 facets on a close-up ball in MKqr) | Same |
 | Elbows | A quarter torus whose bend radius equals the pipe radius, so the inside of the bend is a sharp crease | Source; observed in every recording | Same |
 | Tessellation | 8 sides on pipes, elbows and balls, with smooth (Gouraud) shading | Source; observed | Same |
-| Joints | A setting: elbows only, balls only, or mixed. In mixed, a turn is a ball 1 time in 3 and an elbow otherwise | Source; observed: mixed in MKqr and tCpn (and tCpn's sibling uploads), elbows only in 72z, pBSq and I0hyp. Measured: two blind counters on 75 final frames of tCpn and its 3:2 version, corrected for their bias on renders of known share, read 0.30 (0.28 to 0.33) ([JOINTS.md](reference/JOINTS.md)) | Mixed, 1 turn in 3: the code's value; the footage sits just under it and compression hides balls slightly |
-| Teapot | 1 turn in 1000 in mixed mode, in the NT sample | Source; measured: counters found 5 and 6 teapots in 75 final frames and miss most that exist (1 or 2 of 8 in renders), which gives about 0.4 per scene, matching 1 in 1000 (0.43). MKqr's 31 scenes show none, which is within what chance and the missed ones allow | 1 turn in 1000. Upright, 2.5 pipe radii in GLAUX units |
+| Joints | A setting: elbows only, balls only, or mixed. In mixed, a turn is a ball 1 time in 3 and an elbow otherwise | Source; observed: mixed in MKqr and tCpn (and tCpn's sibling uploads), elbows only in 72z, pBSq and I0hyp. Measured: two blind counters, over 4,900 turns in 136 frames of tCpn and its 3:2 version, corrected for their bias on renders of known share, read 0.29 to 0.30 (about 0.28 to 0.33); an automatic detector read 0.26 (0.17 to 0.35) ([JOINTS.md](reference/JOINTS.md)) | Mixed, 1 turn in 3: the code's value; the footage sits just under it and compression hides balls slightly |
+| Teapot | 1 turn in 1000 in mixed mode, in the NT sample | Source; measured: counters found 6 to 7 teapots in 136 final frames and miss about 9 in 10 of those that exist (3 to 4 of 38 in renders), which gives about 0.5 per scene (0.1 to 2), matching 1 in 1000 (0.43) and not 1 in 20,000. MKqr's 31 scenes show none, which is within what chance and the missed ones allow. The detector-then-viewing method found none even in renders and was not used | 1 turn in 1000. Upright, 2.5 pipe radii in GLAUX units |
 | Turning | Each pipe gets a straight-ahead weight when it starts: 1 to 4 (19 pipes in 20) or 25 to 100 (1 in 20). At each node the pipe goes straight with weight w against 1 for each free turn | Source | Same |
-| Speed | One whole lattice segment per pipe per timer tick, appearing at once (no sliding growth). The NT sample asks for a 16 ms timer, so the rate depends on the machine. Measured on distinct frames: at least 28.7 ticks/s in the XP recording (its 30 fps capture caps it), about 27/s in pBSq, 25/s in tCpn and 23/s in I0hyp. Scene lengths give 25 to 29/s in the multiple-pipe recordings, depending on the chase model | Source; measured | 30 ticks per second: consistent with the XP recording, and an even two refreshes per step on a 60 Hz TV |
+| Speed | One whole lattice segment per pipe per timer tick, appearing at once (no sliding growth). The NT sample asks for a 16 ms timer, so the rate depends on the machine. Measured three ways: scene lengths of 162 single-pipe scenes fit 29.8 steps a second (95 % interval 28.8 to 31.0), by recording 26.0 to 33.5; growth shows on 77 to 82 % of the frames of the 30 fps recordings (a lower bound, because far growth is invisible) and almost no frame holds two segments (0.4 % of 6,600 near-field blobs), so the recording is not ticking much faster than 30 a second; a direct count of segment lengths gives only that shape. Pipes per scene is not reliably measurable from frame differences ([VERIFICATION.md](reference/VERIFICATION.md)) | Source; measured | 30 steps a second |
 | Pipes per scene | Multiple-pipes mode: 2 to 4 pipes grow at once, 7 in all per scene. Single-pipe mode: one at a time, 5 per scene | Source; measured: 2 to 4 at once in both multiple-pipe recordings, 1 in the others | One pipe at a time, 5 per scene |
 | Chase | In multiple-pipes mode each scene has a 1 in 5 chance of switching on chase, where the other pipes follow a lead pipe; once on, it stays on for the rest of the session | Source; observed (tight, off-center clusters in MKqr's later scenes) | Not used: it needs several pipes (kept in the code for the multiple-pipes option) |
 | Scene end | A scene ends when its last pipe is trapped, not after a fixed time or fill | Source | Same |
@@ -62,7 +62,7 @@ but not counted. *Estimated* means it was inferred where the evidence is indirec
 | Light | One white directional light fixed to the camera, at (90, 90, 150) in eye space: upper right and in front. Four recordings, including the XP one, are lit from straight above instead | Source; measured across all final frames (horizontal offset of the brightest line on straight pipes, corrected for perspective: +0.01, -0.01, +0.01, +0.03 against +0.21 in tCpn) | (90, 90, 150), as in the NT sample and tCpn, computed per vertex as OpenGL 1.1 did, with global ambient 1.0, light ambient 0.1 and the viewer at infinity. Checked on this app's frames with the same measurement |
 | Camera | 90 degree vertical field of view, 75/7 node spacings from the lattice's center, level (no tilt or roll). Each new scene turns the view 9.73156 degrees further around the vertical axis | Source; observed: vertical pipes stay vertical on screen in every recording | Same |
 | Hold | The finished picture stays for about one tick before the clear | Source; measured: median 0.03 to 0.10 s | One tick |
-| Clear | Small black squares in random order eat the frozen picture. The NT sample sizes them by timing the graphics hardware, so both size and duration vary by machine. tCpn: 1.70 s (range 1.60 to 1.77, n = 23; 1.67 s over two later segments), squares 4 pixels across at 1080 lines. The other four recordings fade in 0.45 to 0.65 s | Source; measured | 1.7 s in squares 1/270 of the screen height (4 pixels at 1080 lines) |
+| Clear | Small black squares in random order eat the frozen picture. The NT sample sizes them by timing the graphics hardware, so both size and duration vary by machine, and the recording shows two values: 1.67 s in four segments of tCpn (84 scenes, range 1.57 to 1.77) and 0.9 s in two (38 scenes), 1.0 to 1.2 s in sibling uploads; squares 4 pixels across at 1080 lines. The other four recordings fade in 0.45 to 0.65 s | Source; measured | 1.7 s in squares 1/270 of the screen height (4 pixels at 1080 lines): the more common of the two values |
 | Anti-aliasing | None: the original draws with plain OpenGL 1.1 | Source; observed (stair-stepped edges in close-ups) | None |
 
 ## Corrections
@@ -85,7 +85,7 @@ not match the footage, and the scene count is 127.
 
 ## Later corrections
 
-The default of several pipes with elbows only, and the light from above, followed the XP-titled recording. Taking the recordings as groups, and checking them against the program's code and the maintainer's memory, moved the app to one pipe at a time, mixed joints, light from the upper right and the 1.7 s clear. The ball share, the teapot rate and the speed (29.2 steps a second over 101 single-pipe scenes, 95 % interval 28.0 to 30.5) were measured on the single-pipe recordings; see [reference/JOINTS.md](reference/JOINTS.md).
+The default of several pipes with elbows only, and the light from above, followed the XP-titled recording. Taking the recordings as groups, and checking them against the program's code and the maintainer's memory, moved the app to one pipe at a time, mixed joints, light from the upper right and the 1.7 s clear. The ball share, the teapot rate and the speed (29.8 steps a second over 162 single-pipe scenes, 95 % interval 28.8 to 31.0) were measured on the single-pipe recordings; see [reference/JOINTS.md](reference/JOINTS.md).
 
 ## Skeptic review
 

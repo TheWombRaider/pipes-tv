@@ -11,11 +11,11 @@
 </p>
 
 <p align="center">
-  <img src="docs/card.png" alt="184 scenes measured, 16 materials, 30 steps a second, 181 KB app. A finished scene: teal, green, orange and gray pipes in a lattice seen in strong perspective." width="800">
+  <img src="docs/card.png" alt="245 scenes measured, 16 materials, 30 steps a second, 181 KB app. A finished scene: teal, green, orange and gray pipes in a lattice seen in strong perspective." width="800">
 </p>
 
 **3D Pipes: XP Screensaver for Android TV** is the classic 3D Pipes screensaver as a native screensaver for Android
-TV and Google TV. It follows the original program's own rules, checked against 184 scenes of the real thing.
+TV and Google TV. It follows the original program's own rules, checked against 245 scenes of the real thing.
 
 *Not affiliated with or endorsed by Microsoft. "Windows" and the original screensaver belong to Microsoft. This
 project contains no Microsoft code, images or sounds.*
@@ -82,20 +82,20 @@ Undo with `AUTO_START default`. This was needed on a TCL 75T7 (Google TV, Androi
 
 Microsoft published the source of 3D Pipes as an OpenGL sample in the Windows NT 4.0 SDK. This app follows that
 program's rules, read from [SspipesSharp](https://github.com/RussDev7/SspipesSharp), a port of the sample (facts only,
-no code copied). Five public recordings, 184 complete scenes, were then measured frame by frame to check each rule
+no code copied). Seven public recordings, 245 complete scenes, were then measured frame by frame to check each rule
 and to settle what the source leaves to the machine. An independent reviewer tried to refute every finding; its
 verdicts and the corrections are in [docs/reference/SKEPTIC.md](docs/reference/SKEPTIC.md).
 
 Where the recordings disagree, this app follows the ones that match the original program's code and the way the
 screensaver is remembered: one pipe at a time, mixed joints, light from the upper right. Details and numbers:
 
-- **Ball joints**: 1 turn in 3, the code's value. Two blind counters measured 0.30 (0.28 to 0.33) in the footage
+- **Ball joints**: 1 turn in 3, the code's value. Two blind counters measured 0.29 to 0.30 (about 0.28 to 0.33) in the footage
   after correcting for their bias on renders of known share ([docs/reference/JOINTS.md](docs/reference/JOINTS.md)).
 - **Teapot turns**: 1 in 1000, the code's rate. The footage agrees once the teapots the counters miss are allowed for.
-- **Speed**: 30 steps a second. Single-pipe scene lengths fit 29.2 (28.0 to 30.5); the original's speed depended on
+- **Speed**: 30 steps a second. Single-pipe scene lengths fit 29.8 (28.8 to 31.0); the original's speed depended on
   the machine.
 - **Light**: from the upper right, as in the code and one family of recordings. Four recordings are lit from above.
-- **Clear**: 1.7 s in small squares, as in that same family. Four recordings fade in about half a second.
+- **Clear**: 1.7 s in small squares, as in that same family. Its length depends on the machine: 1.7 s in most of that recording, 0.9 s in some. Four other recordings fade in about half a second.
 
 ## Performance
 
