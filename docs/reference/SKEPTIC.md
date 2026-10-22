@@ -65,3 +65,118 @@ All eleven corrections are made in `docs/REFERENCE_ANALYSIS.md`, `docs/reference
 was before the rebuild that this review ran alongside; the app now uses the values in the table's last column. On
 point 11, the app now takes both its pipe mode and its elbow turns from the XP recording, and its light and clear
 from the four recordings that agree with the XP one, not from tCpn. Mixed joints remain a preview option.
+
+## Second skeptical review (2026-10-22)
+
+The review and response above describe an earlier app. They are preserved as history. In the current app,
+`PipeSim.Params` defaults to single pipes, mixed joints, ball chance 1/3 and teapot chance 1/1000.
+`PipesRenderer` uses 30 ticks/s, the upper-right light and a 1.7 s clear. Mixed joints are the screensaver default.
+The current review inspects committed tables, raw frame statistics, labels, render logs and implementation. It is
+not a new blind labeling round, a new emulator run, or an independent authentication of the shipped XP binary.
+
+### What holds
+
+- **Scene count and label completeness.** The first five tables have 33 + 31 + 21 + 23 + 19 = 127 scenes.
+  Four later tables add 20 + 18 + 14 + 5 = 57, giving 184; the final three add 23 + 18 + 20 = 61, giving **245**.
+  Six tCpn segments hold **122** scenes; adding the 14-frame 3:2 upload gives **136** labeled footage frames.
+  Round 1 has 420 crop IDs and round 2 has 340, covering 190 frames including 54 renders. Each counter has every
+  expected ID exactly once within each round, with no extras. IDs recur across rounds and must be scoped by round.
+- **Ball-share arithmetic.** Round 1 footage counts B/E/T are 1189/1468/5 for A and 1103/1482/6 for B. Round 2
+  counts are 1063/1213/1 and 1039/1172/1. Thus A labels 4,933 ball/elbow turns and B labels 4,796, in the same
+  frames. The existing analysis, with 2,000 frame bootstraps including render resampling, gives:
+
+  | Counter | Round 1 | Round 2 |
+  |---|---|---|
+  | A | 0.301 [0.277, 0.326] | 0.289 [0.266, 0.315] |
+  | B | 0.302 [0.279, 0.329] | 0.301 [0.278, 0.325] |
+
+  These intervals exclude 1/3 narrowly, conditional on calibration transfer and frame resampling assumptions.
+  Detector output is 0.262 [0.169, 0.346], which includes 1/3. Retaining 1/3 follows the approved decision rule;
+  this is not proof that the footage's true share equals 1/3. Shared images and render calibration also mean the
+  methods' systematic errors need not be independent.
+- **App soak counts.** The committed log has 41 completed scenes, 6,733 balls, 13,551 elbows and 17 teapots.
+  Ball share B/(B+E) is 6733/20284 = **0.331937**; teapots per scene are 17/41 = **0.414634**. These describe the
+  app, not the original. Forty consecutive scene-over gaps have median **28.340 s**.
+- **Speed choice after the code correction.** With 3,000 modeled single-pipe scenes at 16:9, the 162 measured
+  single-pipe scenes fit **29.75 ticks/s**, KS **0.07991**. Individual recording/segment fits range from 26.0 to
+  33.5. A fresh pooled bootstrap (seed 3, 200 resamples, order statistics 5 and 194) gives **29.0 to 31.0**.
+  Thirty remains a reasonable configured rate. The interval is conditional on growth detection and the simulation;
+  it omits systematic model and visibility errors. The pooled RNG schedule is specified here rather than inferred
+  from the old rounded 28.8 to 31.0 interval.
+
+### What is refuted or corrected
+
+1. **Teapot population precision and exclusion of 1/20,000 are unsupported.** Round 1's 30 render frames contain
+   8 true teapots, against reported counts of 1 and 2. Round 2's selected 24 render frames contain 30, against
+   reported counts of 2 and 2. Pooled count ratios are therefore **3/38 = 7.89 %** and **4/38 = 10.53 %**.
+   Even treating these as independent true detections gives Wilson 95 % intervals of approximately 2.72 to 20.80 %
+   and 4.17 to 24.13 %. The labels contain no object locations to match reports to truth. False positives remain
+   unknown, and selected teapot-rich renders are not a representative random calibration sample. There is no
+   demonstrated transfer across compression, occlusion, material or projected size. Dividing 6/136 or 7/136 by
+   those ratios gives 0.56 or 0.49 teapots per scene only under these unverified assumptions. It does not yield a
+   defensible population interval of 0.1 to 2 or factor-of-three precision. Neither 1/1000 nor 1/20,000 is established
+   or excluded by these labels. Retain 1/1000 as the code-derived default, with the failed measurement disclosed.
+2. **Mean count and probability were confused.** For a fixed 480 eligible turns at p = 0.001, expected count is
+   **480p = 0.48**. Probability of at least one is **1 - (1-p)^480 = 0.3814**. Neither is 0.43. The observed app soak
+   rate of 0.4146 is a separate sample statistic. At p = 1/20,000 the expected count is 0.024.
+3. **Candidate calibration failed as a pipeline.** There are 246 candidates: 122 render and 124 footage crops.
+   Both viewers report zero positives in renders holding 40 true teapots; footage positives are one and two.
+   These data do not establish sensitivity, a footage population rate, or whether proposal or viewing caused each
+   miss. The earlier assertion that the detector itself almost never proposes real teapots is not demonstrated.
+4. **KS tie handling was wrong.** The former `ks([1, 1], [1, 1])` returned 1 and `ks([1, 2], [1, 2])` returned 0.5,
+   although both exact ECDF distances are zero. It advanced one sample within a shared value before the other.
+   The corrected function consumes the entire tie in both samples before comparing ECDFs. Five regression tests
+   cover identical and unequal samples, disjoint support, undefined empty inputs, an exact fitted rate, and all
+   1,156 pairs of nondecreasing samples of lengths 1 to 4 over {0, 1, 2}, against a direct ECDF calculation.
+5. **Detector levels do not rise monotonically.** The committed density means are 0.0172 near share 0.25 and 0.0151
+   near 0.33. The positive fitted slope and correlation 0.63 do not imply monotonic discrimination at every level.
+   The reported detector interval remains evidence for retaining the default, with transfer bias unquantified.
+6. **Recording grouping and coverage needed qualification.** MKqr has mixed joints despite sharing the upper-center
+   light and fading clear of the three elbow-only recordings. Across the five initial tables, coverage medians
+   range from 31 to 40 %; across all 12 tables they range from 31 to 45 %. Pooled tCpn coverage is 36 %, with
+   10th/90th order statistics 22/50 %. The tables round coverage to two decimals.
+7. **Scene timing did not establish a hardware cause.** Pooled tCpn growth median is **24.9 s**, with segment medians
+   **22.6 to 25.9 s**, from the rounded tables. Subtracting nominal 1.7 s clear plus 1/30 s hold from the app's
+   28.340 s gap median gives about **26.606 s**, roughly 7 % longer. This is an indirect growth estimate, not
+   frame-measured growth. `PipesRenderer.advance` discards older tick deadlines when more than three are due;
+   its scheduled `ticksDone` counter is not an independent count of simulated steps. The code applies to hardware
+   and software rendering alike. No logged discard count attributes the gap to stalls or proves real GPUs avoid it.
+8. **Three independent speed estimates were not achieved.** Near-field blob lengths have visibility and
+   foreshortening biases; their small classified two-segment fraction cannot prove an upper bound of 30 ticks/s.
+   The scene-length fit supplies the quantitative estimate. Changing the assumed number of pipes changes fitted
+   speed, so scene lengths without a reliable rate bound cannot independently prove five pipes per scene.
+
+### Reproduce
+
+From the repository root, with Python 3 and UTF-8 output enabled:
+
+```text
+python -I tools/reference/test_speed_fit.py
+python -I tools/test_teapot.py
+python -I tools/reference/review_evidence.py
+python -I tools/reference/review_evidence.py --speed
+python -X utf8 -I tools/reference/analyze_labels.py docs/reference/labels docs/reference/labels/key.json --bootstrap 2000
+python -X utf8 -I tools/reference/analyze_labels.py docs/reference/labels/round-2 docs/reference/labels/round-2/key.json --bootstrap 2000
+```
+
+`review_evidence.py` uses only the standard library and committed files. The optional speed pass reads gzip frame
+statistics directly; no video, image acquisition, new labels or network access is needed. The default pass checks
+ID coverage and recomputes counts, rounded scene-table summaries, candidates and soak statistics.
+
+### Author's response and remaining limits
+
+The KS fix and focused tests are implemented. README, REFERENCE_ANALYSIS, JOINTS and VERIFICATION now distinguish
+code-derived defaults, model-dependent estimates and unmeasured claims. The teapot interval, rate exclusion and
+claimed precision are withdrawn. The source's single/mixed, 1/3 balls, 1/1000 teapots, light and clear defaults remain.
+The two labeled rounds retain their methods disclosure. No historical spec or first-review text was changed.
+
+Local execution passed all five speed-fit tests, all six teapot tests, the evidence summary/speed pass and both
+2,000-resample label analyses. Native Android checks stopped at the sandbox-denied global Gradle lock; no permission
+change or workaround was attempted. The coordinator separately reports a successful host build, 31 passing JVM
+tests, clean release lint, debug/release assemblies and six passing teapot tests. A clean-clone check remains with
+the coordinator. No app source, TV state, emulator state, showcase, provider authentication or publication changed.
+
+The reviewed soak log is tag-filtered and contains no PSS samples. Earlier memory snapshots, image-based light and
+coverage rows, and a full-system error log are not committed, so flat memory and absence of all errors are not
+independently established here. End-cap confusion, compression matching, teapot false positives, calibration transfer
+and independent speed validation remain unresolved. Fixing the documentation does not complete those measurements.

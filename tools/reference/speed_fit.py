@@ -22,12 +22,16 @@ import sim_model  # noqa: E402
 
 def ks(a, b):
     a, b = sorted(a), sorted(b)
+    if not a or not b:
+        raise ValueError("KS distance requires two nonempty samples")
     i = j = 0
     d = 0.0
-    while i < len(a) and j < len(b):
-        if a[i] <= b[j]:
+    while i < len(a) or j < len(b):
+        x = min(a[i] if i < len(a) else float("inf"), b[j] if j < len(b) else float("inf"))
+        # Both ECDFs jump at a shared value; comparing partway through a tie invents a gap.
+        while i < len(a) and a[i] <= x:
             i += 1
-        else:
+        while j < len(b) and b[j] <= x:
             j += 1
         d = max(d, abs(i / len(a) - j / len(b)))
     return d

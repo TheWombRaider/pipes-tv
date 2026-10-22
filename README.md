@@ -91,8 +91,9 @@ screensaver is remembered: one pipe at a time, mixed joints, light from the uppe
 
 - **Ball joints**: 1 turn in 3, the code's value. Two blind counters measured 0.29 to 0.30 (about 0.28 to 0.33) in the footage
   after correcting for their bias on renders of known share ([docs/reference/JOINTS.md](docs/reference/JOINTS.md)).
-- **Teapot turns**: 1 in 1000, the code's rate. The footage agrees once the teapots the counters miss are allowed for.
-- **Speed**: 30 steps a second. Single-pipe scene lengths fit 29.8 (28.8 to 31.0); the original's speed depended on
+- **Teapot turns**: 1 in 1000, the code's rate. Too few calibration detections and unknown false positives prevent
+  a reliable footage-rate estimate ([limits](docs/reference/JOINTS.md#teapots)).
+- **Speed**: 30 steps a second. Single-pipe scene lengths fit 29.8 (bootstrap interval 29.0 to 31.0); the original's speed depended on
   the machine.
 - **Light**: from the upper right, as in the code and one family of recordings. Four recordings are lit from above.
 - **Clear**: 1.7 s in small squares, as in that same family. Its length depends on the machine: 1.7 s in most of that recording, 0.9 s in some. Four other recordings fade in about half a second.
