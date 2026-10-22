@@ -10,6 +10,7 @@ import java.nio.ByteOrder;
  * vertices per triangle. The renderer moves and turns copies of them into one big batch.
  */
 final class Meshes {
+    static final float TEAPOT_SCALE = 2.5f * PipeSim.RADIUS;
     private Meshes() {}
 
     /** A growable float list. */
@@ -126,18 +127,37 @@ final class Meshes {
 
     /** Reads teapot.bin (see tools/gen_teapot.py) and expands it to a plain triangle list. */
     static float[] teapot(InputStream in) throws IOException {
+        final int maxBytes = 3_000_000;
         java.io.ByteArrayOutputStream bytes = new java.io.ByteArrayOutputStream();
         byte[] chunk = new byte[8192];
-        for (int n; (n = in.read(chunk)) > 0; ) bytes.write(chunk, 0, n);
+        for (int n; (n = in.read(chunk)) != -1; ) {
+            if (n == 0) throw new IOException("teapot: input made no progress");
+            if (bytes.size() > maxBytes - n) throw new IOException("teapot: asset exceeds size limit");
+            bytes.write(chunk, 0, n);
+        }
         byte[] all = bytes.toByteArray();
+        if (all.length < 8) throw new IOException("teapot: truncated header");
         ByteBuffer buf = ByteBuffer.wrap(all).order(ByteOrder.LITTLE_ENDIAN);
         int vertexCount = buf.getInt();
         int indexCount = buf.getInt();
+        if (vertexCount < 1 || vertexCount > 65536 || indexCount < 3 || indexCount > 400_000 || indexCount % 3 != 0) {
+            throw new IOException("teapot: invalid vertex/index counts");
+        }
+        long expected = 8L + vertexCount * 24L + indexCount * 2L;
+        if (expected != all.length) throw new IOException("teapot: expected " + expected + " bytes, found " + all.length);
         float[] verts = new float[vertexCount * 6];
-        for (int i = 0; i < verts.length; i++) verts[i] = buf.getFloat();
+        for (int i = 0; i < verts.length; i++) {
+            verts[i] = buf.getFloat();
+            if (!Float.isFinite(verts[i])) throw new IOException("teapot: nonfinite vertex attribute");
+        }
+        for (int i = 0; i < verts.length; i += 6) {
+            double length2 = verts[i + 3] * verts[i + 3] + verts[i + 4] * verts[i + 4] + verts[i + 5] * verts[i + 5];
+            if (Math.abs(length2 - 1) > 1e-4) throw new IOException("teapot: normal is not unit length");
+        }
         float[] out = new float[indexCount * 6];
         for (int i = 0; i < indexCount; i++) {
             int v = buf.getShort() & 0xFFFF;
+            if (v >= vertexCount) throw new IOException("teapot: index " + v + " exceeds vertex count " + vertexCount);
             System.arraycopy(verts, v * 6, out, i * 6, 6);
         }
         return out;

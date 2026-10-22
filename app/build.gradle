@@ -40,3 +40,21 @@ android {
 dependencies {
     testImplementation 'junit:junit:4.13.2'
 }
+
+def teapotInputs = rootProject.file('tools/teapot')
+def verifyTeapot = tasks.register('verifyTeapot') {
+    inputs.dir(teapotInputs)
+    inputs.file('src/main/assets/teapot.bin')
+    doLast {
+        def manifest = new groovy.json.JsonSlurper().parse(new File(teapotInputs, 'manifest.json'))
+        [
+            (new File(teapotInputs, 'glut_teapot.c')): manifest.source_sha256,
+            (new File(teapotInputs, 'control-points.json')): manifest.data_sha256,
+            (file('src/main/assets/teapot.bin')): manifest.asset_sha256
+        ].each { input, expected ->
+            def actual = java.security.MessageDigest.getInstance('SHA-256').digest(input.bytes).encodeHex().toString()
+            if (actual != expected) throw new GradleException("Teapot hash mismatch: ${input}. Run tools/test_teapot.py before updating the manifest.")
+        }
+    }
+}
+tasks.named('preBuild').configure { dependsOn verifyTeapot }

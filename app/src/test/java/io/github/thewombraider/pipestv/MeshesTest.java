@@ -96,22 +96,22 @@ public class MeshesTest {
     }
 
     @Test
-    public void theTeapotAssetIsTheUtahTeapotFittedBetweenMinusOneAndOne() throws IOException {
+    public void theTeapotAssetPreservesGlauxScaleOriginAndNormals() throws IOException {
         float[] m;
         try (InputStream in = new FileInputStream("src/main/assets/teapot.bin")) {
             m = Meshes.teapot(in);
         }
-        assertEquals("4032 triangles at 8 segments per patch", 4032 * 3 * STRIDE, m.length);
+        assertEquals("12432 triangles at 14 segments per patch", 12432 * 3 * STRIDE, m.length);
+        assertUnitNormals(m);
         float minY = Float.MAX_VALUE, maxY = -Float.MAX_VALUE;
         for (int i = 0; i < m.length; i += STRIDE) {
             minY = Math.min(minY, m[i + 1]);
             maxY = Math.max(maxY, m[i + 1]);
             assertTrue(Float.isFinite(m[i]) && Float.isFinite(m[i + 1]) && Float.isFinite(m[i + 2]));
         }
-        assertEquals(-1f, minY, 1e-3f);
-        assertEquals(1f, maxY, 1e-3f);
-        // A whole teapot, closed and facing out: the spout on one side, the handle on the other, and a positive
-        // enclosed volume. (A sign lost while reading the source data once folded it all into one quarter.)
+        assertEquals(-.75f, minY, 1e-6f);
+        assertEquals(.825f, maxY, 1e-6f);
+        // This catches folded quadrants; independent source-coordinate checks live in tools/test_teapot.py.
         float minX = Float.MAX_VALUE, maxX = -Float.MAX_VALUE;
         double volume = 0;
         for (int i = 0; i < m.length; i += STRIDE) {
@@ -124,9 +124,9 @@ public class MeshesTest {
                     - m[a + 1] * (m[b] * m[c + 2] - m[b + 2] * m[c])
                     + m[a + 2] * (m[b] * m[c + 1] - m[b + 1] * m[c])) / 6.0;
         }
-        assertTrue("handle reaches -x: " + minX, minX < -1.8f);
-        assertTrue("spout reaches +x: " + maxX, maxX > 2.1f);
-        assertTrue("encloses its volume facing out: " + volume, volume > 6.0);
+        assertEquals(-1.5f, minX, 1e-6f);
+        assertEquals(1.71690965f, maxX, 1e-6f);
+        assertTrue("positive signed-volume diagnostic: " + volume, volume > 3.0);
     }
 
     /** The ring of tube-surface points at the start of an elbow, as (cos, sin) pairs relative to the tube center. */

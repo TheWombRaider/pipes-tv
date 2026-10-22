@@ -1,0 +1,18 @@
+{
+  "model": "Utah teapot, classic 32-patch SGI/GLAUX variant",
+  "source_url": "https://raw.githubusercontent.com/markkilgard/glut/8cd96cb440f1f2fac3a154227937be39d06efa53/lib/glut/glut_teapot.c",
+  "source_sha256": "c2831b3bc9fc6a1ae9a4be8bdcc881ca3ed218294b979937e7ac33328bdce4f8",
+  "data_sha256": "0907241027a5e26903e15acdaf5f1b774c3d251b2cd196ae62da987dbba4b3bc",
+  "segments": 14,
+  "transform": "asset = (x/2, (z-1.5)/2, -y/2); world = node + asset*(2.5*pipeRadius)",
+  "fit_lid": false,
+  "glaux_crosscheck": {
+    "revision": "78dfb19b946cebb2e3a7ff124c9daea6f5b78d5a",
+    "url": "https://github.com/tdechaize/Glaux/tree/78dfb19b946cebb2e3a7ff124c9daea6f5b78d5a/src",
+    "header_sha256": "fd5ddfaffbf9d5a3600e8f190d7c2c119ff83a53194d239c59ab204a57696fc3",
+    "code_sha256": "48d52eaf8e31fcfc7b807da08facfdab46134ec04345a41b8306aafbe1ed2158",
+    "tables_equal": true
+  },
+  "xp_provenance": "Classic GLAUX behavior corroborated; exact XP binary model not authenticated.",
+  "asset_sha256": "8ffa0d1b1fcc537387ae36073d0602f0334cea50c140b61be703f4430f0b2234"
+}

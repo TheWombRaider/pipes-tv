@@ -1,123 +1,112 @@
-"""Builds the Utah teapot mesh asset (app/src/main/assets/teapot.bin).
+"""Generate the classic SGI/GLAUX teapot offline. See tools/teapot/README.md.
 
-A direct port of the tessellation in three.js's TeapotBufferGeometry (Eric Haines, MIT; see NOTICE),
-run once at build time so the app only has to read triangles. The teapot data is Martin Newell's.
-
-Usage: python -I tools/gen_teapot.py <TeapotGeometry.js> <out.bin> [segments]
-(three.js r160: examples/jsm/geometries/TeapotGeometry.js)
-File format (little endian): u32 vertexCount, u32 indexCount, then vertexCount * (x y z nx ny nz) float32,
-then indexCount u16 indices. The teapot is scaled to fit vertically between -1 and 1.
+Usage: python -I tools/gen_teapot.py [out.bin] [--segments 14] [--check]
+Format: little-endian u32 vertex/index counts, xyz+normal float32, u16 indices.
+Asset coordinates include GLAUX's half-scale, Z offset -1.5, and 270-degree X turn.
+The renderer supplies only the caller's 2.5 * pipeRadius scale and node translation.
 """
-import re
+import argparse
+import hashlib
+import json
+import math
+from pathlib import Path
 import struct
-import sys
 
-src = open(sys.argv[1], encoding="utf-8").read()
-out = sys.argv[2]
-segments = int(sys.argv[3]) if len(sys.argv) > 3 else 8
+DATA = Path(__file__).resolve().parent / "teapot"
+ASSET = DATA.parents[1] / "app/src/main/assets/teapot.bin"
 
 
-def numbers(name):
-    m = re.search(r"(?:var|const) %s = \[(.*?)\];" % name, src, re.S)
-    body = re.sub(r"/\*.*?\*/", "", m.group(1), flags=re.S)
-    # three.js writes negative numbers with a space after the minus sign ("- 0.784").
-    return [float(x.replace(" ", "")) for x in re.findall(r"-?\s*\d+\.?\d*(?:e-?\d+)?", body)]
+def load_data():
+    manifest = json.loads((DATA / "manifest.json").read_text(encoding="utf-8"))
+    for name, key in (("glut_teapot.c", "source_sha256"), ("control-points.json", "data_sha256")):
+        if hashlib.sha256((DATA / name).read_bytes()).hexdigest() != manifest[key]:
+            raise ValueError(f"{name}: source hash mismatch; review provenance before regeneration")
+    data = json.loads((DATA / "control-points.json").read_text(encoding="utf-8"))
+    points, patches = data["points"], data["patches"]
+    if len(points) != 127 or len(patches) != 10:
+        raise ValueError("expected 127 control points and 10 base patches")
+    if any(len(p) != 3 or not all(math.isfinite(x) for x in p) for p in points):
+        raise ValueError("invalid control point")
+    if any(len(p) != 16 or any(type(i) is not int or not 0 <= i < len(points) for i in p) for p in patches):
+        raise ValueError("invalid patch indices")
+    return points, patches
 
 
-patches = [int(v) for v in numbers("teapotPatches")]
-verts = numbers("teapotVertices")
-assert len(patches) == 32 * 16, len(patches)
-assert len(verts) % 3 == 0
-
-blinn_scale = 1.3
-max_height = 3.15  # blinn = true
-max_height2 = max_height / 2
-true_size = 1.0 / max_height2  # size = 1: fits between -1 and 1
-
-ms = [[-1, 3, -3, 1], [3, -6, 3, 0], [-3, 3, 0, 0], [1, 0, 0, 0]]
-mst = [[ms[c][r] for c in range(4)] for r in range(4)]
+def expanded_patches(points, patches):
+    for base, indices in enumerate(patches):
+        # Reversing the column parameter compensates for each single-axis reflection.
+        for sx, sy, reverse in ((1, 1, False), (1, -1, True), (-1, 1, True), (-1, -1, False))[:4 if base < 6 else 2]:
+            yield [[[points[indices[r * 4 + (3 - c if reverse else c)]][0] * sx,
+                     points[indices[r * 4 + (3 - c if reverse else c)]][1] * sy,
+                     points[indices[r * 4 + (3 - c if reverse else c)]][2]] for c in range(4)] for r in range(4)]
 
 
-def matmul(a, b):
-    return [[sum(a[i][k] * b[k][j] for k in range(4)) for j in range(4)] for i in range(4)]
+def curve(points, t):
+    work = [list(p) for p in points]
+    while len(work) > 1:
+        work = [[(1 - t) * a + t * b for a, b in zip(p, q)] for p, q in zip(work, work[1:])]
+    return work[0]
 
 
-def apply(m, v):
-    return [sum(m[i][j] * v[j] for j in range(4)) for i in range(4)]
+def evaluate(patch, u, v):
+    rows = [curve(row, v) for row in patch]
+    position = curve(rows, u)
+    du = curve([[3 * (b - a) for a, b in zip(p, q)] for p, q in zip(rows, rows[1:])], u)
+    dv = curve([curve([[3 * (b - a) for a, b in zip(p, q)] for p, q in zip(row, row[1:])], v) for row in patch], u)
+    n = [dv[1] * du[2] - dv[2] * du[1], dv[2] * du[0] - dv[0] * du[2], dv[0] * du[1] - dv[1] * du[0]]
+    length = math.sqrt(sum(x * x for x in n))
+    if length < 1e-14:
+        if abs(position[0]) > 1e-12 or abs(position[1]) > 1e-12:
+            raise ValueError(f"unexpected singular surface at {position}")
+        n = [0, 0, 1 if position[2] > 1.5 else -1]
+    else:
+        n = [x / length for x in n]
+    x, y, z = position
+    return (x / 2, (z - 1.5) / 2, -y / 2), (n[0], n[2], -n[1])
 
 
-def dot(a, b):
-    return sum(x * y for x, y in zip(a, b))
+def generate(segments=14):
+    if type(segments) is not int or not 2 <= segments <= 44:
+        raise ValueError("segments must be between 2 and 44 (u16 index limit)")
+    points, patches = load_data()
+    vertices, indices = [], []
+    for patch in expanded_patches(points, patches):
+        start = len(vertices)
+        for row in range(segments + 1):
+            for col in range(segments + 1):
+                p, n = evaluate(patch, row / segments, col / segments)
+                vertices.append(struct.unpack("<6f", struct.pack("<6f", *p, *n)))
+        for row in range(segments):
+            for col in range(segments):
+                a = start + row * (segments + 1) + col
+                b, d = a + 1, a + segments + 1
+                for tri in ((a, b, d + 1), (a, d + 1, d)):
+                    positions = [vertices[i][:3] for i in tri]
+                    if len(set(positions)) == 3:
+                        indices.extend(tri)
+    return (struct.pack("<II", len(vertices), len(indices))
+            + b"".join(struct.pack("<6f", *v) for v in vertices)
+            + struct.pack(f"<{len(indices)}H", *indices))
 
 
-def cross(a, b):
-    return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("output", type=Path, nargs="?", default=ASSET)
+    parser.add_argument("--segments", type=int, default=14)
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args()
+    try:
+        binary = generate(args.segments)
+        if args.check:
+            if args.output.read_bytes() != binary:
+                raise ValueError(f"{args.output}: asset differs from canonical generation")
+        else:
+            args.output.write_bytes(binary)
+    except (ValueError, OSError) as error:
+        parser.exit(1, f"teapot: {error}\n")
+    vertices, indices = struct.unpack_from("<II", binary)
+    print(f"vertices={vertices} triangles={indices // 3} sha256={hashlib.sha256(binary).hexdigest()}")
 
 
-vertices, normals, indices = [], [], []
-per_row = segments + 1
-surf_count = 0
-for surf in range(32):
-    mgm = []
-    for i in range(3):
-        g = [0.0] * 16
-        for r in range(4):
-            for c in range(4):
-                g[c * 4 + r] = verts[patches[surf * 16 + r * 4 + c] * 3 + i]
-                if 20 <= surf < 28 and i != 2:  # fitLid: stretch the lid a little
-                    g[c * 4 + r] *= 1.077
-        gmx = [g[0:4], g[4:8], g[8:12], g[12:16]]
-        mgm.append(matmul(mst, matmul(gmx, ms)))
-    for sstep in range(segments + 1):
-        s = sstep / segments
-        for tstep in range(segments + 1):
-            t = tstep / segments
-            sp, tp, dsp, dtp = [0.0] * 4, [0.0] * 4, [0.0] * 4, [0.0] * 4
-            sval = tval = 1.0
-            dsval = dtval = 0.0
-            for p in (3, 2, 1, 0):
-                sp[p], tp[p] = sval, tval
-                sval *= s
-                tval *= t
-                if p == 3:
-                    dsp[p] = dtp[p] = 0.0
-                    dsval = dtval = 1.0
-                else:
-                    dsp[p] = dsval * (3 - p)
-                    dtp[p] = dtval * (3 - p)
-                    dsval *= s
-                    dtval *= t
-            vert, sdir, tdir = [0.0] * 3, [0.0] * 3, [0.0] * 3
-            for i in range(3):
-                vert[i] = dot(apply(mgm[i], sp), tp)
-                sdir[i] = dot(apply(mgm[i], dsp), tp)
-                tdir[i] = dot(apply(mgm[i], sp), dtp)
-            n = cross(tdir, sdir)
-            length = (n[0] ** 2 + n[1] ** 2 + n[2] ** 2) ** 0.5
-            n = [c / length for c in n] if length else [0.0, 0.0, 0.0]
-            if vert[0] == 0 and vert[1] == 0:
-                nout = [0.0, 1.0 if vert[2] > max_height2 else -1.0, 0.0]
-            else:
-                nout = [n[0], n[2], -n[1]]
-            vertices.append((true_size * vert[0], true_size * (vert[2] - max_height2), -true_size * vert[1]))
-            normals.append(tuple(nout))
-    for sstep in range(segments):
-        for tstep in range(segments):
-            v1 = surf_count * per_row * per_row + sstep * per_row + tstep
-            v2 = v1 + 1
-            v3 = v2 + per_row
-            v4 = v1 + per_row
-            for tri in ((v1, v2, v3), (v1, v3, v4)):
-                a, b, c = (vertices[k] for k in tri)
-                if a != b and a != c and b != c:
-                    indices.extend(tri)
-    surf_count += 1
-
-assert max(indices) < 65536
-with open(out, "wb") as f:
-    f.write(struct.pack("<II", len(vertices), len(indices)))
-    for v, n in zip(vertices, normals):
-        f.write(struct.pack("<6f", *v, *n))
-    f.write(struct.pack("<%dH" % len(indices), *indices))
-ys = [v[1] for v in vertices]
-print("vertices", len(vertices), "triangles", len(indices) // 3, "y range %.3f..%.3f" % (min(ys), max(ys)))
+if __name__ == "__main__":
+    main()

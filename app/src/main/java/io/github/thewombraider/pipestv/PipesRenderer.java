@@ -20,7 +20,7 @@ import javax.microedition.khronos.opengles.GL10;
  * materials lit per vertex as OpenGL 1.1 did, 8-sided pipes, and a clear that eats the finished picture in small
  * black squares.
  *
- * Every piece is final once made, so a scene is one vertex buffer that only ever grows, drawn with one call. The
+ * Pipe pieces share a growing vertex buffer; teapots reuse one mesh buffer with per-node transforms. The
  * picture only changes when the pipes take a step or the clear moves on, so a frame is drawn only then
  * ({@link #nextFrameNanos()}); in between the GPU is idle.
  */
@@ -44,7 +44,7 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
 
     /** Position as three floats, then the normal as three signed bytes and the material index as a fourth. */
     private static final int STRIDE = 16;
-    private static final int BATCH_VERTEX_CAPACITY = 640_000;
+    private int batchVertexCapacity;
 
     private final Context context;
     private final Random random = new Random();
@@ -55,11 +55,16 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
     private PipeSim sim;
 
     private float[] run, ball, elbow, teapot;
-    private int program, vbo;
-    private int aPos, aNorMat, uMvp, uNormal, uAmbient, uDiffuse, uSpecular;
+    private int program, vbo, teapotVbo;
+    private int teapotVertices;
+    private final List<PipeSim.Piece> teapots = new ArrayList<>();
+    private final boolean teapotFixture, fixtureOrtho;
+    private final String fixtureMode;
+    private final int fixtureMaterial;
+    private final float fixturePitch;
+    private int aPos, aNorMat, uMvp, uNormal, uAmbient, uDiffuse, uSpecular, uObject, uMaterial, uDebugNormals;
     private int overlay, oPos, uProgress, uBlock;
     private int batchVertices;
-    private boolean batchFull;
 
     private final float[] proj = new float[16];
     private final float[] view = new float[16];
@@ -89,6 +94,12 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         if (teapotChance >= 0f) params.teapotChance = Math.min(1f, teapotChance);
         this.timeScale = clamp(timeScale > 0f ? timeScale : 1f, 0.1f, 20f);
         android.os.Bundle t = tuning != null ? tuning : new android.os.Bundle();
+        teapotFixture = debuggable && "teapot".equals(t.getString("fixture"));
+        fixtureOrtho = t.getBoolean("ortho", true);
+        fixtureMode = debuggable ? t.getString("meshview", "solid") : "solid";
+        fixtureMaterial = (int) clamp(t.getInt("material", 0), 0, Materials.COUNT - 1);
+        fixturePitch = teapotFixture ? clamp(t.getFloat("pitch", 0f), -90f, 90f) : 0f;
+        if (debuggable && t.containsKey("seed")) random.setSeed(t.getLong("seed"));
         // The launch extras exist for testing and any app can send them, so every value is checked.
         dissolveSeconds = clamp(t.getFloat("dissolve", DISSOLVE_SECONDS), 0.1f, 60f);
         holdSeconds = clamp(t.getFloat("hold", HOLD_SECONDS), 0f, 600f);
@@ -98,6 +109,10 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         else if ("ball".equals(joints)) params.joints = PipeSim.JointMode.BALL;
         params.multiple = !"single".equals(t.getString("pipes", "multiple"));
         rotation = clamp(t.getFloat("turn", 0f), 0f, 360f);
+    }
+
+    static int sceneVertexCapacity(int nodes, int runVertices, int jointVertices) {
+        return Math.addExact(Math.multiplyExact(nodes, Math.addExact(runVertices, jointVertices)), 14 * jointVertices);
     }
 
     private static float clamp(float v, float lo, float hi) {
@@ -121,7 +136,9 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         elbow = Meshes.torusQuarter(PipeSim.RADIUS, PipeSim.RADIUS, SIDES / 2, SIDES);
         try (InputStream in = context.getAssets().open("teapot.bin")) {
             teapot = Meshes.teapot(in);
-        } catch (Exception e) {
+        } catch (java.io.IOException e) {
+            android.util.Log.e("XPPipes", "Teapot asset failed to load; using sphere", e);
+            if (debuggable) throw new IllegalStateException("Invalid teapot asset", e);
             teapot = ball;
         }
 
@@ -133,6 +150,9 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         uAmbient = GLES20.glGetUniformLocation(program, "uAmbient");
         uDiffuse = GLES20.glGetUniformLocation(program, "uDiffuse");
         uSpecular = GLES20.glGetUniformLocation(program, "uSpecular");
+        uObject = GLES20.glGetUniformLocation(program, "uObject");
+        uMaterial = GLES20.glGetUniformLocation(program, "uMaterial");
+        uDebugNormals = GLES20.glGetUniformLocation(program, "uDebugNormals");
         overlay = link(OVERLAY_VERTEX, OVERLAY_FRAGMENT);
         oPos = GLES20.glGetAttribLocation(overlay, "aPos");
         uProgress = GLES20.glGetUniformLocation(overlay, "uProgress");
@@ -158,7 +178,22 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         GLES20.glGenBuffers(1, buffers, 0);
         vbo = buffers[0];
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo);
-        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, BATCH_VERTEX_CAPACITY * STRIDE, null, GLES20.GL_STATIC_DRAW);
+        // Store the dense mesh once. Per-node copies would exhaust the scene batch in forced-teapot tests.
+        GLES20.glGenBuffers(1, buffers, 0);
+        teapotVbo = buffers[0];
+        upload.clear();
+        boolean wire = teapotFixture && "wire".equals(fixtureMode);
+        int[] order = wire ? new int[] {0, 6, 6, 12, 12, 0} : new int[] {0, 6, 12};
+        for (int i = 0; i < teapot.length; i += 18) {
+            for (int offset : order) {
+                int j = i + offset;
+                vertex(teapot[j], teapot[j + 1], teapot[j + 2], teapot[j + 3], teapot[j + 4], teapot[j + 5], 0);
+            }
+        }
+        teapotVertices = upload.position() / STRIDE;
+        upload.flip();
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, teapotVbo);
+        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, upload.remaining(), upload, GLES20.GL_STATIC_DRAW);
         // The surface may be new after a pause, and its buffer is empty: start the scene over.
         sim = null;
     }
@@ -169,8 +204,19 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         height = Math.max(1, h);
         GLES20.glViewport(0, 0, width, height);
         Matrix.perspectiveM(proj, 0, FIELD_OF_VIEW, width / (float) height, NEAR_PLANE, 4f * CAMERA_DISTANCE);
+        if (teapotFixture) {
+            float aspect = width / (float) height;
+            float halfY = 2.1f * Math.max(1f, 1f / aspect);
+            if (fixtureOrtho) Matrix.orthoM(proj, 0, -halfY * aspect, halfY * aspect, -halfY, halfY, .1f, 20f);
+            else Matrix.perspectiveM(proj, 0, 45f, aspect, .1f, 20f);
+        }
         int[] lattice = PipeSim.latticeFor(width, height);
         sim = new PipeSim(lattice[0], lattice[1], lattice[2], random, params);
+        // At most one run and one joint per claimed node, plus two caps per starting pipe.
+        batchVertexCapacity = sceneVertexCapacity(lattice[0] * lattice[1] * lattice[2], run.length / 6,
+                Math.max(ball.length, elbow.length) / 6);
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo);
+        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, batchVertexCapacity * STRIDE, null, GLES20.GL_STATIC_DRAW);
         startScene(System.nanoTime(), false);
     }
 
@@ -180,30 +226,39 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
             if (rotation >= 360f) rotation -= 360f;
         }
         Matrix.setIdentityM(view, 0);
-        Matrix.translateM(view, 0, 0f, 0f, -CAMERA_DISTANCE);
+        Matrix.translateM(view, 0, 0f, 0f, teapotFixture ? -6f : -CAMERA_DISTANCE);
+        Matrix.rotateM(view, 0, fixturePitch, 1f, 0f, 0f);
         Matrix.rotateM(view, 0, rotation, 0f, 1f, 0f);
         Matrix.multiplyMM(mvp, 0, proj, 0, view, 0);
         // The view only turns, so its upper 3 x 3 turns normals into eye space.
         for (int c = 0; c < 3; c++) System.arraycopy(view, c * 4, normal, c * 3, 3);
         sim.reset();
         batchVertices = 0;
-        batchFull = false;
+        teapots.clear();
         phase = Phase.GROW;
         phaseStart = now;
         ticksDone = 0;
-        upload();
+        if (teapotFixture) {
+            PipeSim.Piece p = new PipeSim.Piece(PipeSim.Type.TEAPOT, fixtureMaterial);
+            teapots.add(p);
+            nextFrame = Long.MAX_VALUE;
+        } else upload();
     }
 
     @Override
     public void onDrawFrame(GL10 unused) {
         long now = System.nanoTime();
         if (sim == null) return;
-        advance(now);
+        if (!teapotFixture) advance(now);
         for (int i = 0; i < stressDraws; i++) {
             GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
             drawScene();
         }
         if (phase == Phase.DISSOLVE) drawDissolve(seconds(now - phaseStart) / dissolveSeconds);
+        if (debuggable) {
+            int error = GLES20.glGetError();
+            if (error != GLES20.GL_NO_ERROR) throw new IllegalStateException("OpenGL error: 0x" + Integer.toHexString(error));
+        }
         stats(System.nanoTime() - now, now);
     }
 
@@ -255,13 +310,18 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
     private void upload() {
         drained.clear();
         sim.drain(drained);
-        if (drained.isEmpty() || batchFull) return;
+        if (drained.isEmpty()) return;
         upload.clear();
         int count = 0;
-        for (PipeSim.Piece p : drained) count += write(p);
-        if (batchVertices + count > BATCH_VERTEX_CAPACITY) {
-            batchFull = true;
-            return;
+        for (PipeSim.Piece p : drained) {
+            if (p.type == PipeSim.Type.TEAPOT) continue;
+            count = Math.addExact(count, p.type == PipeSim.Type.RUN ? run.length / 6
+                    : p.type == PipeSim.Type.BALL ? ball.length / 6 : elbow.length / 6);
+        }
+        if (count > batchVertexCapacity - batchVertices) throw new IllegalStateException("Scene exceeds proven vertex bound");
+        for (PipeSim.Piece p : drained) {
+            if (p.type == PipeSim.Type.TEAPOT) teapots.add(p);
+            else write(p);
         }
         upload.flip();
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo);
@@ -270,16 +330,31 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
     }
 
     private void drawScene() {
-        if (batchVertices == 0) return;
+        if (batchVertices == 0 && teapots.isEmpty()) return;
         GLES20.glUseProgram(program);
         GLES20.glUniformMatrix4fv(uMvp, 1, false, mvp, 0);
         GLES20.glUniformMatrix3fv(uNormal, 1, false, normal, 0);
+        GLES20.glUniform4f(uObject, 0f, 0f, 0f, 1f);
+        GLES20.glUniform1f(uMaterial, -1f);
+        GLES20.glUniform1f(uDebugNormals, teapotFixture && "normals".equals(fixtureMode) ? 1f : 0f);
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo);
         GLES20.glEnableVertexAttribArray(aPos);
         GLES20.glEnableVertexAttribArray(aNorMat);
         GLES20.glVertexAttribPointer(aPos, 3, GLES20.GL_FLOAT, false, STRIDE, 0);
         GLES20.glVertexAttribPointer(aNorMat, 4, GLES20.GL_BYTE, false, STRIDE, 12);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, batchVertices);
+        if (!teapots.isEmpty()) {
+            GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, teapotVbo);
+            GLES20.glVertexAttribPointer(aPos, 3, GLES20.GL_FLOAT, false, STRIDE, 0);
+            GLES20.glVertexAttribPointer(aNorMat, 4, GLES20.GL_BYTE, false, STRIDE, 12);
+            float scale = teapotFixture ? 1f : Meshes.TEAPOT_SCALE;
+            for (PipeSim.Piece p : teapots) {
+                GLES20.glUniform4f(uObject, p.x, p.y, p.z, scale);
+                GLES20.glUniform1f(uMaterial, p.material);
+                GLES20.glDrawArrays(teapotFixture && "wire".equals(fixtureMode) ? GLES20.GL_LINES : GLES20.GL_TRIANGLES,
+                        0, teapotVertices);
+            }
+        }
     }
 
     /** The original's clear: the frozen picture is eaten by small black squares in random order. */
@@ -310,7 +385,7 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         statsWorstNanos = Math.max(statsWorstNanos, drawNanos);
         if (now - statsStart > 5_000_000_000L) {
             android.util.Log.i("XPPipes", "frames=" + statsFrames + " in " + (now - statsStart) / 1_000_000 + "ms worstCpuMs="
-                    + statsWorstNanos / 1e6f + " vertices=" + batchVertices + " used=" + sim.usedFraction() + " phase=" + phase);
+                    + statsWorstNanos / 1e6f + " vertices=" + batchVertices + " teapots=" + teapots.size() + " used=" + sim.usedFraction() + " phase=" + phase);
             statsStart = now;
             statsFrames = 0;
             statsWorstNanos = 0;
@@ -326,8 +401,7 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
             case BALL:
                 return writeScaled(ball, p, PipeSim.RADIUS * PipeSim.BALL_SCALE);
             case TEAPOT:
-                // GLAUX's teapot at 2.5 x the pipe radius: its body is 2.5 pipe radii across; the asset's is 1.27.
-                return writeScaled(teapot, p, 2.5f * PipeSim.RADIUS / 1.27f);
+                throw new IllegalArgumentException("Teapots use the shared mesh buffer");
             default:
                 return writeElbow(p);
         }
@@ -402,7 +476,7 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
      * viewer at infinity, ambient = (global 1.0 + light 0.1) x material ambient, specular only on the lit side.
      */
     static final String SCENE_VERTEX =
-            "uniform mat4 uMvp; uniform mat3 uNormal;\n"
+            "uniform mat4 uMvp; uniform mat3 uNormal; uniform vec4 uObject; uniform float uMaterial; uniform float uDebugNormals;\n"
                     + "uniform vec3 uAmbient[" + Materials.COUNT + "]; uniform vec3 uDiffuse[" + Materials.COUNT + "];\n"
                     + "uniform vec4 uSpecular[" + Materials.COUNT + "];\n"
                     + "attribute vec3 aPos; attribute vec4 aNorMat;\n"
@@ -411,13 +485,13 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
                     + "const vec3 L = vec3(0.0, 0.5144958, 0.8574929);\n"
                     + "const vec3 H = vec3(0.0, 0.2669336, 0.9637149);\n"
                     + "void main() {\n"
-                    + "  int m = int(aNorMat.w + 0.5);\n"
+                    + "  int m = int((uMaterial < 0.0 ? aNorMat.w : uMaterial) + 0.5);\n"
                     + "  vec3 n = normalize(uNormal * (aNorMat.xyz / 127.0));\n"
                     + "  float d = dot(n, L);\n"
                     + "  vec3 c = uAmbient[m] + uDiffuse[m] * max(d, 0.0);\n"
                     + "  if (d > 0.0) c += uSpecular[m].rgb * pow(max(dot(n, H), 0.0), uSpecular[m].a);\n"
-                    + "  vColor = min(c, vec3(1.0));\n"
-                    + "  gl_Position = uMvp * vec4(aPos, 1.0);\n"
+                    + "  vColor = uDebugNormals > 0.5 ? n * 0.5 + 0.5 : min(c, vec3(1.0));\n"
+                    + "  gl_Position = uMvp * vec4(aPos * uObject.w + uObject.xyz, 1.0);\n"
                     + "}\n";
 
     static final String SCENE_FRAGMENT =

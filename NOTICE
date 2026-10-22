@@ -21,9 +21,18 @@ OpenGL "teapots" material table (Silicon Graphics, Inc.)
   materials from the classic material table in SGI's teapots.c OpenGL sample, the table the original screensaver
   uses.
 
+Utah teapot (Martin Newell, University of Utah), classic SGI/GLAUX variant
+  tools/teapot/control-points.json preserves the patch/control-point tables from the pinned SGI/GLUT source
+  in tools/teapot/glut_teapot.c (Silicon Graphics, Inc. / Mark J. Kilgard). See tools/teapot/manifest.json for
+  the source revision, hashes, and GLAUX comparison. tools/gen_teapot.py independently evaluates the patches
+  to produce app/src/main/assets/teapot.bin. No modern lid enlargement or mesh repair is applied.
+  The full source notice is in tools/teapot/LICENSE-SGI.txt and app/src/main/assets/teapot-notices.txt.
+  Historical model archive: https://graphics.cs.utah.edu/teapot/
+
 three.js TeapotGeometry (MIT, Eric Haines / three.js authors) -- https://threejs.org
-  tools/gen_teapot.py is a direct port of its Bezier tessellation of the Utah teapot (Martin Newell, 1975).
-  app/src/main/assets/teapot.bin is generated from that data.
+  Earlier versions used a port of the three.js tessellator. The current generator was rewritten around
+  canonical SGI data and an independent evaluator. The MIT notice is retained in tools/teapot/LICENSE-threejs.txt
+  and app/src/main/assets/teapot-notices.txt.
 
 Earlier versions of this project followed 1j01/pipes (MIT, Isaiah Odhner) -- https://github.com/1j01/pipes
   None of that material remains in the current code.

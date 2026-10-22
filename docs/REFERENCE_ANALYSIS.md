@@ -49,7 +49,7 @@ but not counted. *Estimated* means it was inferred where the evidence is indirec
 | Elbows | A quarter torus whose bend radius equals the pipe radius, so the inside of the bend is a sharp crease | Source; observed in every recording | Same |
 | Tessellation | 8 sides on pipes, elbows and balls, with smooth (Gouraud) shading | Source; observed | Same |
 | Joints | A setting: elbows only, balls only, or mixed. In mixed, a turn is a ball 1 time in 3 and an elbow otherwise | Source; observed: mixed in MKqr and tCpn, elbows only in the other three | Elbow turns by default, matching the XP recording; ball and mixed turns remain preview options |
-| Teapot | The NT sample makes 1 turn in 1000 a Utah teapot in mixed mode. None appear in MKqr's 31 mixed scenes, where that rate would give about 14, so the shipped versions use a lower rate or a different rule. Ten-hour uploads advertise teapots as an occasional event | Source; measured (none in 31 mixed scenes) | No teapot turns in the default elbow mode. Mixed preview: estimated 1 turn in 20,000, about one scene in 40. Upright, 2.5 pipe radii across the body |
+| Teapot | The NT sample makes 1 turn in 1000 a Utah teapot in mixed mode. None appear in MKqr's 31 mixed scenes, where that rate would give about 14, so the shipped versions use a lower rate or a different rule. Ten-hour uploads advertise teapots as an occasional event | Source; measured (none in 31 mixed scenes) | No teapot turns in the default elbow mode. Mixed preview: estimated 1 turn in 20,000, about one scene in 40. Upright, classic GLAUX model at caller scale 2.5 pipe radii (body diameter about 5 radii); boxed-in starts also produce a teapot |
 | Turning | Each pipe gets a straight-ahead weight when it starts: 1 to 4 (19 pipes in 20) or 25 to 100 (1 in 20). At each node the pipe goes straight with weight w against 1 for each free turn | Source | Same |
 | Speed | One whole lattice segment per pipe per timer tick, appearing at once (no sliding growth). The NT sample asks for a 16 ms timer, so the rate depends on the machine. Measured on distinct frames: at least 28.7 ticks/s in the XP recording (its 30 fps capture caps it), about 27/s in pBSq, 25/s in tCpn and 23/s in I0hyp. Scene lengths give 25 to 29/s in the multiple-pipe recordings, depending on the chase model | Source; measured | 30 ticks per second: consistent with the XP recording, and an even two refreshes per step on a 60 Hz TV |
 | Pipes per scene | Multiple-pipes mode: 2 to 4 pipes grow at once, 7 in all per scene. Single-pipe mode: one at a time, 5 per scene | Source; measured: 2 to 4 at once in both multiple-pipe recordings, 1 in the others | Multiple pipes |
@@ -87,3 +87,21 @@ not match the footage, and the scene count is 127.
 An independent reviewer was given only the per-scene tables, the cadence counts and the claims, and asked to refute
 each. Its verdicts are in [`docs/reference/SKEPTIC.md`](reference/SKEPTIC.md); every correction it asked for is made
 above.
+
+## Teapot geometry audit (2026-10-21)
+
+The teapot now uses pinned classic SGI patch/control-point tables, cross-checked numerically with a public
+GLAUX archive. Both have 10 base patches and 127 points, reflected to 32 patches. The GLAUX solid path specifies
+14 intervals per patch edge, a half-scale, a raw Z translation of -1.5, and a 270-degree X rotation. The previous
+three.js-derived asset used eight intervals, centered height at 1.575, and enlarged the lid by 7.7%. Those
+adjustments have been removed. The model retains the historical lid gap and component intersections.
+
+The app supplies the existing caller scale of 2.5 pipe radii after the GLAUX transform. Earlier wording that
+called this the body diameter was wrong: the body spans about five pipe radii. Teapots share one GPU mesh,
+rather than inserting a complete mesh copy into the pipe batch at each node. Normals and winding are converted
+to the renderer's outward/CCW convention; back-face culling remains enabled.
+
+This verifies the selected published classic model, not exact XP binary provenance. The public GLAUX archive
+corroborates the implementation; it does not authenticate Microsoft's shipped XP data or driver rasterization.
+Source revisions, hashes, generation instructions, independent checks, and limits are recorded in
+[tools/teapot/README.md](../tools/teapot/README.md). See [teapot QA](teapot-qa.md) for execution evidence.

@@ -132,10 +132,12 @@ teapot).
 - `tools/frame_timing.py`: frame timing and CPU on a device.
 - `tools/score_frames.py`: ranks candidate screenshots.
 - `tools/make_readme_art.py`: draws the banner, card and screenshots.
-- `tools/gen_teapot.py`: builds `teapot.bin` from three.js's teapot data.
+- `tools/gen_teapot.py`: builds `teapot.bin` offline from pinned classic SGI/GLAUX data.
+- `tools/test_teapot.py`: checks the geometry against an independent source-data evaluator.
+- [Teapot source and QA](tools/teapot/README.md): provenance, inspection fixtures, and validation.
 
 ## Credits and license
 
 MIT, see [LICENSE](LICENSE). Third-party material and credits are in [NOTICE](NOTICE): the original's rules as
-documented by SspipesSharp, the classic OpenGL teapot materials, the Utah teapot from three.js's `TeapotGeometry`
-(MIT, Eric Haines) and Martin Newell's teapot data, and the look of the Clean Your TV README.
+documented by SspipesSharp, the classic OpenGL teapot materials, Martin Newell's Utah teapot in its classic SGI/GLAUX form
+(with the SGI source notice and earlier three.js MIT notice preserved), and the look of the Clean Your TV README.
