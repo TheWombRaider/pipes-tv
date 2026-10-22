@@ -2,6 +2,7 @@ package io.github.thewombraider.pipestv;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -16,19 +17,33 @@ public class PipeSimTest {
     private static final float R = PipeSim.RADIUS;
 
     @Test
-    public void defaultsMatchTheXpRecordingWithMultiplePipesAndElbowTurns() {
+    public void defaultsAreOnePipeAtATimeWithBallsAndElbowsMixed() {
         PipeSim.Params p = new PipeSim.Params();
-        assertTrue(p.multiple);
-        assertEquals(PipeSim.JointMode.ELBOW, p.joints);
-        p.teapotChance = 1f;
-        int balls = 0, elbows = 0;
-        for (PipeSim.Piece piece : scene(new PipeSim(15, 8, 15, new Random(6), p), null)) {
-            if (piece.type == PipeSim.Type.ELBOW) elbows++;
-            if (piece.type == PipeSim.Type.BALL) balls++;
-            if (piece.type == PipeSim.Type.TEAPOT) fail("elbow turns must not use the mixed-mode teapot chance");
+        assertFalse("one pipe grows at a time", p.multiple);
+        assertEquals(PipeSim.JointMode.MIXED, p.joints);
+        assertEquals("a turn is a ball joint 1 time in 3", 1f / 3f, p.ballChance, 1e-6f);
+    }
+
+    @Test
+    public void thePipeGrowsAloneAndSceneTurnsMixBallsAndElbowsInTheDefaultShare() {
+        PipeSim.Params p = new PipeSim.Params();
+        p.teapotChance = 0f;
+        PipeSim sim = new PipeSim(15, 8, 15, new Random(21), p);
+        long balls = 0, elbows = 0;
+        for (int s = 0; s < 100; s++) {
+            int growing = 0;
+            while (!sim.isOver()) {
+                sim.tick();
+                growing = Math.max(growing, sim.growingPipes());
+            }
+            assertTrue("never more than one pipe growing, saw " + growing, growing <= 1);
+            int[] t = sim.turns();
+            balls += t[0];
+            elbows += t[1];
+            sim.reset();
         }
-        assertTrue(elbows > 0);
-        assertEquals("seven pipes retain their start and end caps", 14, balls);
+        double share = balls / (double) (balls + elbows);
+        assertTrue("ball share " + share + " of " + (balls + elbows) + " turns", Math.abs(share - 1.0 / 3.0) < 0.02);
     }
 
     private static PipeSim.Params params(boolean multiple) {

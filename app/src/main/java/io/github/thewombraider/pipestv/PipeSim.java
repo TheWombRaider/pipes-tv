@@ -47,15 +47,16 @@ public final class PipeSim {
 
     public static final class Params {
         /** Several pipes at once (7 per scene, 2 to 4 growing together) rather than one at a time (5 per scene). */
-        public boolean multiple = true;
-        public JointMode joints = JointMode.ELBOW;
+        public boolean multiple = false;
+        public JointMode joints = JointMode.MIXED;
         /** In mixed mode, the chance that a turn is a ball joint rather than an elbow. */
         public float ballChance = 1f / 3f;
         /**
-         * The chance that a turn in mixed mode is the Utah teapot instead. Estimated: the NT sample's 1 in 1000 would
-         * put about 14 teapots in the 31 mixed scenes measured, and there are none; this gives about one scene in 40.
+         * The chance that a turn in mixed mode is the Utah teapot instead: 1 in 1000, as in the original's code. The
+         * footage agrees: counters found teapots in the single-pipe recordings at about the rate that rate predicts
+         * once the many they miss are allowed for (docs/reference/JOINTS.md).
          */
-        public float teapotChance = 1f / 20000f;
+        public float teapotChance = 1f / 1000f;
     }
 
     private static final int[][] DIRS = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
@@ -70,6 +71,7 @@ public final class PipeSim {
     private final List<Piece> fresh = new ArrayList<>();
     private final List<Pipe> pipes = new ArrayList<>();
     private int quota;
+    private int turnBalls, turnElbows, turnTeapots;
     private int started;
     private boolean chase;
     private Pipe lead;
@@ -115,6 +117,7 @@ public final class PipeSim {
         pipes.clear();
         over = false;
         lead = null;
+        turnBalls = turnElbows = turnTeapots = 0;
         quota = 5;
         int together = 1;
         if (params.multiple) {
@@ -132,6 +135,18 @@ public final class PipeSim {
             start(pipe);
             started++;
         }
+    }
+
+    /** How many turns of this scene were ball joints, elbows and teapots (the boxed-in start teapot is not a turn). */
+    public int[] turns() {
+        return new int[] {turnBalls, turnElbows, turnTeapots};
+    }
+
+    /** How many pipes are growing right now (not trapped). */
+    public int growingPipes() {
+        int n = 0;
+        for (Pipe pipe : pipes) if (!pipe.stuck) n++;
+        return n;
     }
 
     /** True once the last pipe of the scene is trapped. */
@@ -254,6 +269,9 @@ public final class PipeSim {
                 if (rng.nextFloat() < params.teapotChance) type = Type.TEAPOT;
                 else type = rng.nextFloat() < params.ballChance ? Type.BALL : Type.ELBOW;
         }
+        if (type == Type.BALL) turnBalls++;
+        else if (type == Type.TEAPOT) turnTeapots++;
+        else turnElbows++;
         if (type != Type.ELBOW) {
             addAt(type, pipe.x, pipe.y, pipe.z, pipe.material);
             return;
