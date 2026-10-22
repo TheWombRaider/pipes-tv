@@ -1,0 +1,16 @@
+teapot calibration on 92 render frames holding 40 teapots: big bulges = 1.28 + 0.11 x teapots; correlation 0.04
+calibration on 92 render frames: density = 0.0089 + 0.0207 x share; correlation 0.63
+  true share near 0.00: mean density 0.0081 over 14 frames
+  true share near 0.25: mean density 0.0172 over 8 frames
+  true share near 0.33: mean density 0.0151 over 36 frames
+  true share near 0.50: mean density 0.0200 over 10 frames
+  true share near 0.67: mean density 0.0225 over 14 frames
+  true share near 1.00: mean density 0.0293 over 10 frames
+                tCpn_0:  23 frames, mean density 0.0145 -> ball share 0.274 [0.105, 0.452]; big bulges 0.57 a frame -> -6.22 teapots a scene
+               tCpn_1h:  20 frames, mean density 0.0141 -> ball share 0.250 [0.106, 0.392]; big bulges 0.55 a frame -> -6.35 teapots a scene
+               tCpn_2h:  18 frames, mean density 0.0141 -> ball share 0.252 [0.075, 0.435]; big bulges 1.22 a frame -> -0.47 teapots a scene
+               tCpn_3h:  23 frames, mean density 0.0148 -> ball share 0.286 [0.138, 0.423]; big bulges 1.04 a frame -> -2.04 teapots a scene
+               tCpn_4h:  18 frames, mean density 0.0135 -> ball share 0.221 [0.049, 0.390]; big bulges 0.56 a frame -> -6.31 teapots a scene
+               tCpn_5h:  20 frames, mean density 0.0155 -> ball share 0.320 [0.157, 0.510]; big bulges 0.85 a frame -> -3.73 teapots a scene
+                 GG_32:  14 frames, mean density 0.0130 -> ball share 0.200 [0.021, 0.349]; big bulges 1.93 a frame -> 5.70 teapots a scene
+  all footage together: 136 frames, mean density 0.0143 -> ball share 0.262 [0.169, 0.346]; big bulges 0.91 a frame -> -3.19 teapots a scene

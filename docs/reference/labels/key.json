@@ -1,0 +1,3422 @@
+{
+ "8bd3804a": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 0,
+  "truth": null
+ },
+ "f6e0e2f9": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 1,
+  "truth": null
+ },
+ "62868085": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 2,
+  "truth": null
+ },
+ "9490fc96": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 3,
+  "truth": null
+ },
+ "da0e88ca": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 0,
+  "truth": null
+ },
+ "f899fad0": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 1,
+  "truth": null
+ },
+ "02c50aa5": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 2,
+  "truth": null
+ },
+ "fae0f661": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 3,
+  "truth": null
+ },
+ "6194674c": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 0,
+  "truth": null
+ },
+ "6785a1bb": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 1,
+  "truth": null
+ },
+ "506a9c03": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 2,
+  "truth": null
+ },
+ "a35f4b54": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 3,
+  "truth": null
+ },
+ "a4a29922": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 0,
+  "truth": null
+ },
+ "3bb3c76e": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 1,
+  "truth": null
+ },
+ "7b5ad4ca": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 2,
+  "truth": null
+ },
+ "6626f6fc": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 3,
+  "truth": null
+ },
+ "67da5926": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 0,
+  "truth": null
+ },
+ "000873b0": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 1,
+  "truth": null
+ },
+ "e88deb97": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 2,
+  "truth": null
+ },
+ "383e0d1f": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 3,
+  "truth": null
+ },
+ "04a48522": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 0,
+  "truth": null
+ },
+ "0dcc1e1f": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 1,
+  "truth": null
+ },
+ "ae685856": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 2,
+  "truth": null
+ },
+ "9feaebe5": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 3,
+  "truth": null
+ },
+ "962bbddf": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 0,
+  "truth": null
+ },
+ "a115a0a4": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 1,
+  "truth": null
+ },
+ "0fd92473": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 2,
+  "truth": null
+ },
+ "1ec3deed": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 3,
+  "truth": null
+ },
+ "7633bd04": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 0,
+  "truth": null
+ },
+ "68976f27": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 1,
+  "truth": null
+ },
+ "172b1107": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 2,
+  "truth": null
+ },
+ "1bed86b3": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 3,
+  "truth": null
+ },
+ "4ee0a7fb": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 0,
+  "truth": null
+ },
+ "c0beb061": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 1,
+  "truth": null
+ },
+ "d91626d4": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 2,
+  "truth": null
+ },
+ "ac67db6a": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 3,
+  "truth": null
+ },
+ "4255b442": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 0,
+  "truth": null
+ },
+ "cc08d6d9": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 1,
+  "truth": null
+ },
+ "2dc2a0ab": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 2,
+  "truth": null
+ },
+ "240933f2": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 3,
+  "truth": null
+ },
+ "270f15dd": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 0,
+  "truth": null
+ },
+ "1e537477": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 1,
+  "truth": null
+ },
+ "f958c88d": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 2,
+  "truth": null
+ },
+ "efa58c47": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 3,
+  "truth": null
+ },
+ "a6edda33": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 0,
+  "truth": null
+ },
+ "0e1cfd4e": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 1,
+  "truth": null
+ },
+ "1d407fe2": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 2,
+  "truth": null
+ },
+ "b4ca3416": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 3,
+  "truth": null
+ },
+ "0cd247fc": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 0,
+  "truth": null
+ },
+ "bc1d7c1f": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 1,
+  "truth": null
+ },
+ "e862d0a6": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 2,
+  "truth": null
+ },
+ "40d1b0f8": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 3,
+  "truth": null
+ },
+ "2b8f90b8": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 0,
+  "truth": null
+ },
+ "5b9c4ccd": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 1,
+  "truth": null
+ },
+ "bef44fe9": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 2,
+  "truth": null
+ },
+ "b8bf85b6": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 3,
+  "truth": null
+ },
+ "03455615": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 0,
+  "truth": null
+ },
+ "dcf571f9": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 1,
+  "truth": null
+ },
+ "9681a072": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 2,
+  "truth": null
+ },
+ "8ef3d934": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 3,
+  "truth": null
+ },
+ "5db93a83": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 0,
+  "truth": null
+ },
+ "479c1c43": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 1,
+  "truth": null
+ },
+ "8755eb6d": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 2,
+  "truth": null
+ },
+ "1b1b8c6c": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 3,
+  "truth": null
+ },
+ "27009238": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 0,
+  "truth": null
+ },
+ "1a74c9d3": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 1,
+  "truth": null
+ },
+ "4d9697d3": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 2,
+  "truth": null
+ },
+ "ce4c194d": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 3,
+  "truth": null
+ },
+ "7604e779": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 0,
+  "truth": null
+ },
+ "15ff0222": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 1,
+  "truth": null
+ },
+ "db26dd30": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 2,
+  "truth": null
+ },
+ "f74aec91": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 3,
+  "truth": null
+ },
+ "19ceeebe": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s18",
+  "quadrant": 0,
+  "truth": null
+ },
+ "90621cac": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s18",
+  "quadrant": 1,
+  "truth": null
+ },
+ "37282e31": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s18",
+  "quadrant": 2,
+  "truth": null
+ },
+ "91567fe8": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s18",
+  "quadrant": 3,
+  "truth": null
+ },
+ "657dd008": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s19",
+  "quadrant": 0,
+  "truth": null
+ },
+ "a412c250": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s19",
+  "quadrant": 1,
+  "truth": null
+ },
+ "1859eabd": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s19",
+  "quadrant": 2,
+  "truth": null
+ },
+ "cebd0a1f": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s19",
+  "quadrant": 3,
+  "truth": null
+ },
+ "f8602e8f": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s20",
+  "quadrant": 0,
+  "truth": null
+ },
+ "62003550": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s20",
+  "quadrant": 1,
+  "truth": null
+ },
+ "6c813bc9": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s20",
+  "quadrant": 2,
+  "truth": null
+ },
+ "cf8d3480": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s20",
+  "quadrant": 3,
+  "truth": null
+ },
+ "341c7631": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s21",
+  "quadrant": 0,
+  "truth": null
+ },
+ "a770fb91": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s21",
+  "quadrant": 1,
+  "truth": null
+ },
+ "03dfee24": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s21",
+  "quadrant": 2,
+  "truth": null
+ },
+ "282608fa": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s21",
+  "quadrant": 3,
+  "truth": null
+ },
+ "54371107": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s22",
+  "quadrant": 0,
+  "truth": null
+ },
+ "8e862981": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s22",
+  "quadrant": 1,
+  "truth": null
+ },
+ "ab5bbad5": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s22",
+  "quadrant": 2,
+  "truth": null
+ },
+ "aed65dbc": {
+  "source": "tCpn_0",
+  "kind": "footage",
+  "frame": "s22",
+  "quadrant": 3,
+  "truth": null
+ },
+ "4458ed43": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 0,
+  "truth": null
+ },
+ "a4c30196": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 1,
+  "truth": null
+ },
+ "ba8321b6": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 2,
+  "truth": null
+ },
+ "c6364605": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 3,
+  "truth": null
+ },
+ "9d06c2e0": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 0,
+  "truth": null
+ },
+ "9903826b": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 1,
+  "truth": null
+ },
+ "07b7621c": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 2,
+  "truth": null
+ },
+ "cc01881e": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 3,
+  "truth": null
+ },
+ "12d3f4bc": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 0,
+  "truth": null
+ },
+ "b3a52bca": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 1,
+  "truth": null
+ },
+ "4373c4fe": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 2,
+  "truth": null
+ },
+ "86eeb45c": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 3,
+  "truth": null
+ },
+ "3ddef4f8": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 0,
+  "truth": null
+ },
+ "be0491aa": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 1,
+  "truth": null
+ },
+ "9e8b152f": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 2,
+  "truth": null
+ },
+ "536b8f59": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 3,
+  "truth": null
+ },
+ "f257fbe9": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 0,
+  "truth": null
+ },
+ "415259b8": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 1,
+  "truth": null
+ },
+ "5074a648": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 2,
+  "truth": null
+ },
+ "b58a7797": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 3,
+  "truth": null
+ },
+ "2d5c7305": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 0,
+  "truth": null
+ },
+ "0bee12ec": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 1,
+  "truth": null
+ },
+ "86d99488": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 2,
+  "truth": null
+ },
+ "45537d8f": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 3,
+  "truth": null
+ },
+ "eb9be015": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 0,
+  "truth": null
+ },
+ "407a84f7": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 1,
+  "truth": null
+ },
+ "15c71f76": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 2,
+  "truth": null
+ },
+ "8465433f": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 3,
+  "truth": null
+ },
+ "5f47b5b7": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 0,
+  "truth": null
+ },
+ "b8786bc1": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 1,
+  "truth": null
+ },
+ "1100d60a": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 2,
+  "truth": null
+ },
+ "9b5b1c30": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 3,
+  "truth": null
+ },
+ "b6483729": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 0,
+  "truth": null
+ },
+ "8e81b350": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 1,
+  "truth": null
+ },
+ "34f13b21": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 2,
+  "truth": null
+ },
+ "480086f5": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 3,
+  "truth": null
+ },
+ "ab4e2373": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 0,
+  "truth": null
+ },
+ "3aa71dd9": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 1,
+  "truth": null
+ },
+ "3784aa96": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 2,
+  "truth": null
+ },
+ "0e5b4185": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 3,
+  "truth": null
+ },
+ "d0543e77": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 0,
+  "truth": null
+ },
+ "f6edca1f": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 1,
+  "truth": null
+ },
+ "016687c3": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 2,
+  "truth": null
+ },
+ "8d9f1d23": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 3,
+  "truth": null
+ },
+ "77650a57": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 0,
+  "truth": null
+ },
+ "37cc1446": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 1,
+  "truth": null
+ },
+ "2e675b15": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 2,
+  "truth": null
+ },
+ "2692cc60": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 3,
+  "truth": null
+ },
+ "21fadfca": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 0,
+  "truth": null
+ },
+ "b8d88a27": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 1,
+  "truth": null
+ },
+ "83ec09e1": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 2,
+  "truth": null
+ },
+ "d4a4840e": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 3,
+  "truth": null
+ },
+ "f7196948": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 0,
+  "truth": null
+ },
+ "e681b0d0": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 1,
+  "truth": null
+ },
+ "c7e17f16": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 2,
+  "truth": null
+ },
+ "7819ceba": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 3,
+  "truth": null
+ },
+ "82211d8b": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 0,
+  "truth": null
+ },
+ "589f6a15": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 1,
+  "truth": null
+ },
+ "2c318975": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 2,
+  "truth": null
+ },
+ "8f75dab9": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 3,
+  "truth": null
+ },
+ "4f503793": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 0,
+  "truth": null
+ },
+ "d2478ad6": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 1,
+  "truth": null
+ },
+ "df74c5f4": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 2,
+  "truth": null
+ },
+ "6f22ca2f": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 3,
+  "truth": null
+ },
+ "deb0e8a9": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 0,
+  "truth": null
+ },
+ "d6cc3230": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 1,
+  "truth": null
+ },
+ "390512e9": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 2,
+  "truth": null
+ },
+ "7ae35a85": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 3,
+  "truth": null
+ },
+ "98747381": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 0,
+  "truth": null
+ },
+ "82541c2e": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 1,
+  "truth": null
+ },
+ "5f4770ba": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 2,
+  "truth": null
+ },
+ "f2e30212": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 3,
+  "truth": null
+ },
+ "b2f6f1c1": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s18",
+  "quadrant": 0,
+  "truth": null
+ },
+ "733a2aed": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s18",
+  "quadrant": 1,
+  "truth": null
+ },
+ "fe70115f": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s18",
+  "quadrant": 2,
+  "truth": null
+ },
+ "0ead80ad": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s18",
+  "quadrant": 3,
+  "truth": null
+ },
+ "27d29b33": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s19",
+  "quadrant": 0,
+  "truth": null
+ },
+ "63c7085a": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s19",
+  "quadrant": 1,
+  "truth": null
+ },
+ "3fe6530e": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s19",
+  "quadrant": 2,
+  "truth": null
+ },
+ "c4696a92": {
+  "source": "tCpn_1h",
+  "kind": "footage",
+  "frame": "s19",
+  "quadrant": 3,
+  "truth": null
+ },
+ "479162d6": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 0,
+  "truth": null
+ },
+ "4a387fb6": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 1,
+  "truth": null
+ },
+ "26bc1352": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 2,
+  "truth": null
+ },
+ "5db98472": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 3,
+  "truth": null
+ },
+ "72d47023": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 0,
+  "truth": null
+ },
+ "a294599b": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 1,
+  "truth": null
+ },
+ "b55946a5": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 2,
+  "truth": null
+ },
+ "171f987a": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 3,
+  "truth": null
+ },
+ "465791d5": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 0,
+  "truth": null
+ },
+ "75c90e80": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 1,
+  "truth": null
+ },
+ "e0b10207": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 2,
+  "truth": null
+ },
+ "a6fc9ea4": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 3,
+  "truth": null
+ },
+ "53ebcfaa": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 0,
+  "truth": null
+ },
+ "2b8a8181": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 1,
+  "truth": null
+ },
+ "bc06773e": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 2,
+  "truth": null
+ },
+ "3952891b": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 3,
+  "truth": null
+ },
+ "5398db16": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 0,
+  "truth": null
+ },
+ "0c21179f": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 1,
+  "truth": null
+ },
+ "3661eee5": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 2,
+  "truth": null
+ },
+ "5e07e986": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 3,
+  "truth": null
+ },
+ "abe0e59e": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 0,
+  "truth": null
+ },
+ "f6faba3f": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 1,
+  "truth": null
+ },
+ "b6267644": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 2,
+  "truth": null
+ },
+ "a756c7e3": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 3,
+  "truth": null
+ },
+ "41bd8b44": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 0,
+  "truth": null
+ },
+ "848704bd": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 1,
+  "truth": null
+ },
+ "cacaf1cd": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 2,
+  "truth": null
+ },
+ "011972cb": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 3,
+  "truth": null
+ },
+ "caa7c7fb": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 0,
+  "truth": null
+ },
+ "e1cc9799": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 1,
+  "truth": null
+ },
+ "8d9e16f9": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 2,
+  "truth": null
+ },
+ "c735f33d": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 3,
+  "truth": null
+ },
+ "c1b1c368": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 0,
+  "truth": null
+ },
+ "a3ecb29d": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 1,
+  "truth": null
+ },
+ "25cac542": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 2,
+  "truth": null
+ },
+ "c240d4d7": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 3,
+  "truth": null
+ },
+ "ad822aad": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 0,
+  "truth": null
+ },
+ "b5ed22f1": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 1,
+  "truth": null
+ },
+ "a1ef5d09": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 2,
+  "truth": null
+ },
+ "b6fba179": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 3,
+  "truth": null
+ },
+ "3422364a": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 0,
+  "truth": null
+ },
+ "1ff821ec": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 1,
+  "truth": null
+ },
+ "4668be21": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 2,
+  "truth": null
+ },
+ "0b930941": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 3,
+  "truth": null
+ },
+ "82c305de": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 0,
+  "truth": null
+ },
+ "11f4bfe7": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 1,
+  "truth": null
+ },
+ "b086784d": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 2,
+  "truth": null
+ },
+ "3c391d7f": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 3,
+  "truth": null
+ },
+ "d2f77f01": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 0,
+  "truth": null
+ },
+ "9259344c": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 1,
+  "truth": null
+ },
+ "1c3966c0": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 2,
+  "truth": null
+ },
+ "1a86f0eb": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 3,
+  "truth": null
+ },
+ "c49e19c3": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 0,
+  "truth": null
+ },
+ "b03c8dfa": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 1,
+  "truth": null
+ },
+ "c495baa4": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 2,
+  "truth": null
+ },
+ "695de7f9": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 3,
+  "truth": null
+ },
+ "97f45142": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 0,
+  "truth": null
+ },
+ "df3506c7": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 1,
+  "truth": null
+ },
+ "cc899543": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 2,
+  "truth": null
+ },
+ "e90f0333": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s14",
+  "quadrant": 3,
+  "truth": null
+ },
+ "f13ee355": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 0,
+  "truth": null
+ },
+ "9a4ff0b9": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 1,
+  "truth": null
+ },
+ "8e125251": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 2,
+  "truth": null
+ },
+ "514bd3b8": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s15",
+  "quadrant": 3,
+  "truth": null
+ },
+ "934bc7c2": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 0,
+  "truth": null
+ },
+ "61c4b193": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 1,
+  "truth": null
+ },
+ "54917daf": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 2,
+  "truth": null
+ },
+ "84e890b6": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s16",
+  "quadrant": 3,
+  "truth": null
+ },
+ "42175826": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 0,
+  "truth": null
+ },
+ "52820d25": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 1,
+  "truth": null
+ },
+ "eb38aad8": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 2,
+  "truth": null
+ },
+ "55ca5b49": {
+  "source": "tCpn_2h",
+  "kind": "footage",
+  "frame": "s17",
+  "quadrant": 3,
+  "truth": null
+ },
+ "caefd61d": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 0,
+  "truth": null
+ },
+ "1c799650": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 1,
+  "truth": null
+ },
+ "d5277cef": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 2,
+  "truth": null
+ },
+ "09432c8d": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s00",
+  "quadrant": 3,
+  "truth": null
+ },
+ "41a6a8d4": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 0,
+  "truth": null
+ },
+ "d217b9b7": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 1,
+  "truth": null
+ },
+ "0a0bce65": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 2,
+  "truth": null
+ },
+ "8d5b01e5": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s01",
+  "quadrant": 3,
+  "truth": null
+ },
+ "60a83985": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 0,
+  "truth": null
+ },
+ "3188d4ce": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 1,
+  "truth": null
+ },
+ "7f59cfab": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 2,
+  "truth": null
+ },
+ "f475cffb": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s02",
+  "quadrant": 3,
+  "truth": null
+ },
+ "e8779ce2": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 0,
+  "truth": null
+ },
+ "b8628645": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 1,
+  "truth": null
+ },
+ "48afb11e": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 2,
+  "truth": null
+ },
+ "fed6b59e": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s03",
+  "quadrant": 3,
+  "truth": null
+ },
+ "9bd25719": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 0,
+  "truth": null
+ },
+ "3c607f41": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 1,
+  "truth": null
+ },
+ "02388229": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 2,
+  "truth": null
+ },
+ "543e4702": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s04",
+  "quadrant": 3,
+  "truth": null
+ },
+ "9e702b82": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 0,
+  "truth": null
+ },
+ "a920096f": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 1,
+  "truth": null
+ },
+ "616edb38": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 2,
+  "truth": null
+ },
+ "104402f2": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s05",
+  "quadrant": 3,
+  "truth": null
+ },
+ "12b98183": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 0,
+  "truth": null
+ },
+ "1e346513": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 1,
+  "truth": null
+ },
+ "20508e29": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 2,
+  "truth": null
+ },
+ "1f48a8a3": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s06",
+  "quadrant": 3,
+  "truth": null
+ },
+ "01ec0e33": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 0,
+  "truth": null
+ },
+ "cb2608a6": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 1,
+  "truth": null
+ },
+ "270cd083": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 2,
+  "truth": null
+ },
+ "fb7ed5fe": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s07",
+  "quadrant": 3,
+  "truth": null
+ },
+ "8a1b4e55": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 0,
+  "truth": null
+ },
+ "e0c45c2b": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 1,
+  "truth": null
+ },
+ "2beaaf51": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 2,
+  "truth": null
+ },
+ "1e3800d2": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s08",
+  "quadrant": 3,
+  "truth": null
+ },
+ "9b2825d6": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 0,
+  "truth": null
+ },
+ "c8e50d73": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 1,
+  "truth": null
+ },
+ "443d3ce9": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 2,
+  "truth": null
+ },
+ "69391d8c": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s09",
+  "quadrant": 3,
+  "truth": null
+ },
+ "7b1381a3": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 0,
+  "truth": null
+ },
+ "2d722abb": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 1,
+  "truth": null
+ },
+ "b4ffa00f": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 2,
+  "truth": null
+ },
+ "e7e0a85c": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s10",
+  "quadrant": 3,
+  "truth": null
+ },
+ "0c8f3eea": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 0,
+  "truth": null
+ },
+ "bcb7b536": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 1,
+  "truth": null
+ },
+ "475a480f": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 2,
+  "truth": null
+ },
+ "6d1a60c6": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s11",
+  "quadrant": 3,
+  "truth": null
+ },
+ "3c5a3087": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 0,
+  "truth": null
+ },
+ "045bed15": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 1,
+  "truth": null
+ },
+ "2b1589d2": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 2,
+  "truth": null
+ },
+ "a378f59b": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s12",
+  "quadrant": 3,
+  "truth": null
+ },
+ "c0efcb39": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 0,
+  "truth": null
+ },
+ "74f0818b": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 1,
+  "truth": null
+ },
+ "6e6da9f1": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 2,
+  "truth": null
+ },
+ "388adc45": {
+  "source": "GG_32",
+  "kind": "footage",
+  "frame": "s13",
+  "quadrant": 3,
+  "truth": null
+ },
+ "26aef7ce": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_1",
+  "quadrant": 0,
+  "truth": [
+   153,
+   331,
+   0
+  ]
+ },
+ "71580c8a": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_1",
+  "quadrant": 1,
+  "truth": [
+   153,
+   331,
+   0
+  ]
+ },
+ "7b05d45f": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_1",
+  "quadrant": 2,
+  "truth": [
+   153,
+   331,
+   0
+  ]
+ },
+ "3be5a8e6": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_1",
+  "quadrant": 3,
+  "truth": [
+   153,
+   331,
+   0
+  ]
+ },
+ "9fa54e12": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_10",
+  "quadrant": 0,
+  "truth": [
+   221,
+   413,
+   1
+  ]
+ },
+ "911ce0a9": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_10",
+  "quadrant": 1,
+  "truth": [
+   221,
+   413,
+   1
+  ]
+ },
+ "d5d29958": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_10",
+  "quadrant": 2,
+  "truth": [
+   221,
+   413,
+   1
+  ]
+ },
+ "56a9d24e": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_10",
+  "quadrant": 3,
+  "truth": [
+   221,
+   413,
+   1
+  ]
+ },
+ "1da8aebe": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_2",
+  "quadrant": 0,
+  "truth": [
+   162,
+   327,
+   0
+  ]
+ },
+ "a7c33ac0": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_2",
+  "quadrant": 1,
+  "truth": [
+   162,
+   327,
+   0
+  ]
+ },
+ "26852e13": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_2",
+  "quadrant": 2,
+  "truth": [
+   162,
+   327,
+   0
+  ]
+ },
+ "8fb4706e": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_2",
+  "quadrant": 3,
+  "truth": [
+   162,
+   327,
+   0
+  ]
+ },
+ "6e2eda20": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_3",
+  "quadrant": 0,
+  "truth": [
+   142,
+   303,
+   0
+  ]
+ },
+ "e6eef77d": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_3",
+  "quadrant": 1,
+  "truth": [
+   142,
+   303,
+   0
+  ]
+ },
+ "531fbe15": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_3",
+  "quadrant": 2,
+  "truth": [
+   142,
+   303,
+   0
+  ]
+ },
+ "15d22a46": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_3",
+  "quadrant": 3,
+  "truth": [
+   142,
+   303,
+   0
+  ]
+ },
+ "a3a1f817": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_4",
+  "quadrant": 0,
+  "truth": [
+   121,
+   229,
+   0
+  ]
+ },
+ "e09bc69f": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_4",
+  "quadrant": 1,
+  "truth": [
+   121,
+   229,
+   0
+  ]
+ },
+ "7457d7a7": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_4",
+  "quadrant": 2,
+  "truth": [
+   121,
+   229,
+   0
+  ]
+ },
+ "3c1ab34d": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_4",
+  "quadrant": 3,
+  "truth": [
+   121,
+   229,
+   0
+  ]
+ },
+ "a6cd1d54": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_5",
+  "quadrant": 0,
+  "truth": [
+   150,
+   317,
+   0
+  ]
+ },
+ "63efd72e": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_5",
+  "quadrant": 1,
+  "truth": [
+   150,
+   317,
+   0
+  ]
+ },
+ "5b40610b": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_5",
+  "quadrant": 2,
+  "truth": [
+   150,
+   317,
+   0
+  ]
+ },
+ "6e516cc3": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_5",
+  "quadrant": 3,
+  "truth": [
+   150,
+   317,
+   0
+  ]
+ },
+ "9afb56e6": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_6",
+  "quadrant": 0,
+  "truth": [
+   178,
+   355,
+   1
+  ]
+ },
+ "12cd1cb8": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_6",
+  "quadrant": 1,
+  "truth": [
+   178,
+   355,
+   1
+  ]
+ },
+ "2690847f": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_6",
+  "quadrant": 2,
+  "truth": [
+   178,
+   355,
+   1
+  ]
+ },
+ "bc1168ab": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_6",
+  "quadrant": 3,
+  "truth": [
+   178,
+   355,
+   1
+  ]
+ },
+ "b6e1f8db": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_7",
+  "quadrant": 0,
+  "truth": [
+   218,
+   458,
+   1
+  ]
+ },
+ "461c4036": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_7",
+  "quadrant": 1,
+  "truth": [
+   218,
+   458,
+   1
+  ]
+ },
+ "6d832329": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_7",
+  "quadrant": 2,
+  "truth": [
+   218,
+   458,
+   1
+  ]
+ },
+ "5690f126": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_7",
+  "quadrant": 3,
+  "truth": [
+   218,
+   458,
+   1
+  ]
+ },
+ "8a13951b": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_8",
+  "quadrant": 0,
+  "truth": [
+   115,
+   226,
+   0
+  ]
+ },
+ "f0d26f9d": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_8",
+  "quadrant": 1,
+  "truth": [
+   115,
+   226,
+   0
+  ]
+ },
+ "d1665222": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_8",
+  "quadrant": 2,
+  "truth": [
+   115,
+   226,
+   0
+  ]
+ },
+ "386f195d": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_8",
+  "quadrant": 3,
+  "truth": [
+   115,
+   226,
+   0
+  ]
+ },
+ "a649c6a7": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_9",
+  "quadrant": 0,
+  "truth": [
+   213,
+   441,
+   0
+  ]
+ },
+ "aa5d364f": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_9",
+  "quadrant": 1,
+  "truth": [
+   213,
+   441,
+   0
+  ]
+ },
+ "df6f89a9": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_9",
+  "quadrant": 2,
+  "truth": [
+   213,
+   441,
+   0
+  ]
+ },
+ "9e1a8731": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.333_9",
+  "quadrant": 3,
+  "truth": [
+   213,
+   441,
+   0
+  ]
+ },
+ "1c58cb25": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_1",
+  "quadrant": 0,
+  "truth": [
+   417,
+   202,
+   0
+  ]
+ },
+ "4b957daa": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_1",
+  "quadrant": 1,
+  "truth": [
+   417,
+   202,
+   0
+  ]
+ },
+ "1e70d0f5": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_1",
+  "quadrant": 2,
+  "truth": [
+   417,
+   202,
+   0
+  ]
+ },
+ "c36f470f": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_1",
+  "quadrant": 3,
+  "truth": [
+   417,
+   202,
+   0
+  ]
+ },
+ "2731b732": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_10",
+  "quadrant": 0,
+  "truth": [
+   363,
+   184,
+   0
+  ]
+ },
+ "ac7972d4": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_10",
+  "quadrant": 1,
+  "truth": [
+   363,
+   184,
+   0
+  ]
+ },
+ "0b015690": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_10",
+  "quadrant": 2,
+  "truth": [
+   363,
+   184,
+   0
+  ]
+ },
+ "6362bd80": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_10",
+  "quadrant": 3,
+  "truth": [
+   363,
+   184,
+   0
+  ]
+ },
+ "8fb61ca0": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_2",
+  "quadrant": 0,
+  "truth": [
+   144,
+   66,
+   0
+  ]
+ },
+ "439b8e0e": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_2",
+  "quadrant": 1,
+  "truth": [
+   144,
+   66,
+   0
+  ]
+ },
+ "48d70437": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_2",
+  "quadrant": 2,
+  "truth": [
+   144,
+   66,
+   0
+  ]
+ },
+ "8df2fb17": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_2",
+  "quadrant": 3,
+  "truth": [
+   144,
+   66,
+   0
+  ]
+ },
+ "d2fba84a": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_3",
+  "quadrant": 0,
+  "truth": [
+   339,
+   169,
+   0
+  ]
+ },
+ "f2a16bd8": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_3",
+  "quadrant": 1,
+  "truth": [
+   339,
+   169,
+   0
+  ]
+ },
+ "935e1ea8": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_3",
+  "quadrant": 2,
+  "truth": [
+   339,
+   169,
+   0
+  ]
+ },
+ "171b2f3e": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_3",
+  "quadrant": 3,
+  "truth": [
+   339,
+   169,
+   0
+  ]
+ },
+ "37ac8812": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_4",
+  "quadrant": 0,
+  "truth": [
+   294,
+   125,
+   0
+  ]
+ },
+ "8ead75d7": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_4",
+  "quadrant": 1,
+  "truth": [
+   294,
+   125,
+   0
+  ]
+ },
+ "df4234fd": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_4",
+  "quadrant": 2,
+  "truth": [
+   294,
+   125,
+   0
+  ]
+ },
+ "87674003": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_4",
+  "quadrant": 3,
+  "truth": [
+   294,
+   125,
+   0
+  ]
+ },
+ "397ccb60": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_5",
+  "quadrant": 0,
+  "truth": [
+   270,
+   136,
+   0
+  ]
+ },
+ "ad0f7415": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_5",
+  "quadrant": 1,
+  "truth": [
+   270,
+   136,
+   0
+  ]
+ },
+ "cb52e8b5": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_5",
+  "quadrant": 2,
+  "truth": [
+   270,
+   136,
+   0
+  ]
+ },
+ "8633b016": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_5",
+  "quadrant": 3,
+  "truth": [
+   270,
+   136,
+   0
+  ]
+ },
+ "800b6f78": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_6",
+  "quadrant": 0,
+  "truth": [
+   185,
+   97,
+   0
+  ]
+ },
+ "e7e6d297": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_6",
+  "quadrant": 1,
+  "truth": [
+   185,
+   97,
+   0
+  ]
+ },
+ "92020777": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_6",
+  "quadrant": 2,
+  "truth": [
+   185,
+   97,
+   0
+  ]
+ },
+ "e7b9a84e": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_6",
+  "quadrant": 3,
+  "truth": [
+   185,
+   97,
+   0
+  ]
+ },
+ "8d66b314": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_7",
+  "quadrant": 0,
+  "truth": [
+   182,
+   103,
+   0
+  ]
+ },
+ "eed80447": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_7",
+  "quadrant": 1,
+  "truth": [
+   182,
+   103,
+   0
+  ]
+ },
+ "07574d91": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_7",
+  "quadrant": 2,
+  "truth": [
+   182,
+   103,
+   0
+  ]
+ },
+ "dec9fe3f": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_7",
+  "quadrant": 3,
+  "truth": [
+   182,
+   103,
+   0
+  ]
+ },
+ "ca483192": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_8",
+  "quadrant": 0,
+  "truth": [
+   365,
+   188,
+   0
+  ]
+ },
+ "1d9f09b8": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_8",
+  "quadrant": 1,
+  "truth": [
+   365,
+   188,
+   0
+  ]
+ },
+ "a26db158": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_8",
+  "quadrant": 2,
+  "truth": [
+   365,
+   188,
+   0
+  ]
+ },
+ "6d337853": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_8",
+  "quadrant": 3,
+  "truth": [
+   365,
+   188,
+   0
+  ]
+ },
+ "23a776e7": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_9",
+  "quadrant": 0,
+  "truth": [
+   315,
+   167,
+   0
+  ]
+ },
+ "44d4c13b": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_9",
+  "quadrant": 1,
+  "truth": [
+   315,
+   167,
+   0
+  ]
+ },
+ "06d1795c": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_9",
+  "quadrant": 2,
+  "truth": [
+   315,
+   167,
+   0
+  ]
+ },
+ "cfc296c7": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0.667_9",
+  "quadrant": 3,
+  "truth": [
+   315,
+   167,
+   0
+  ]
+ },
+ "662125a1": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_1",
+  "quadrant": 0,
+  "truth": [
+   0,
+   538,
+   1
+  ]
+ },
+ "f89557ce": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_1",
+  "quadrant": 1,
+  "truth": [
+   0,
+   538,
+   1
+  ]
+ },
+ "5f4ffa0c": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_1",
+  "quadrant": 2,
+  "truth": [
+   0,
+   538,
+   1
+  ]
+ },
+ "1fa12399": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_1",
+  "quadrant": 3,
+  "truth": [
+   0,
+   538,
+   1
+  ]
+ },
+ "9668d4c0": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_10",
+  "quadrant": 0,
+  "truth": [
+   0,
+   635,
+   0
+  ]
+ },
+ "7412768a": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_10",
+  "quadrant": 1,
+  "truth": [
+   0,
+   635,
+   0
+  ]
+ },
+ "e8846957": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_10",
+  "quadrant": 2,
+  "truth": [
+   0,
+   635,
+   0
+  ]
+ },
+ "b6724286": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_10",
+  "quadrant": 3,
+  "truth": [
+   0,
+   635,
+   0
+  ]
+ },
+ "f9067787": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_2",
+  "quadrant": 0,
+  "truth": [
+   0,
+   477,
+   1
+  ]
+ },
+ "cecaaea3": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_2",
+  "quadrant": 1,
+  "truth": [
+   0,
+   477,
+   1
+  ]
+ },
+ "46dc5df3": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_2",
+  "quadrant": 2,
+  "truth": [
+   0,
+   477,
+   1
+  ]
+ },
+ "9555bfce": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_2",
+  "quadrant": 3,
+  "truth": [
+   0,
+   477,
+   1
+  ]
+ },
+ "56ecf991": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_3",
+  "quadrant": 0,
+  "truth": [
+   0,
+   483,
+   1
+  ]
+ },
+ "83eca0ed": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_3",
+  "quadrant": 1,
+  "truth": [
+   0,
+   483,
+   1
+  ]
+ },
+ "ae11da59": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_3",
+  "quadrant": 2,
+  "truth": [
+   0,
+   483,
+   1
+  ]
+ },
+ "968fe6ff": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_3",
+  "quadrant": 3,
+  "truth": [
+   0,
+   483,
+   1
+  ]
+ },
+ "1c1ffe1f": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_4",
+  "quadrant": 0,
+  "truth": [
+   0,
+   540,
+   0
+  ]
+ },
+ "39f73a58": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_4",
+  "quadrant": 1,
+  "truth": [
+   0,
+   540,
+   0
+  ]
+ },
+ "6f6fdfcf": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_4",
+  "quadrant": 2,
+  "truth": [
+   0,
+   540,
+   0
+  ]
+ },
+ "3f84e5c8": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_4",
+  "quadrant": 3,
+  "truth": [
+   0,
+   540,
+   0
+  ]
+ },
+ "b82258bf": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_5",
+  "quadrant": 0,
+  "truth": [
+   0,
+   735,
+   0
+  ]
+ },
+ "4a977607": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_5",
+  "quadrant": 1,
+  "truth": [
+   0,
+   735,
+   0
+  ]
+ },
+ "cc443dcb": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_5",
+  "quadrant": 2,
+  "truth": [
+   0,
+   735,
+   0
+  ]
+ },
+ "457a4c4c": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_5",
+  "quadrant": 3,
+  "truth": [
+   0,
+   735,
+   0
+  ]
+ },
+ "13e2cde8": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_6",
+  "quadrant": 0,
+  "truth": [
+   0,
+   407,
+   1
+  ]
+ },
+ "8a1e490a": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_6",
+  "quadrant": 1,
+  "truth": [
+   0,
+   407,
+   1
+  ]
+ },
+ "7fc155cb": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_6",
+  "quadrant": 2,
+  "truth": [
+   0,
+   407,
+   1
+  ]
+ },
+ "3774f366": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_6",
+  "quadrant": 3,
+  "truth": [
+   0,
+   407,
+   1
+  ]
+ },
+ "52916e8d": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_7",
+  "quadrant": 0,
+  "truth": [
+   0,
+   230,
+   1
+  ]
+ },
+ "72992709": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_7",
+  "quadrant": 1,
+  "truth": [
+   0,
+   230,
+   1
+  ]
+ },
+ "d8c6f7db": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_7",
+  "quadrant": 2,
+  "truth": [
+   0,
+   230,
+   1
+  ]
+ },
+ "aa83f899": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_7",
+  "quadrant": 3,
+  "truth": [
+   0,
+   230,
+   1
+  ]
+ },
+ "cb53f94f": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_8",
+  "quadrant": 0,
+  "truth": [
+   0,
+   436,
+   0
+  ]
+ },
+ "fceae60a": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_8",
+  "quadrant": 1,
+  "truth": [
+   0,
+   436,
+   0
+  ]
+ },
+ "f12fb49a": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_8",
+  "quadrant": 2,
+  "truth": [
+   0,
+   436,
+   0
+  ]
+ },
+ "fd3a4794": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_8",
+  "quadrant": 3,
+  "truth": [
+   0,
+   436,
+   0
+  ]
+ },
+ "9b722cea": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_9",
+  "quadrant": 0,
+  "truth": [
+   0,
+   528,
+   0
+  ]
+ },
+ "af4502ce": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_9",
+  "quadrant": 1,
+  "truth": [
+   0,
+   528,
+   0
+  ]
+ },
+ "ad55f91e": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_9",
+  "quadrant": 2,
+  "truth": [
+   0,
+   528,
+   0
+  ]
+ },
+ "bf9eda94": {
+  "source": "render",
+  "kind": "render",
+  "frame": "p0_9",
+  "quadrant": 3,
+  "truth": [
+   0,
+   528,
+   0
+  ]
+ }
+}

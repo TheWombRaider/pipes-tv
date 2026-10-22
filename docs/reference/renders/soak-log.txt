@@ -1,0 +1,279 @@
+--------- beginning of main
+10-22 05:17:36.097 10820 10842 I XPPipes : frames=1 in 1024096ms worstCpuMs=0.1477 vertices=384 teapots=0 used=0.0011111111 phase=GROW
+10-22 05:17:41.116 10820 10842 I XPPipes : frames=137 in 5017ms worstCpuMs=28.7177 vertices=32640 teapots=1 used=0.07833333 phase=GROW
+10-22 05:17:46.153 10820 10842 I XPPipes : frames=151 in 5034ms worstCpuMs=11.2832 vertices=68112 teapots=1 used=0.16277778 phase=GROW
+10-22 05:17:51.180 10820 10842 I XPPipes : frames=152 in 5031ms worstCpuMs=16.0761 vertices=105552 teapots=1 used=0.24722221 phase=GROW
+10-22 05:17:56.207 10820 10842 I XPPipes : frames=150 in 5020ms worstCpuMs=6.882 vertices=140448 teapots=1 used=0.3311111 phase=GROW
+10-22 05:18:01.147 10820 10842 I XPPipes : scene over: ticks=752 used=0.41333333 vertices=176832 turn=0.0 balls=201 elbows=367 teapotTurns=1 teapots=1
+10-22 05:18:01.282 10820 10842 I XPPipes : frames=134 in 5080ms worstCpuMs=24.607 vertices=176832 teapots=1 used=0.41333333 phase=DISSOLVE
+10-22 05:18:06.299 10820 10842 I XPPipes : frames=157 in 5016ms worstCpuMs=2.2929 vertices=25776 teapots=0 used=0.057777777 phase=GROW
+10-22 05:18:11.331 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=1.9769 vertices=62592 teapots=0 used=0.14166667 phase=GROW
+10-22 05:18:16.331 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=2.1973 vertices=99456 teapots=0 used=0.22611111 phase=GROW
+10-22 05:18:21.332 10820 10842 I XPPipes : frames=150 in 5001ms worstCpuMs=2.3872 vertices=135456 teapots=0 used=0.31 phase=GROW
+10-22 05:18:26.366 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=3.7817 vertices=171168 teapots=0 used=0.39444444 phase=GROW
+10-22 05:18:27.364 10820 10842 I XPPipes : scene over: ticks=734 used=0.41 vertices=178512 turn=9.73156 balls=212 elbows=358 teapotTurns=0 teapots=0
+10-22 05:18:31.383 10820 10842 I XPPipes : frames=163 in 5017ms worstCpuMs=3.9897 vertices=12672 teapots=0 used=0.03888889 phase=GROW
+10-22 05:18:36.415 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=1.4949 vertices=37296 teapots=0 used=0.122777775 phase=GROW
+10-22 05:18:41.450 10820 10842 I XPPipes : frames=151 in 5034ms worstCpuMs=1.5136 vertices=63984 teapots=0 used=0.20722222 phase=GROW
+10-22 05:18:46.482 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=2.1972 vertices=90240 teapots=0 used=0.29166666 phase=GROW
+10-22 05:18:51.482 10820 10842 I XPPipes : frames=138 in 5000ms worstCpuMs=7.9897 vertices=116400 teapots=0 used=0.375 phase=GROW
+10-22 05:18:51.980 10820 10842 I XPPipes : scene over: ticks=685 used=0.38277778 vertices=119520 turn=19.46312 balls=116 elbows=231 teapotTurns=0 teapots=0
+10-22 05:18:56.514 10820 10842 I XPPipes : frames=173 in 5032ms worstCpuMs=4.7426 vertices=19440 teapots=0 used=0.047222223 phase=GROW
+10-22 05:19:01.548 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=1.2662 vertices=55728 teapots=0 used=0.13111112 phase=GROW
+10-22 05:19:06.548 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.8175 vertices=94320 teapots=0 used=0.21555555 phase=GROW
+10-22 05:19:11.582 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=2.0509 vertices=130464 teapots=0 used=0.29944444 phase=GROW
+10-22 05:19:16.582 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.7784 vertices=165264 teapots=0 used=0.38333333 phase=GROW
+10-22 05:19:21.584 10820 10842 I XPPipes : frames=150 in 5002ms worstCpuMs=1.7209 vertices=199584 teapots=0 used=0.4672222 phase=GROW
+10-22 05:19:25.449 10820 10842 I XPPipes : scene over: ticks=951 used=0.53055555 vertices=226800 turn=29.19468 balls=235 elbows=515 teapotTurns=0 teapots=0
+10-22 05:19:26.587 10820 10842 I XPPipes : frames=154 in 5003ms worstCpuMs=1.6604 vertices=226800 teapots=0 used=0.53055555 phase=DISSOLVE
+10-22 05:19:31.615 10820 10842 I XPPipes : frames=155 in 5027ms worstCpuMs=1.8267 vertices=31344 teapots=0 used=0.07444444 phase=GROW
+10-22 05:19:36.648 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=1.5611 vertices=67776 teapots=0 used=0.15833333 phase=GROW
+10-22 05:19:41.649 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.0444 vertices=104064 teapots=0 used=0.24222222 phase=GROW
+10-22 05:19:46.649 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.0979 vertices=139248 teapots=0 used=0.3261111 phase=GROW
+10-22 05:19:50.915 10820 10842 I XPPipes : scene over: ticks=711 used=0.39722222 vertices=169296 turn=38.92624 balls=173 elbows=384 teapotTurns=0 teapots=0
+10-22 05:19:51.668 10820 10842 I XPPipes : frames=150 in 5018ms worstCpuMs=1.438 vertices=169296 teapots=0 used=0.39722222 phase=DISSOLVE
+10-22 05:19:56.682 10820 10842 I XPPipes : frames=152 in 5014ms worstCpuMs=1.944 vertices=22368 teapots=0 used=0.067777775 phase=GROW
+10-22 05:20:01.682 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=5.2402 vertices=51312 teapots=0 used=0.15111111 phase=GROW
+10-22 05:20:06.716 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=1.9963 vertices=78048 teapots=0 used=0.23555556 phase=GROW
+10-22 05:20:11.731 10820 10842 I XPPipes : frames=150 in 5015ms worstCpuMs=2.0561 vertices=107568 teapots=0 used=0.31944445 phase=GROW
+10-22 05:20:16.765 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=2.554 vertices=136560 teapots=0 used=0.40444446 phase=GROW
+10-22 05:20:19.965 10820 10842 I XPPipes : scene over: ticks=818 used=0.45666668 vertices=153792 turn=48.6578 balls=163 elbows=294 teapotTurns=0 teapots=0
+10-22 05:20:21.782 10820 10842 I XPPipes : frames=163 in 5017ms worstCpuMs=2.358 vertices=768 teapots=0 used=0.0016666667 phase=GROW
+10-22 05:20:26.815 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=1.7598 vertices=32640 teapots=0 used=0.08555555 phase=GROW
+10-22 05:20:31.818 10820 10842 I XPPipes : frames=148 in 5001ms worstCpuMs=2.1735 vertices=60720 teapots=0 used=0.16888888 phase=GROW
+10-22 05:20:36.848 10820 10842 I XPPipes : frames=151 in 5031ms worstCpuMs=2.219 vertices=91728 teapots=1 used=0.25444445 phase=GROW
+10-22 05:20:41.882 10820 10842 I XPPipes : frames=151 in 5034ms worstCpuMs=2.2171 vertices=121584 teapots=2 used=0.33888888 phase=GROW
+10-22 05:20:46.915 10820 10842 I XPPipes : frames=148 in 5032ms worstCpuMs=14.7197 vertices=149328 teapots=2 used=0.42277777 phase=GROW
+10-22 05:20:49.314 10820 10842 I XPPipes : scene over: ticks=827 used=0.46166667 vertices=162480 turn=58.38936 balls=163 elbows=337 teapotTurns=2 teapots=2
+10-22 05:20:51.933 10820 10842 I XPPipes : frames=154 in 5017ms worstCpuMs=2.4557 vertices=5904 teapots=0 used=0.015 phase=GROW
+10-22 05:20:56.933 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.5173 vertices=43200 teapots=0 used=0.09833334 phase=GROW
+10-22 05:21:01.933 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=3.5587 vertices=78720 teapots=0 used=0.18166667 phase=GROW
+10-22 05:21:06.965 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=1.1628 vertices=117024 teapots=0 used=0.26555556 phase=GROW
+10-22 05:21:11.965 10820 10842 I XPPipes : frames=148 in 5000ms worstCpuMs=3.4769 vertices=156672 teapots=0 used=0.35 phase=GROW
+10-22 05:21:17.001 10820 10842 I XPPipes : frames=151 in 5034ms worstCpuMs=1.6208 vertices=193008 teapots=0 used=0.435 phase=GROW
+10-22 05:21:22.031 10820 10842 I XPPipes : frames=151 in 5031ms worstCpuMs=3.3951 vertices=228336 teapots=1 used=0.5188889 phase=GROW
+10-22 05:21:22.864 10820 10842 I XPPipes : scene over: ticks=953 used=0.5316667 vertices=234096 turn=68.12092 balls=269 elbows=493 teapotTurns=1 teapots=1
+10-22 05:21:27.047 10820 10842 I XPPipes : frames=154 in 5016ms worstCpuMs=2.1385 vertices=16704 teapots=0 used=0.04111111 phase=GROW
+10-22 05:21:32.050 10820 10842 I XPPipes : frames=149 in 5003ms worstCpuMs=3.6469 vertices=46464 teapots=0 used=0.12444445 phase=GROW
+10-22 05:21:37.065 10820 10842 I XPPipes : frames=147 in 5014ms worstCpuMs=7.5544 vertices=76992 teapots=0 used=0.20888889 phase=GROW
+10-22 05:21:42.115 10820 10842 I XPPipes : frames=151 in 5050ms worstCpuMs=2.0101 vertices=109488 teapots=0 used=0.29333332 phase=GROW
+10-22 05:21:47.132 10820 10842 I XPPipes : frames=151 in 5016ms worstCpuMs=2.0737 vertices=139200 teapots=0 used=0.3772222 phase=GROW
+10-22 05:21:50.381 10820 10842 I XPPipes : scene over: ticks=772 used=0.4311111 vertices=160320 turn=77.85248 balls=165 elbows=336 teapotTurns=0 teapots=0
+10-22 05:21:52.152 10820 10842 I XPPipes : frames=168 in 5019ms worstCpuMs=1.935 vertices=384 teapots=0 used=0.0011111111 phase=GROW
+10-22 05:21:57.181 10820 10842 I XPPipes : frames=151 in 5029ms worstCpuMs=2.0776 vertices=27216 teapots=0 used=0.085 phase=GROW
+10-22 05:22:02.214 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=1.2984 vertices=57168 teapots=0 used=0.16888888 phase=GROW
+10-22 05:22:07.299 10820 10842 I XPPipes : frames=149 in 5084ms worstCpuMs=2.0165 vertices=86544 teapots=0 used=0.25388888 phase=GROW
+10-22 05:22:12.314 10820 10842 I XPPipes : frames=147 in 5015ms worstCpuMs=27.1553 vertices=115440 teapots=0 used=0.33888888 phase=GROW
+10-22 05:22:15.481 10820 10842 I XPPipes : scene over: ticks=700 used=0.3911111 vertices=133776 turn=87.58404 balls=134 elbows=270 teapotTurns=0 teapots=0
+10-22 05:22:17.331 10820 10842 I XPPipes : frames=171 in 5016ms worstCpuMs=1.8829 vertices=480 teapots=0 used=0.0022222223 phase=GROW
+10-22 05:22:22.332 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.2894 vertices=26016 teapots=0 used=0.08555555 phase=GROW
+10-22 05:22:27.365 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=1.3611 vertices=52800 teapots=0 used=0.16944444 phase=GROW
+10-22 05:22:32.398 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=1.5044 vertices=80256 teapots=0 used=0.25333333 phase=GROW
+10-22 05:22:37.398 10820 10842 I XPPipes : frames=148 in 5000ms worstCpuMs=4.7323 vertices=110400 teapots=0 used=0.33722222 phase=GROW
+10-22 05:22:42.431 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=1.4341 vertices=139536 teapots=0 used=0.42222223 phase=GROW
+10-22 05:22:45.897 10820 10842 I XPPipes : scene over: ticks=859 used=0.47944444 vertices=158400 turn=97.3156 balls=152 elbows=327 teapotTurns=0 teapots=0
+10-22 05:22:47.441 10820 10842 I XPPipes : frames=170 in 5010ms worstCpuMs=1.5303 vertices=158400 teapots=0 used=0.47944444 phase=DISSOLVE
+10-22 05:22:52.447 10820 10842 I XPPipes : frames=152 in 5005ms worstCpuMs=2.2239 vertices=30384 teapots=0 used=0.08111111 phase=GROW
+10-22 05:22:57.447 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.5441 vertices=61392 teapots=0 used=0.16444445 phase=GROW
+10-22 05:23:02.447 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.8158 vertices=94656 teapots=0 used=0.24777777 phase=GROW
+10-22 05:23:07.448 10820 10842 I XPPipes : frames=148 in 5000ms worstCpuMs=7.1393 vertices=128880 teapots=0 used=0.33277777 phase=GROW
+10-22 05:23:10.282 10820 10842 I XPPipes : scene over: ticks=679 used=0.37944445 vertices=147216 turn=107.04716 balls=153 elbows=312 teapotTurns=1 teapots=1
+10-22 05:23:12.482 10820 10842 I XPPipes : frames=165 in 5033ms worstCpuMs=3.1198 vertices=3168 teapots=0 used=0.008888889 phase=GROW
+10-22 05:23:17.515 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=2.1484 vertices=31824 teapots=0 used=0.09277778 phase=GROW
+10-22 05:23:22.547 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=1.3174 vertices=60528 teapots=0 used=0.17666666 phase=GROW
+10-22 05:23:27.547 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.133 vertices=86640 teapots=0 used=0.26 phase=GROW
+10-22 05:23:32.547 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.3888 vertices=116832 teapots=0 used=0.34444445 phase=GROW
+10-22 05:23:37.594 10820 10842 I XPPipes : frames=137 in 5046ms worstCpuMs=5.9111 vertices=145296 teapots=0 used=0.4288889 phase=GROW
+10-22 05:23:38.836 10820 10842 I XPPipes : scene over: ticks=804 used=0.4488889 vertices=153312 turn=116.77872 balls=151 elbows=316 teapotTurns=0 teapots=0
+10-22 05:23:42.597 10820 10842 I XPPipes : frames=122 in 5003ms worstCpuMs=7.3844 vertices=11808 teapots=0 used=0.033888888 phase=GROW
+10-22 05:23:47.598 10820 10842 I XPPipes : frames=145 in 5000ms worstCpuMs=93.9579 vertices=37152 teapots=0 used=0.11722222 phase=GROW
+10-22 05:23:52.599 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=2.3581 vertices=63216 teapots=0 used=0.20111111 phase=GROW
+10-22 05:23:57.630 10820 10842 I XPPipes : frames=151 in 5031ms worstCpuMs=19.4996 vertices=92304 teapots=0 used=0.285 phase=GROW
+10-22 05:24:02.631 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=8.3182 vertices=120768 teapots=0 used=0.36833334 phase=GROW
+10-22 05:24:07.631 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=2.5369 vertices=152400 teapots=0 used=0.45277777 phase=GROW
+10-22 05:24:09.730 10820 10842 I XPPipes : scene over: ticks=873 used=0.48722222 vertices=163536 turn=126.51028 balls=163 elbows=331 teapotTurns=0 teapots=0
+10-22 05:24:12.666 10820 10842 I XPPipes : frames=158 in 5033ms worstCpuMs=1.4849 vertices=8256 teapots=0 used=0.02111111 phase=GROW
+10-22 05:24:17.665 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=1.4962 vertices=35712 teapots=0 used=0.104444444 phase=GROW
+10-22 05:24:22.698 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=1.4098 vertices=62640 teapots=0 used=0.18833333 phase=GROW
+10-22 05:24:27.731 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=1.4557 vertices=90240 teapots=0 used=0.27222222 phase=GROW
+10-22 05:24:32.732 10820 10842 I XPPipes : frames=150 in 5001ms worstCpuMs=1.2817 vertices=117936 teapots=0 used=0.3561111 phase=GROW
+10-22 05:24:37.766 10820 10842 I XPPipes : frames=151 in 5034ms worstCpuMs=2.3137 vertices=145488 teapots=0 used=0.44 phase=GROW
+10-22 05:24:42.772 10820 10842 I XPPipes : frames=150 in 5004ms worstCpuMs=2.3559 vertices=173856 teapots=0 used=0.5238889 phase=GROW
+10-22 05:24:47.033 10820 10842 I XPPipes : scene over: ticks=1067 used=0.595 vertices=199632 turn=136.24184 balls=205 elbows=397 teapotTurns=1 teapots=1
+10-22 05:24:47.783 10820 10842 I XPPipes : frames=153 in 5012ms worstCpuMs=4.4512 vertices=199632 teapots=1 used=0.595 phase=DISSOLVE
+10-22 05:24:52.814 10820 10842 I XPPipes : frames=155 in 5030ms worstCpuMs=3.0281 vertices=26448 teapots=0 used=0.068333335 phase=GROW
+10-22 05:24:57.815 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=2.001 vertices=54528 teapots=0 used=0.15166667 phase=GROW
+10-22 05:25:02.816 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=2.3628 vertices=87120 teapots=1 used=0.2361111 phase=GROW
+10-22 05:25:07.614 10820 10842 I XPPipes : scene over: ticks=565 used=0.31611112 vertices=119760 turn=145.97339 balls=131 elbows=236 teapotTurns=1 teapots=1
+10-22 05:25:07.823 10820 10842 I XPPipes : frames=152 in 5007ms worstCpuMs=4.2717 vertices=119760 teapots=1 used=0.31611112 phase=DISSOLVE
+10-22 05:25:12.848 10820 10842 I XPPipes : frames=173 in 5024ms worstCpuMs=2.2305 vertices=20640 teapots=0 used=0.059444446 phase=GROW
+10-22 05:25:17.882 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=2.2449 vertices=48240 teapots=0 used=0.14333333 phase=GROW
+10-22 05:25:22.883 10820 10842 I XPPipes : frames=150 in 5001ms worstCpuMs=1.8242 vertices=77808 teapots=0 used=0.22722222 phase=GROW
+10-22 05:25:27.915 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=2.0799 vertices=111984 teapots=0 used=0.3122222 phase=GROW
+10-22 05:25:32.948 10820 10842 I XPPipes : frames=151 in 5033ms worstCpuMs=1.6581 vertices=142608 teapots=1 used=0.39666668 phase=GROW
+10-22 05:25:34.780 10820 10842 I XPPipes : scene over: ticks=763 used=0.4261111 vertices=154560 turn=155.70496 balls=140 elbows=352 teapotTurns=1 teapots=1
+10-22 05:25:37.981 10820 10842 I XPPipes : frames=165 in 5032ms worstCpuMs=3.347 vertices=8160 teapots=0 used=0.025 phase=GROW
+10-22 05:25:42.982 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=2.2584 vertices=33696 teapots=0 used=0.108333334 phase=GROW
+10-22 05:25:48.018 10820 10842 I XPPipes : frames=145 in 5035ms worstCpuMs=10.1579 vertices=61824 teapots=1 used=0.19222222 phase=GROW
+10-22 05:25:53.055 10820 10842 I XPPipes : frames=137 in 5037ms worstCpuMs=6.8958 vertices=88080 teapots=1 used=0.27666667 phase=GROW
+10-22 05:25:58.081 10820 10842 I XPPipes : frames=132 in 5025ms worstCpuMs=4.7886 vertices=115152 teapots=1 used=0.36055556 phase=GROW
+10-22 05:26:03.100 10820 10842 I XPPipes : frames=124 in 5019ms worstCpuMs=36.5589 vertices=145728 teapots=1 used=0.445 phase=GROW
+10-22 05:26:04.546 10820 10842 I XPPipes : scene over: ticks=840 used=0.46888888 vertices=153408 turn=165.43652 balls=149 elbows=311 teapotTurns=1 teapots=1
+10-22 05:26:08.116 10820 10842 I XPPipes : frames=118 in 5016ms worstCpuMs=27.6309 vertices=13104 teapots=0 used=0.031111112 phase=GROW
+10-22 05:26:13.117 10820 10842 I XPPipes : frames=132 in 5000ms worstCpuMs=17.7252 vertices=44736 teapots=1 used=0.11444444 phase=GROW
+10-22 05:26:18.152 10820 10842 I XPPipes : frames=129 in 5020ms worstCpuMs=49.7928 vertices=80544 teapots=1 used=0.19833334 phase=GROW
+10-22 05:26:23.165 10820 10842 I XPPipes : frames=111 in 5027ms worstCpuMs=22.0458 vertices=119856 teapots=2 used=0.28444445 phase=GROW
+10-22 05:26:28.202 10820 10842 I XPPipes : frames=100 in 5036ms worstCpuMs=8.3032 vertices=154416 teapots=2 used=0.36777776 phase=GROW
+10-22 05:26:30.532 10820 10842 I XPPipes : scene over: ticks=726 used=0.405 vertices=170544 turn=175.16809 balls=169 elbows=394 teapotTurns=2 teapots=2
+10-22 05:26:33.218 10820 10842 I XPPipes : frames=90 in 5016ms worstCpuMs=16.9046 vertices=5664 teapots=0 used=0.015 phase=GROW
+10-22 05:26:38.239 10820 10842 I XPPipes : frames=139 in 5021ms worstCpuMs=23.82 vertices=36384 teapots=0 used=0.09833334 phase=GROW
+10-22 05:26:43.267 10820 10842 I XPPipes : frames=131 in 5027ms worstCpuMs=17.0721 vertices=68640 teapots=0 used=0.18222222 phase=GROW
+10-22 05:26:48.283 10820 10842 I XPPipes : frames=127 in 5016ms worstCpuMs=9.5692 vertices=100368 teapots=0 used=0.2661111 phase=GROW
+10-22 05:26:53.319 10820 10842 I XPPipes : frames=119 in 5035ms worstCpuMs=27.7388 vertices=131568 teapots=0 used=0.35 phase=GROW
+10-22 05:26:58.338 10820 10842 I XPPipes : frames=116 in 5019ms worstCpuMs=10.62 vertices=161808 teapots=0 used=0.43333334 phase=GROW
+10-22 05:27:03.360 10820 10842 I XPPipes : frames=98 in 5021ms worstCpuMs=22.3525 vertices=197136 teapots=0 used=0.5183333 phase=GROW
+10-22 05:27:03.649 10820 10842 I XPPipes : scene over: ticks=938 used=0.5227778 vertices=199200 turn=184.89966 balls=196 elbows=443 teapotTurns=0 teapots=0
+10-22 05:27:08.380 10820 10842 I XPPipes : frames=122 in 5020ms worstCpuMs=9.4828 vertices=18864 teapots=0 used=0.05 phase=GROW
+10-22 05:27:13.399 10820 10842 I XPPipes : frames=140 in 5018ms worstCpuMs=27.2515 vertices=46272 teapots=0 used=0.13444445 phase=GROW
+10-22 05:27:18.403 10820 10842 I XPPipes : frames=139 in 5004ms worstCpuMs=27.4729 vertices=77328 teapots=0 used=0.21777777 phase=GROW
+10-22 05:27:23.432 10820 10842 I XPPipes : frames=133 in 5029ms worstCpuMs=22.9628 vertices=105120 teapots=0 used=0.30222222 phase=GROW
+10-22 05:27:26.637 10820 10842 I XPPipes : scene over: ticks=636 used=0.35555556 vertices=125904 turn=194.63123 balls=142 elbows=231 teapotTurns=0 teapots=0
+10-22 05:27:28.450 10820 10842 I XPPipes : frames=123 in 5017ms worstCpuMs=5.2539 vertices=624 teapots=0 used=0.0016666667 phase=GROW
+10-22 05:27:33.468 10820 10842 I XPPipes : frames=138 in 5018ms worstCpuMs=21.5205 vertices=27408 teapots=0 used=0.08611111 phase=GROW
+10-22 05:27:38.504 10820 10842 I XPPipes : frames=140 in 5035ms worstCpuMs=11.5849 vertices=57840 teapots=0 used=0.17055556 phase=GROW
+10-22 05:27:43.514 10820 10842 I XPPipes : frames=126 in 5009ms worstCpuMs=14.3536 vertices=88176 teapots=0 used=0.25444445 phase=GROW
+10-22 05:27:48.535 10820 10842 I XPPipes : frames=120 in 5021ms worstCpuMs=42.3213 vertices=118032 teapots=0 used=0.33833334 phase=GROW
+10-22 05:27:51.971 10820 10842 I XPPipes : scene over: ticks=707 used=0.395 vertices=137952 turn=204.3628 balls=142 elbows=276 teapotTurns=0 teapots=0
+10-22 05:27:53.540 10820 10842 I XPPipes : frames=108 in 5004ms worstCpuMs=8.6203 vertices=137952 teapots=0 used=0.395 phase=DISSOLVE
+10-22 05:27:58.553 10820 10842 I XPPipes : frames=131 in 5004ms worstCpuMs=20.1024 vertices=28944 teapots=0 used=0.08 phase=GROW
+10-22 05:28:03.564 10820 10842 I XPPipes : frames=135 in 5020ms worstCpuMs=30.3912 vertices=60960 teapots=0 used=0.16388889 phase=GROW
+10-22 05:28:08.589 10820 10842 I XPPipes : frames=129 in 5025ms worstCpuMs=37.1751 vertices=93840 teapots=2 used=0.24833333 phase=GROW
+10-22 05:28:13.611 10820 10842 I XPPipes : frames=114 in 5021ms worstCpuMs=8.134 vertices=124656 teapots=2 used=0.33166668 phase=GROW
+10-22 05:28:18.614 10820 10842 I XPPipes : frames=109 in 5001ms worstCpuMs=17.31 vertices=157008 teapots=2 used=0.415 phase=GROW
+10-22 05:28:20.162 10820 10842 I XPPipes : scene over: ticks=792 used=0.44166666 vertices=168240 turn=214.09436 balls=175 elbows=355 teapotTurns=2 teapots=2
+10-22 05:28:23.634 10820 10842 I XPPipes : frames=114 in 5020ms worstCpuMs=2.716 vertices=8016 teapots=0 used=0.029444445 phase=GROW
+10-22 05:28:28.668 10820 10842 I XPPipes : frames=149 in 5034ms worstCpuMs=16.3578 vertices=37056 teapots=0 used=0.11333334 phase=GROW
+10-22 05:28:33.703 10820 10842 I XPPipes : frames=142 in 5031ms worstCpuMs=12.9592 vertices=64704 teapots=0 used=0.19722222 phase=GROW
+10-22 05:28:38.722 10820 10842 I XPPipes : frames=126 in 5022ms worstCpuMs=16.2739 vertices=90768 teapots=0 used=0.28166667 phase=GROW
+10-22 05:28:43.731 10820 10842 I XPPipes : frames=114 in 5006ms worstCpuMs=18.142 vertices=118896 teapots=0 used=0.36555555 phase=GROW
+10-22 05:28:48.753 10820 10842 I XPPipes : frames=101 in 5015ms worstCpuMs=9.3849 vertices=148896 teapots=0 used=0.44944444 phase=GROW
+10-22 05:28:53.750 10820 10842 I XPPipes : frames=84 in 5005ms worstCpuMs=26.8366 vertices=173712 teapots=0 used=0.5322222 phase=GROW
+10-22 05:28:54.581 10820 10842 I XPPipes : scene over: ticks=980 used=0.545 vertices=178032 turn=223.82593 balls=197 elbows=321 teapotTurns=0 teapots=0
+10-22 05:28:58.776 10820 10842 I XPPipes : frames=113 in 5026ms worstCpuMs=12.6491 vertices=11088 teapots=0 used=0.040555555 phase=GROW
+10-22 05:29:03.798 10820 10842 I XPPipes : frames=137 in 5021ms worstCpuMs=17.2146 vertices=36912 teapots=0 used=0.12444445 phase=GROW
+10-22 05:29:08.798 10820 10842 I XPPipes : frames=144 in 5000ms worstCpuMs=7.1932 vertices=61728 teapots=0 used=0.20777778 phase=GROW
+10-22 05:29:13.834 10820 10842 I XPPipes : frames=139 in 5034ms worstCpuMs=24.1194 vertices=87840 teapots=0 used=0.2911111 phase=GROW
+10-22 05:29:18.849 10820 10842 I XPPipes : frames=141 in 5015ms worstCpuMs=14.5665 vertices=115392 teapots=0 used=0.37555555 phase=GROW
+10-22 05:29:23.852 10820 10842 I XPPipes : frames=131 in 5002ms worstCpuMs=27.1757 vertices=146880 teapots=1 used=0.46 phase=GROW
+10-22 05:29:25.126 10820 10842 I XPPipes : scene over: ticks=861 used=0.48 vertices=154656 turn=233.5575 balls=147 elbows=316 teapotTurns=1 teapots=1
+10-22 05:29:28.865 10820 10842 I XPPipes : frames=127 in 5013ms worstCpuMs=11.855 vertices=13152 teapots=0 used=0.034444444 phase=GROW
+10-22 05:29:33.869 10820 10842 I XPPipes : frames=150 in 5002ms worstCpuMs=18.6509 vertices=41856 teapots=0 used=0.11777778 phase=GROW
+10-22 05:29:38.905 10820 10842 I XPPipes : frames=146 in 5037ms worstCpuMs=13.3515 vertices=73248 teapots=0 used=0.20277777 phase=GROW
+10-22 05:29:43.926 10820 10842 I XPPipes : frames=144 in 5020ms worstCpuMs=15.4448 vertices=102288 teapots=0 used=0.28611112 phase=GROW
+10-22 05:29:46.610 10820 10842 I XPPipes : scene over: ticks=592 used=0.3311111 vertices=119376 turn=243.28906 balls=114 elbows=257 teapotTurns=0 teapots=0
+10-22 05:29:48.948 10820 10842 I XPPipes : frames=130 in 5021ms worstCpuMs=7.1546 vertices=4128 teapots=0 used=0.010555555 phase=GROW
+10-22 05:29:53.950 10820 10842 I XPPipes : frames=149 in 5002ms worstCpuMs=22.9828 vertices=31056 teapots=0 used=0.093888886 phase=GROW
+10-22 05:29:58.958 10820 10842 I XPPipes : frames=149 in 5007ms worstCpuMs=7.2294 vertices=59328 teapots=0 used=0.17777778 phase=GROW
+10-22 05:30:03.985 10820 10842 I XPPipes : frames=149 in 5027ms worstCpuMs=13.9534 vertices=86832 teapots=0 used=0.26222223 phase=GROW
+10-22 05:30:09.015 10820 10842 I XPPipes : frames=150 in 5030ms worstCpuMs=2.7131 vertices=115152 teapots=0 used=0.34611112 phase=GROW
+10-22 05:30:13.256 10820 10842 I XPPipes : scene over: ticks=746 used=0.41666666 vertices=142464 turn=253.02063 balls=147 elbows=281 teapotTurns=0 teapots=0
+10-22 05:30:14.016 10820 10842 I XPPipes : frames=134 in 5001ms worstCpuMs=4.9433 vertices=142464 teapots=0 used=0.41666666 phase=DISSOLVE
+10-22 05:30:19.034 10820 10842 I XPPipes : frames=128 in 5017ms worstCpuMs=21.7654 vertices=26016 teapots=0 used=0.06666667 phase=GROW
+10-22 05:30:24.065 10820 10842 I XPPipes : frames=148 in 5031ms worstCpuMs=13.2249 vertices=58512 teapots=0 used=0.15055555 phase=GROW
+10-22 05:30:29.068 10820 10842 I XPPipes : frames=145 in 5002ms worstCpuMs=11.5671 vertices=89808 teapots=0 used=0.23444444 phase=GROW
+10-22 05:30:34.081 10820 10842 I XPPipes : frames=139 in 5013ms worstCpuMs=14.2739 vertices=118944 teapots=0 used=0.31833333 phase=GROW
+10-22 05:30:39.110 10820 10842 I XPPipes : frames=137 in 5029ms worstCpuMs=2.0452 vertices=149664 teapots=0 used=0.40222222 phase=GROW
+10-22 05:30:44.160 10820 10842 I XPPipes : frames=126 in 5049ms worstCpuMs=5.719 vertices=183072 teapots=0 used=0.48666668 phase=GROW
+10-22 05:30:49.184 10820 10842 I XPPipes : frames=112 in 5022ms worstCpuMs=10.0327 vertices=216864 teapots=0 used=0.5711111 phase=GROW
+10-22 05:30:49.814 10820 10842 I XPPipes : scene over: ticks=1042 used=0.58055556 vertices=220944 turn=262.7522 balls=223 elbows=483 teapotTurns=0 teapots=0
+10-22 05:30:54.198 10820 10842 I XPPipes : frames=125 in 5016ms worstCpuMs=8.2251 vertices=14832 teapots=0 used=0.044444446 phase=GROW
+10-22 05:30:59.206 10820 10842 I XPPipes : frames=145 in 5007ms worstCpuMs=20.2704 vertices=41856 teapots=0 used=0.12833333 phase=GROW
+10-22 05:31:04.210 10820 10842 I XPPipes : frames=149 in 5004ms worstCpuMs=25.7877 vertices=70272 teapots=0 used=0.21166667 phase=GROW
+10-22 05:31:09.232 10820 10842 I XPPipes : frames=146 in 5021ms worstCpuMs=9.5755 vertices=97104 teapots=0 used=0.2961111 phase=GROW
+10-22 05:31:13.768 10820 10842 I XPPipes : scene over: ticks=665 used=0.37166667 vertices=122064 turn=272.48376 balls=127 elbows=230 teapotTurns=0 teapots=0
+10-22 05:31:14.258 10820 10842 I XPPipes : frames=139 in 5027ms worstCpuMs=9.6824 vertices=122064 teapots=0 used=0.37166667 phase=DISSOLVE
+10-22 05:31:19.271 10820 10842 I XPPipes : frames=139 in 5012ms worstCpuMs=11.3549 vertices=18768 teapots=0 used=0.06333333 phase=GROW
+10-22 05:31:24.293 10820 10842 I XPPipes : frames=142 in 5022ms worstCpuMs=15.9379 vertices=45600 teapots=0 used=0.14666666 phase=GROW
+10-22 05:31:29.303 10820 10842 I XPPipes : frames=143 in 5009ms worstCpuMs=14.651 vertices=73248 teapots=0 used=0.23055555 phase=GROW
+10-22 05:31:34.326 10820 10842 I XPPipes : frames=140 in 5022ms worstCpuMs=13.6118 vertices=102192 teapots=0 used=0.31388888 phase=GROW
+10-22 05:31:39.336 10820 10842 I XPPipes : frames=142 in 5010ms worstCpuMs=8.7553 vertices=130272 teapots=0 used=0.39777777 phase=GROW
+10-22 05:31:44.323 10820 10842 I XPPipes : scene over: ticks=863 used=0.48166665 vertices=161856 turn=282.21533 balls=160 elbows=330 teapotTurns=0 teapots=0
+10-22 05:31:44.367 10820 10842 I XPPipes : frames=133 in 5031ms worstCpuMs=14.9314 vertices=161856 teapots=0 used=0.48166665 phase=DISSOLVE
+10-22 05:31:49.397 10820 10842 I XPPipes : frames=136 in 5029ms worstCpuMs=17.5023 vertices=17136 teapots=0 used=0.05666667 phase=GROW
+10-22 05:31:54.399 10820 10842 I XPPipes : frames=150 in 5002ms worstCpuMs=17.1585 vertices=41280 teapots=0 used=0.14 phase=GROW
+10-22 05:31:59.401 10820 10842 I XPPipes : frames=150 in 5000ms worstCpuMs=9.5706 vertices=67872 teapots=0 used=0.22333333 phase=GROW
+10-22 05:32:04.434 10820 10842 I XPPipes : frames=151 in 5032ms worstCpuMs=8.9543 vertices=94704 teapots=0 used=0.30722222 phase=GROW
+10-22 05:32:09.443 10820 10842 I XPPipes : frames=150 in 5010ms worstCpuMs=9.9954 vertices=123360 teapots=0 used=0.39166668 phase=GROW
+10-22 05:32:14.478 10820 10842 I XPPipes : frames=147 in 5031ms worstCpuMs=3.8663 vertices=149424 teapots=0 used=0.4761111 phase=GROW
+10-22 05:32:19.593 10820 10842 I XPPipes : frames=58 in 5118ms worstCpuMs=39.6777 vertices=168192 teapots=0 used=0.53444445 phase=GROW
+10-22 05:32:22.917 10820 10842 I XPPipes : scene over: ticks=1105 used=0.5888889 vertices=187152 turn=291.9469 balls=186 elbows=368 teapotTurns=0 teapots=0
+10-22 05:32:24.593 10820 10842 I XPPipes : frames=95 in 5000ms worstCpuMs=5.6256 vertices=187152 teapots=0 used=0.5888889 phase=DISSOLVE
+10-22 05:32:29.599 10820 10842 I XPPipes : frames=150 in 5005ms worstCpuMs=14.8063 vertices=34320 teapots=0 used=0.08222222 phase=GROW
+10-22 05:32:34.618 10820 10842 I XPPipes : frames=106 in 5019ms worstCpuMs=60.1373 vertices=65760 teapots=0 used=0.15666667 phase=GROW
+10-22 05:32:39.640 10820 10842 I XPPipes : frames=146 in 5022ms worstCpuMs=12.1285 vertices=102576 teapots=0 used=0.24055555 phase=GROW
+10-22 05:32:44.666 10820 10842 I XPPipes : frames=141 in 5025ms worstCpuMs=18.3605 vertices=139680 teapots=0 used=0.325 phase=GROW
+10-22 05:32:48.448 10820 10842 I XPPipes : scene over: ticks=712 used=0.38833332 vertices=165696 turn=301.67847 balls=176 elbows=364 teapotTurns=0 teapots=0
+10-22 05:32:49.699 10820 10842 I XPPipes : frames=127 in 5031ms worstCpuMs=9.6852 vertices=165696 teapots=0 used=0.38833332 phase=DISSOLVE
+10-22 05:32:54.719 10820 10842 I XPPipes : frames=120 in 5020ms worstCpuMs=19.1967 vertices=25008 teapots=0 used=0.07611111 phase=GROW
+10-22 05:32:59.739 10820 10842 I XPPipes : frames=115 in 5019ms worstCpuMs=18.3587 vertices=52800 teapots=0 used=0.15944445 phase=GROW
+10-22 05:33:04.748 10820 10842 I XPPipes : frames=105 in 5009ms worstCpuMs=17.7903 vertices=81888 teapots=0 used=0.24277778 phase=GROW
+10-22 05:33:09.786 10820 10842 I XPPipes : frames=125 in 5033ms worstCpuMs=7.0616 vertices=109776 teapots=0 used=0.32666665 phase=GROW
+10-22 05:33:14.828 10820 10842 I XPPipes : frames=108 in 5044ms worstCpuMs=11.9252 vertices=138864 teapots=0 used=0.41111112 phase=GROW
+10-22 05:33:19.878 10820 10842 I XPPipes : frames=115 in 5049ms worstCpuMs=8.7792 vertices=168240 teapots=0 used=0.49555555 phase=GROW
+10-22 05:33:21.138 10820 10842 I XPPipes : scene over: ticks=927 used=0.515 vertices=175968 turn=311.41003 balls=186 elbows=343 teapotTurns=0 teapots=0
+10-22 05:33:24.906 10820 10842 I XPPipes : frames=105 in 5030ms worstCpuMs=10.8431 vertices=14112 teapots=0 used=0.035 phase=GROW
+10-22 05:33:29.920 10820 10842 I XPPipes : frames=141 in 5013ms worstCpuMs=84.601906 vertices=46176 teapots=0 used=0.119444445 phase=GROW
+10-22 05:33:34.934 10820 10842 I XPPipes : frames=129 in 5013ms worstCpuMs=18.7094 vertices=77136 teapots=0 used=0.20277777 phase=GROW
+10-22 05:33:39.961 10820 10842 I XPPipes : frames=144 in 5026ms worstCpuMs=7.8281 vertices=109776 teapots=1 used=0.28777778 phase=GROW
+10-22 05:33:41.495 10820 10842 I XPPipes : scene over: ticks=558 used=0.3122222 vertices=118608 turn=321.1416 balls=120 elbows=251 teapotTurns=1 teapots=1
+10-22 05:33:44.971 10820 10842 I XPPipes : frames=127 in 5010ms worstCpuMs=5.199 vertices=9984 teapots=1 used=0.029444445 phase=GROW
+10-22 05:33:49.973 10820 10842 I XPPipes : frames=149 in 5003ms worstCpuMs=13.9443 vertices=36480 teapots=1 used=0.11333334 phase=GROW
+10-22 05:33:54.999 10820 10842 I XPPipes : frames=152 in 5025ms worstCpuMs=5.9563 vertices=62544 teapots=1 used=0.19777778 phase=GROW
+10-22 05:34:00.014 10820 10842 I XPPipes : frames=152 in 5013ms worstCpuMs=2.9856 vertices=93312 teapots=1 used=0.28166667 phase=GROW
+10-22 05:34:05.043 10820 10842 I XPPipes : frames=146 in 5030ms worstCpuMs=9.0941 vertices=121440 teapots=1 used=0.36555555 phase=GROW
+10-22 05:34:08.477 10820 10842 I XPPipes : scene over: ticks=756 used=0.42222223 vertices=143616 turn=330.87317 balls=153 elbows=274 teapotTurns=1 teapots=1
+10-22 05:34:10.084 10820 10842 I XPPipes : frames=121 in 5042ms worstCpuMs=7.512 vertices=143616 teapots=1 used=0.42222223 phase=DISSOLVE
+10-22 05:34:15.128 10820 10842 I XPPipes : frames=147 in 5042ms worstCpuMs=14.1847 vertices=24624 teapots=0 used=0.08222222 phase=GROW
+10-22 05:34:20.221 10820 10842 I XPPipes : frames=123 in 5067ms worstCpuMs=69.2739 vertices=51552 teapots=0 used=0.16222222 phase=GROW
+10-22 05:34:25.215 10820 10842 I XPPipes : frames=144 in 5020ms worstCpuMs=62.1844 vertices=78528 teapots=0 used=0.24611111 phase=GROW
+10-22 05:34:30.220 10820 10842 I XPPipes : frames=133 in 5005ms worstCpuMs=12.183 vertices=104496 teapots=0 used=0.32944444 phase=GROW
+10-22 05:34:35.253 10820 10842 I XPPipes : frames=116 in 5032ms worstCpuMs=19.5349 vertices=133632 teapots=0 used=0.4138889 phase=GROW
+10-22 05:34:36.519 10820 10842 I XPPipes : scene over: ticks=788 used=0.43388888 vertices=141600 turn=340.60474 balls=132 elbows=295 teapotTurns=0 teapots=0
+10-22 05:34:40.268 10820 10842 I XPPipes : frames=136 in 5015ms worstCpuMs=7.8901 vertices=12672 teapots=0 used=0.033888888 phase=GROW
+10-22 05:34:45.303 10820 10842 I XPPipes : frames=135 in 5035ms worstCpuMs=12.1963 vertices=41568 teapots=0 used=0.11833333 phase=GROW
+10-22 05:34:50.309 10820 10842 I XPPipes : frames=140 in 5006ms worstCpuMs=15.1586 vertices=68880 teapots=0 used=0.20222223 phase=GROW
+10-22 05:34:55.341 10820 10842 I XPPipes : frames=64 in 5031ms worstCpuMs=94.036896 vertices=87456 teapots=0 used=0.2588889 phase=GROW
+10-22 05:35:00.379 10820 10842 I XPPipes : frames=122 in 5034ms worstCpuMs=13.5824 vertices=119568 teapots=0 used=0.34388888 phase=GROW
+10-22 05:35:05.404 10820 10842 I XPPipes : frames=129 in 5027ms worstCpuMs=31.0404 vertices=149616 teapots=0 used=0.42777777 phase=GROW
+10-22 05:35:05.667 10820 10842 I XPPipes : scene over: ticks=821 used=0.4311111 vertices=151344 turn=350.3363 balls=148 elbows=319 teapotTurns=0 teapots=0
+10-22 05:35:10.421 10820 10842 I XPPipes : frames=138 in 5015ms worstCpuMs=26.1631 vertices=18576 teapots=0 used=0.05 phase=GROW
+10-22 05:35:15.427 10820 10842 I XPPipes : frames=146 in 5007ms worstCpuMs=7.904 vertices=50736 teapots=0 used=0.13333334 phase=GROW
+10-22 05:35:20.431 10820 10842 I XPPipes : frames=147 in 5003ms worstCpuMs=8.3397 vertices=82512 teapots=0 used=0.21722223 phase=GROW
+10-22 05:35:25.487 10820 10842 I XPPipes : frames=131 in 5031ms worstCpuMs=25.1762 vertices=115776 teapots=0 used=0.3 phase=GROW
+10-22 05:35:30.677 10820 10842 I XPPipes : frames=85 in 5131ms worstCpuMs=30.0268 vertices=146208 teapots=0 used=0.38333333 phase=GROW
+10-22 05:35:34.155 10820 10842 I XPPipes : scene over: ticks=799 used=0.42666668 vertices=162000 turn=0.067871094 balls=166 elbows=345 teapotTurns=0 teapots=0
+10-22 05:35:35.674 10820 10842 I XPPipes : frames=47 in 5081ms worstCpuMs=214.7612 vertices=162000 teapots=0 used=0.42666668 phase=DISSOLVE
+10-22 05:35:40.690 10820 10842 I XPPipes : frames=140 in 5014ms worstCpuMs=22.6325 vertices=30336 teapots=0 used=0.08 phase=GROW
+10-22 05:35:45.949 10820 10842 I XPPipes : frames=74 in 5259ms worstCpuMs=101.593 vertices=56880 teapots=0 used=0.15555556 phase=GROW
+10-22 05:35:51.001 10820 10842 I XPPipes : frames=45 in 5050ms worstCpuMs=92.1482 vertices=83760 teapots=0 used=0.22 phase=GROW
+10-22 05:35:56.079 10820 10842 I XPPipes : frames=52 in 5079ms worstCpuMs=71.0108 vertices=111552 teapots=0 used=0.29055557 phase=GROW
+10-22 05:35:56.249 10820 10842 I XPPipes : scene over: ticks=607 used=0.29055557 vertices=111888 turn=9.799431 balls=117 elbows=231 teapotTurns=0 teapots=0
+10-22 05:36:01.187 10820 10842 I XPPipes : frames=33 in 5057ms worstCpuMs=57.0063 vertices=8736 teapots=0 used=0.024444444 phase=GROW
+10-22 05:36:06.261 10820 10842 I XPPipes : frames=48 in 5125ms worstCpuMs=78.331505 vertices=27456 teapots=0 used=0.08555555 phase=GROW
+10-22 05:36:11.307 10820 10842 I XPPipes : frames=31 in 5043ms worstCpuMs=39.9462 vertices=41472 teapots=0 used=0.13055556 phase=GROW
+10-22 05:36:16.447 10820 10842 I XPPipes : frames=28 in 5141ms worstCpuMs=115.2039 vertices=58608 teapots=0 used=0.17333333 phase=GROW
+10-22 05:36:21.470 10820 10842 I XPPipes : frames=123 in 5024ms worstCpuMs=37.772 vertices=85584 teapots=0 used=0.25666666 phase=GROW
+10-22 05:36:26.546 10820 10842 I XPPipes : frames=125 in 5076ms worstCpuMs=22.5205 vertices=112800 teapots=0 used=0.3422222 phase=GROW
+10-22 05:36:31.623 10820 10842 I XPPipes : frames=44 in 5076ms worstCpuMs=82.2417 vertices=134592 teapots=0 used=0.405 phase=GROW
+10-22 05:36:35.437 10820 10842 I XPPipes : scene over: ticks=1116 used=0.44722223 vertices=151392 turn=19.53099 balls=152 elbows=305 teapotTurns=0 teapots=0
+10-22 05:36:36.817 10820 10842 I XPPipes : frames=37 in 5193ms worstCpuMs=24.3325 vertices=151392 teapots=0 used=0.44722223 phase=DISSOLVE
+10-22 05:36:41.862 10820 10842 I XPPipes : frames=55 in 5023ms worstCpuMs=29.8008 vertices=25536 teapots=0 used=0.06611111 phase=GROW
+10-22 05:36:46.852 10820 10842 I XPPipes : frames=68 in 5010ms worstCpuMs=183.4252 vertices=56832 teapots=0 used=0.14222223 phase=GROW
+10-22 05:36:52.056 10820 10842 I XPPipes : frames=47 in 5163ms worstCpuMs=40.8668 vertices=82608 teapots=0 used=0.21 phase=GROW
+10-22 05:36:57.103 10820 10842 I XPPipes : frames=79 in 5067ms worstCpuMs=36.0739 vertices=116112 teapots=1 used=0.29333332 phase=GROW
+10-22 05:37:02.104 10820 10842 I XPPipes : frames=107 in 5014ms worstCpuMs=13.7953 vertices=147504 teapots=1 used=0.37611112 phase=GROW
+10-22 05:37:07.098 10820 10842 I XPPipes : scene over: ticks=892 used=0.44055554 vertices=174096 turn=29.26255 balls=183 elbows=372 teapotTurns=1 teapots=1
+10-22 05:37:07.178 10820 10842 I XPPipes : frames=48 in 5001ms worstCpuMs=96.3972 vertices=174096 teapots=1 used=0.44055554 phase=HOLD
+10-22 05:37:12.137 10820 10842 I XPPipes : frames=42 in 5036ms worstCpuMs=28.5479 vertices=16896 teapots=0 used=0.04 phase=GROW
+10-22 05:37:17.287 10820 10842 I XPPipes : frames=51 in 5086ms worstCpuMs=69.46831 vertices=40656 teapots=0 used=0.107777774 phase=GROW
+10-22 05:37:22.574 10820 10842 I XPPipes : frames=34 in 5326ms worstCpuMs=401.6409 vertices=60048 teapots=0 used=0.1561111 phase=GROW

@@ -5,6 +5,9 @@ Every frame is decoded by ffmpeg straight to a working size of 480 pixels wide, 
   diff    fraction of pixels that changed from the previous frame by more than THRESH
   blobs   connected regions of change of at least MIN_BLOB pixels (new pipe pieces, roughly)
   big     area of the largest such region, in working pixels
+  bx, by, bw, bh   bounding box of that region (working pixels)
+  dr      radius of the largest circle inside it (working pixels): about a pipe's radius for a plain segment, more
+          for a ball joint or a teapot, which are wider than the pipe
 
 Usage: python -I tools/reference/frame_stats.py <video> <out.csv>
 Needs: numpy, opencv-python-headless, imageio-ffmpeg.
@@ -58,21 +61,28 @@ def main(path, out):
     count = 0
     with open(out, "w", newline="") as f:
         wr = csv.writer(f)
-        wr.writerow(["frame", "t", "lit", "diff", "blobs", "big"])
+        wr.writerow(["frame", "t", "lit", "diff", "blobs", "big", "bx", "by", "bw", "bh", "dr"])
         for i, small in enumerate(frames(path, WIDTH, height)):
             lit = float((small.max(axis=2) > THRESH).mean())
+            bx = by = bw = bh = 0
+            dr = 0.0
             if prev is None:
                 diff, blobs, big = 0.0, 0, 0
             else:
                 change = (cv2.absdiff(small, prev).max(axis=2) > THRESH).astype(np.uint8)
                 diff = float(change.mean())
                 change = cv2.dilate(change, kernel)
-                n, _, stats, _ = cv2.connectedComponentsWithStats(change, connectivity=8)
+                n, labels_, stats, _ = cv2.connectedComponentsWithStats(change, connectivity=8)
                 areas = stats[1:, cv2.CC_STAT_AREA]
                 areas = areas[areas >= MIN_BLOB]
                 blobs = int(len(areas))
                 big = int(areas.max()) if len(areas) else 0
-            wr.writerow([i, f"{i / fps:.4f}", f"{lit:.5f}", f"{diff:.5f}", blobs, big])
+                if big:
+                    k = 1 + int(np.argmax(stats[1:, cv2.CC_STAT_AREA]))
+                    bx, by, bw, bh = (int(v) for v in stats[k, :4])
+                    part = (labels_[by:by + bh, bx:bx + bw] == k).astype(np.uint8)
+                    dr = float(cv2.distanceTransform(part, cv2.DIST_L2, 3).max())
+            wr.writerow([i, f"{i / fps:.4f}", f"{lit:.5f}", f"{diff:.5f}", blobs, big, bx, by, bw, bh, f"{dr:.1f}"])
             prev = small
             count = i + 1
     print(json.dumps({"video": path, "frames": count, "fps": fps, "width": w, "height": h}))
