@@ -45,7 +45,7 @@ gradlew testDebugUnitTest lintRelease assembleDebug assembleRelease
 
 The generator verifies canonical source/data hashes. Every Android build verifies those hashes and the release
 asset hash. When intentionally changing source, review provenance, run the independent tests, and update the
-manifest explicitly. Git attributes retain LF bytes for these hashed inputs across Windows/Linux checkouts.
+manifest explicitly. Git attributes store these hashed inputs byte for byte, so every checkout keeps the upstream line endings.
 
 The Python tests parse the original C tables independently and use Bernstein polynomials instead of the
 generator's de Casteljau evaluator. They check every stored vertex and normal, all patches, reflected topology,

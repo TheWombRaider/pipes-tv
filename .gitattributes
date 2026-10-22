@@ -1,1 +1,2 @@
-tools/teapot/* text eol=lf
+# Hashed teapot inputs: keep their exact bytes (the upstream source uses CRLF line endings).
+tools/teapot/* -text
