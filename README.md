@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner.png" alt="3D Pipes: XP Screensaver for Android TV. The XP screensaver, on your TV. Android TV and Google TV. Rebuilt from the original's rules and 127 measured scenes." width="800">
+  <img src="docs/banner.png" alt="3D Pipes. The nostalgic XP screensaver, on your TV. Painstakingly recreated to match the original." width="800">
 </p>
 
 <p align="center">
@@ -99,20 +99,18 @@ Where the recordings disagree, this app follows the Windows XP recording and the
 
 ## Performance
 
-Measured on a TCL 75T7 (MediaTek, Mali-G52), from the outside with SurfaceFlinger's frame times
-(`tools/frame_timing.py`):
+Recorded on a TCL 75T7 (MediaTek, Mali-G52). Results vary by scene and device.
 
-| | Before (v1) | Now |
-|---|---|---|
-| Frames | 49 a second, aiming at 60 | 30 a second, one per step, as the original |
-| Late frames | 16 % of intervals | none; the 0.2 % of intervals that run long are the one-step pause at a scene's end |
-| Longest gap | 117 ms | 50 ms (that pause) |
-| App CPU, median | 21 % of a core | 10 % of a core |
+| Metric | Recorded result |
+|---|---|
+| Pipe growth | 30 whole segments per second per growing pipe |
+| Time between growth frames | About 33.3 ms |
+| Longest frame gap | 50 ms, at the pause between scenes |
+| App CPU, median | 10 % of one core |
 
-A whole scene is one vertex buffer that only grows, drawn with one call, and a frame is drawn only when the picture
-changes. Drawing a finished scene eight times a frame still holds 60 frames a second on the TCL, so one draw takes
-at most about 2 ms. That leaves room for budget sticks with a Mali-G31 or G52, such as the Chromecast with Google TV
-HD or the onn 4K; it is designed for them but has not been tested on them.
+The app draws a frame only when the picture changes. It is designed for budget streaming sticks, but testing so
+far covers the TCL and an Android emulator; sticks such as the Chromecast with Google TV HD and onn 4K have not
+been tested. Measurements were collected with [`tools/frame_timing.py`](tools/frame_timing.py).
 
 ## For developers
 

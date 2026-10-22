@@ -72,9 +72,9 @@ def banner(fonts, hero, out):
     title = font(fonts, "Fredoka.ttf", 132, 600)
     d.text((tx, 92), "3D ", font=title, fill=MINT)
     d.text((tx + d.textlength("3D ", font=title), 92), "Pipes", font=title, fill=WHITE)
-    d.text((tx + 4, 262), "The XP screensaver, on your TV.", font=font(fonts, "Outfit.ttf", 46, 600), fill=WHITE)
-    d.text((tx + 4, 330), "Android TV and Google TV. Rebuilt from the original's rules and 127 measured scenes.",
-           font=font(fonts, "Outfit.ttf", 25, 400), fill=GRAY)
+    d.text((tx + 4, 262), "The nostalgic XP screensaver, on your TV.", font=font(fonts, "Outfit.ttf", 46, 600), fill=WHITE)
+    d.text((tx + 4, 330), "Painstakingly recreated to match the original.",
+           font=font(fonts, "Outfit.ttf", 30, 400), fill=GRAY)
     img.save(out, optimize=True)
 
 
