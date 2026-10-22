@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/card.png" alt="184 scenes measured, 16 materials, 30 steps a second, 181 KB app. A finished scene: gold, silver, copper and turquoise pipes in a lattice seen in strong perspective." width="800">
+  <img src="docs/card.png" alt="184 scenes measured, 16 materials, 30 steps a second, 181 KB app. A finished scene: teal, green, orange and gray pipes in a lattice seen in strong perspective." width="800">
 </p>
 
 **3D Pipes: XP Screensaver for Android TV** is the classic 3D Pipes screensaver as a native screensaver for Android
@@ -73,9 +73,9 @@ Undo with `AUTO_START default`. This was needed on a TCL 75T7 (Google TV, Androi
 
 | | |
 |---|---|
-| ![Red, silver and white pipes filling a lattice seen in perspective](docs/shot-1.jpg) | ![Copper pipes close to the camera, showing tight elbows and ball joints](docs/shot-2.jpg) |
+| ![Orange, yellow and white pipes filling a lattice seen in perspective](docs/shot-1.jpg) | ![Mint, teal and white pipes close to the camera, showing tight elbows and ball joints](docs/shot-2.jpg) |
 | *A finished scene* | *Close up: tight elbows, ball joints at the turns* |
-| ![The picture half eaten by small black squares](docs/shot-3.jpg) | ![A copper Utah teapot in place of a joint among the pipes](docs/shot-4.jpg) |
+| ![Orange and gray pipes half eaten by small black squares](docs/shot-3.jpg) | ![A green Utah teapot in place of a joint among green, red and teal pipes](docs/shot-4.jpg) |
 | *The clear, part way through* | *A teapot in place of a joint* |
 
 ## How faithful it is
