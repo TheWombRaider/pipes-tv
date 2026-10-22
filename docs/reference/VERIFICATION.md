@@ -76,4 +76,10 @@ not run there. The coordinator independently ran the same command on the host wi
 `gradlew.bat --offline --no-daemon --max-workers=2 testDebugUnitTest lintRelease assembleDebug assembleRelease`.
 The reported result was BUILD SUCCESSFUL in 33 seconds, 31 JVM tests with no failures/errors, release lint with no
 issues, and both debug and release assemblies successful. The coordinator also reported all six teapot tests passing.
-No app source changed during this review. A clean-clone check remains with the coordinator.
+No app source changed during this review.
+
+A fresh shallow clone from GitHub at commit `14eba3a` then passed the same Android command on the host in
+46 seconds, with all 88 tasks executed. All 31 JVM tests passed, release lint reported no issues, and debug and
+release APKs assembled successfully. Six teapot checks, five speed-fit regression tests and the default evidence
+summary also passed in that clone. Its working tree remained clean. This verifies a fresh source checkout with
+the installed JDK 21, SDK 34 and cached dependencies, not a machine without those prerequisites.

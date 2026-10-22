@@ -180,3 +180,11 @@ The reviewed soak log is tag-filtered and contains no PSS samples. Earlier memor
 coverage rows, and a full-system error log are not committed, so flat memory and absence of all errors are not
 independently established here. End-cap confusion, compression matching, teapot false positives, calibration transfer
 and independent speed validation remain unresolved. Fixing the documentation does not complete those measurements.
+
+### Delivery verification
+
+After the review, commit `14eba3a` was pushed and freshly cloned from GitHub. The clean clone passed the Android
+test/lint/debug/release command (31 JVM tests, no lint issues, 88 tasks executed), six teapot checks, five speed-fit
+tests and the default evidence summary. No tracked files changed in the clone. See [VERIFICATION.md](VERIFICATION.md)
+for the toolchain and limits. The separate showcase update was already merged as
+[cleanyourtv PR #904](https://github.com/Gathin23/cleanyourtv/pull/904); no duplicate contribution was needed.
