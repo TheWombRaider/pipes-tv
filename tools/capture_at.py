@@ -2,7 +2,7 @@
 compared with frames from the end of scenes in the reference footage.
 
 Usage: python -I tools/capture_at.py <out.png> [extra key=value ...]
-  extras: timescale=4 turn=0 pipes=multiple|single joints=mixed|elbow|ball teapot=0.0 dissolve=1.67
+  extras: timescale=4 turn=0 pipes=multiple|single joints=mixed|elbow|ball colors=independent|distinct teapot=0.0 dissolve=1.67
   The picture is held for 30 s after the scene ends (hold=30) unless hold is given.
 Always targets emulator-5570; it never touches the TV.
 """
@@ -13,7 +13,7 @@ import time
 
 ADB = os.path.expandvars(r"%LOCALAPPDATA%\Microsoft\WinGet\Packages\Google.PlatformTools_Microsoft.Winget.Source_8wekyb3d8bbwe\platform-tools\adb.exe")
 SERIAL = "emulator-5570"
-STRINGS = {"pipes", "joints"}
+STRINGS = {"pipes", "joints", "colors"}
 
 
 def adb(*args, capture=False, timeout=60):

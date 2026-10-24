@@ -110,6 +110,8 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
         else if ("elbow".equals(joints)) params.joints = PipeSim.JointMode.ELBOW;
         params.ballChance = clamp(t.getFloat("ball", params.ballChance), 0f, 1f);
         params.multiple = "multiple".equals(t.getString("pipes", "single"));
+        if ("distinct".equals(t.getString("colors"))) params.distinctMaterials = true;
+        else if ("independent".equals(t.getString("colors"))) params.distinctMaterials = false;
         rotation = clamp(t.getFloat("turn", 0f), 0f, 360f);
     }
 
@@ -285,7 +287,7 @@ final class PipesRenderer implements GLSurfaceView.Renderer {
                 phase = Phase.HOLD;
                 phaseStart = now;
                 if (debuggable) android.util.Log.i("XPPipes", "scene over: ticks=" + ticksDone + " used=" + sim.usedFraction() + " vertices=" + batchVertices + " turn=" + rotation
-                        + " balls=" + sim.turns()[0] + " elbows=" + sim.turns()[1] + " teapotTurns=" + sim.turns()[2] + " teapots=" + teapots.size());
+                        + " balls=" + sim.turns()[0] + " elbows=" + sim.turns()[1] + " teapotTurns=" + sim.turns()[2] + " teapots=" + teapots.size() + " materials=" + sim.materials());
             } else {
                 nextFrame = phaseStart + (ticksDone + 1) * tickNanos - tickNanos / 4;
             }

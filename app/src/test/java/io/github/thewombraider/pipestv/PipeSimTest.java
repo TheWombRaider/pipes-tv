@@ -234,6 +234,34 @@ public class PipeSimTest {
         assertEquals(R, (float) Math.hypot(g[12] - g[0], g[13] - g[1]), 1e-6f);
     }
 
+    @Test
+    public void distinctMaterialsNeverRepeatAColorWithinAScene() {
+        PipeSim.Params p = params(false);
+        p.distinctMaterials = true;
+        PipeSim sim = new PipeSim(15, 8, 15, new Random(4), p);
+        for (int s = 0; s < 200; s++) {
+            scene(sim, null);
+            List<Integer> m = sim.materials();
+            assertEquals("five pipes a scene", 5, m.size());
+            assertEquals("no material twice: " + m, m.size(), new HashSet<>(m).size());
+            sim.reset();
+        }
+    }
+
+    @Test
+    public void independentMaterialsRepeatAboutAsOftenAsChancePredicts() {
+        PipeSim sim = new PipeSim(15, 8, 15, new Random(4), params(false));
+        int repeats = 0, scenes = 2000;
+        for (int s = 0; s < scenes; s++) {
+            scene(sim, null);
+            List<Integer> m = sim.materials();
+            if (new HashSet<>(m).size() < m.size()) repeats++;
+            sim.reset();
+        }
+        // 1 - (16 x 15 x 14 x 13 x 12) / 16^5 = 0.50 of scenes share a material.
+        assertEquals(0.50, repeats / (double) scenes, 0.04);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void anEmptyLatticeIsRefused() {
         new PipeSim(0, 8, 15, new Random(1), params(true));

@@ -57,6 +57,8 @@ public final class PipeSim {
          * once the many they miss are allowed for (docs/reference/JOINTS.md).
          */
         public float teapotChance = 1f / 1000f;
+        /** No two pipes in a scene share a material, until all of them have been used. */
+        public boolean distinctMaterials = false;
     }
 
     private static final int[][] DIRS = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
@@ -73,6 +75,8 @@ public final class PipeSim {
     private int quota;
     private int turnBalls, turnElbows, turnTeapots;
     private int started;
+    private int materialsUsed;
+    private final List<Integer> sceneMaterials = new ArrayList<>();
     private boolean chase;
     private Pipe lead;
     private boolean over;
@@ -118,6 +122,8 @@ public final class PipeSim {
         over = false;
         lead = null;
         turnBalls = turnElbows = turnTeapots = 0;
+        materialsUsed = 0;
+        sceneMaterials.clear();
         quota = 5;
         int together = 1;
         if (params.multiple) {
@@ -140,6 +146,20 @@ public final class PipeSim {
     /** How many turns of this scene were ball joints, elbows and teapots (the boxed-in start teapot is not a turn). */
     public int[] turns() {
         return new int[] {turnBalls, turnElbows, turnTeapots};
+    }
+
+    /** The material of each pipe started in this scene, in order. */
+    public List<Integer> materials() {
+        return new ArrayList<>(sceneMaterials);
+    }
+
+    private int pickMaterial() {
+        if (!params.distinctMaterials) return Materials.randomPipeMaterial(rng);
+        if (Integer.bitCount(materialsUsed) == Materials.COUNT) materialsUsed = 0;
+        int m;
+        do m = Materials.randomPipeMaterial(rng); while ((materialsUsed & (1 << m)) != 0);
+        materialsUsed |= 1 << m;
+        return m;
     }
 
     /** How many pipes are growing right now (not trapped). */
@@ -204,7 +224,8 @@ public final class PipeSim {
         pipe.x = node % nx;
         pipe.y = (node / nx) % ny;
         pipe.z = node / (nx * ny);
-        pipe.material = Materials.randomPipeMaterial(rng);
+        pipe.material = pickMaterial();
+        sceneMaterials.add(pipe.material);
         pipe.dir = rng.nextInt(6);
         int d = chooseDirection(pipe);
         if (d < 0) {
