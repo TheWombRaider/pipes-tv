@@ -56,7 +56,7 @@ Full output: [detector-results.txt](detector-results.txt).
 
 ## Decision
 
-The plan's rule: use the code's 1 in 3 if the footage interval includes it; if it excludes it and both methods agree,
+The rule: use the code's 1 in 3 if the footage interval includes it; if it excludes it and both methods agree,
 use the footage value; if the methods disagree, use 1 in 3 and record it.
 
 The automatic interval includes 1/3. The hand-count intervals stop just short of it (upper ends 0.315 to 0.329). The
@@ -68,7 +68,7 @@ nor the size of its effect on the ball share was measured. The renders were not 
 
 Two approaches were attempted. Neither establishes the population rate.
 
-- **Candidates, then viewing (the plan's method).** The detector marks large round swellings (at least 1.9 times the
+- **Candidates, then viewing.** The detector marks large round swellings (at least 1.9 times the
   neighbor's radius) as teapot candidates, and two viewers judge each crop. Of 246 candidates (122 in the renders,
   124 in the footage) the viewers marked none in the renders, which hold 40 real teapots, and 1 or 2 in the footage.
   This failed calibration means the method **cannot measure the rate**, and its footage
@@ -100,7 +100,7 @@ The soak's 17 teapots in 41 scenes (0.4146 per scene) describe the app's run, no
 
 - The counters and viewers are language-model reviewers, not people. Agreement and render calibration are internal
   consistency checks, not independent validation of the footage labels. No object-level footage ground truth was
-  established. [SKEPTIC.md](SKEPTIC.md) reviews the arithmetic and inference limits.
+  established.
 - Only the single-pipe, mixed recordings were counted.
 - The hand-count calibration used piecewise linear interpolation through three render groups; the detector used
   a fitted straight line through all render frames. Neither interval includes calibration transfer bias.

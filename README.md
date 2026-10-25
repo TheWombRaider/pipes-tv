@@ -83,8 +83,7 @@ Undo with `AUTO_START default`. This was needed on a TCL 75T7 (Google TV, Androi
 Microsoft published the source of 3D Pipes as an OpenGL sample in the Windows NT 4.0 SDK. This app follows that
 program's rules, read from [SspipesSharp](https://github.com/RussDev7/SspipesSharp), a port of the sample (facts only,
 no code copied). Seven public recordings, 245 complete scenes, were then measured frame by frame to check each rule
-and to settle what the source leaves to the machine. An independent reviewer tried to refute every finding; its
-verdicts and the corrections are in [docs/reference/SKEPTIC.md](docs/reference/SKEPTIC.md).
+and to settle what the source leaves to the machine.
 
 Where the recordings disagree, this app follows the ones that match the original program's code and the way the
 screensaver is remembered: one pipe at a time, mixed joints, light from the upper right. Details and numbers:

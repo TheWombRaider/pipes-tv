@@ -1,4 +1,4 @@
-Caution (from the skeptic review, SKEPTIC.md): 72zBfGRQlVA and pBSq6RCJRCA are 30 fps captures with every frame
+Caution: 72zBfGRQlVA and pBSq6RCJRCA are 30 fps captures with every frame
 doubled to 60 fps, so their 2-frame intervals show the capture rate, not the tick rate.
 
 Intervals, in frames, between consecutive frames that show new pipe (frame_stats.py "blobs" > 0, screen not black).
@@ -10,7 +10,7 @@ pBSq6RCJRCA (60 fps)  n=14738  1: 0.1%  2: 93.9%  3: 0.1%  4: 3.3%
 tCpnDTzRAjE (30 fps)  n=13548  1: 79.9%  2: 15.7%  3: 2.2%  4: 0.9%
 I0hypYunmwI (30 fps)  n=11846  1: 77.6%  2: 15.5%  3: 3.3%  4: 1.4%
 
-Growth seen on distinct frames, first quarter of each scene (skeptic's re-measure):
+Growth seen on distinct frames, first quarter of each scene:
   72z: 95.5 % of distinct 30 fps frames show new pipe -> at least 28.7 ticks/s (capped by the capture)
   pBSq: 90 % -> about 27/s     tCpn (native 30 fps): 82 % -> about 25/s     I0hyp (native 30 fps): 77 % -> about 23/s
 

@@ -1,7 +1,6 @@
 # Teapot QA
 
-Evidence for the teapot rebuild described in
-[the teapot spec](design/2026-10-21-teapot-fidelity-design.md). Source, transforms and limits are in
+Evidence for the teapot rebuild. Source, transforms and limits are in
 [tools/teapot/README.md](../tools/teapot/README.md).
 
 ## Model and asset

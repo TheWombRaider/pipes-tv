@@ -77,8 +77,7 @@ process/GL/fallback checks, sampled presentation intervals, memory samples, and 
 submission time, not GPU completion. Sampled SurfaceFlinger intervals do not establish continuous 60 fps.
 Keep that distinction in QA reports. `--mixed-seconds` and `--forced-seconds` override test durations.
 
-See [the implementation spec](../../docs/design/2026-10-21-teapot-fidelity-design.md)
-and [the QA report](../../docs/teapot-qa.md) for evidence and remaining limits.
+See [the QA report](../../docs/teapot-qa.md) for evidence and remaining limits.
 
 ## Notices
 
