@@ -12,10 +12,6 @@
   <a href="https://github.com/Gathin23/cleanyourtv/blob/main/SHOWCASE.md"><img src="https://img.shields.io/badge/featured%20in-Clean%20Your%20TV-cfffcf?style=flat&labelColor=15181e" alt="Featured in the Clean Your TV showcase"></a>
 </p>
 
-<p align="center">
-  <img src="docs/card.png" alt="245 scenes measured, 16 materials, 30 steps a second, 181 KB app. A finished scene: teal, green, orange and gray pipes in a lattice seen in strong perspective." width="800">
-</p>
-
 **3D Pipes: XP Screensaver for Android TV** is the classic 3D Pipes screensaver as a native screensaver for Android
 TV and Google TV. It follows the original program's own rules, checked against 245 scenes of the real thing.
 
