@@ -1,5 +1,8 @@
 <p align="center">
-  <img src="docs/banner.png" alt="3D Pipes. The nostalgic XP screensaver, on your TV. Painstakingly recreated to match the original." width="800">
+  <picture>
+    <source media="(prefers-reduced-motion: reduce)" srcset="docs/banner.png">
+    <img src="docs/hero.gif" alt="3D Pipes. The nostalgic XP screensaver, on your TV. Normal-speed app capture showing pipes growing through a 3D lattice." width="800">
+  </picture>
 </p>
 
 <p align="center">
